@@ -1,9 +1,10 @@
 package com.example.creators;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.example.creators.db.dbHelper;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+import com.example.creators.jsp.JspHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,13 +12,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,10 +23,13 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                R.id.navigation_home, R.id.navigation_categoryList, R.id.navigation_search, R.id.navigation_myPage)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+
+        if (JspHelper.REQUEST_QUEUE == null)
+            JspHelper.REQUEST_QUEUE = Volley.newRequestQueue(getApplicationContext());
     }
 }

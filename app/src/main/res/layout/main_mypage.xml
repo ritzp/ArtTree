@@ -33,9 +33,19 @@
         android:layout_height="2dp"
         android:background="@color/main_color" />
 
-    <ScrollView
+    <TextView
+        android:id="@+id/mypage_txt_loading"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:textSize="16dp"
+        android:gravity="center"
+        android:text="@string/loading" />
+
+    <ScrollView
+        android:id="@+id/mypage_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,9 +62,10 @@
                     android:orientation="vertical">
 
                     <ImageView
-                        android:id="@+id/img_header"
+                        android:id="@+id/mypage_img_header"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
+                        android:scaleType="matrix"
                         app:srcCompat="@drawable/tmp" />
 
                     <View
@@ -83,24 +94,25 @@
                         android:orientation="horizontal">
 
                         <Space
-                            android:layout_width="50dp"
+                            android:layout_width="20dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/imageView4"
+                            android:id="@+id/mypage_img_icon"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:src="@drawable/rabbit1_bg"
                             app:civ_border_color="@color/black"
-                            app:civ_border_width="2dp" />
+                            app:civ_border_width="2dp"
+                            app:civ_circle_background_color="@color/white" />
                     </LinearLayout>
                 </LinearLayout>
 
             </FrameLayout>
 
             <TextView
-                android:id="@+id/txt_introduction"
+                android:id="@+id/mypage_txt_intro"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_margin="10dp"
@@ -136,7 +148,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_uploadedContents"
+                    android:id="@+id/mypage_txt_contents"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -167,7 +179,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/txt_getLikes"
+                    android:id="@+id/mypage_txt_likes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
