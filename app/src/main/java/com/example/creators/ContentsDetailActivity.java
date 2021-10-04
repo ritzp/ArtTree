@@ -19,16 +19,23 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.example.creators.adapters.CommentAdapter;
+import com.example.creators.classes.Comment;
 import com.example.creators.contents_fragments.ImageFragment;
 import com.example.creators.jsp.JspHelper;
 import com.example.creators.jsp.requests.ContentsDetailRequest;
 import com.example.creators.viewmodels.ContentsDetailViewModel;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class ContentsDetailActivity extends FragmentActivity {
 
@@ -36,9 +43,13 @@ public class ContentsDetailActivity extends FragmentActivity {
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
+    private ArrayList<Comment> commentArray;
+    private CommentAdapter adapter;
+
     private ContentsDetailViewModel viewModel;
     private ImageView close, icon;
-    private TextView title, description, nickname;
+    private TextView title, description, nickname, comments;
+    private RecyclerView commentList;
 
     private String contentsId;
 
@@ -53,11 +64,19 @@ public class ContentsDetailActivity extends FragmentActivity {
         imageFragment = new ImageFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.condetail_fragmentContainer, imageFragment).commit();
 
+        commentArray = new ArrayList<>();
+        adapter = new CommentAdapter(commentArray);
+
         close = findViewById(R.id.condetail_img_close);
         title = findViewById(R.id.condetail_txt_title);
         description = findViewById(R.id.condetail_txt_desc);
         nickname = findViewById(R.id.condetail_txt_nickname);
         icon = findViewById(R.id.condetail_img_icon);
+        comments = findViewById(R.id.condetail_txt_comments);
+        commentList = findViewById(R.id.condetail_commentsList);
+
+        commentList.setLayoutManager(new LinearLayoutManager(this));
+        commentList.setAdapter(adapter);
 
         viewModel.getTitle().observe(this, new Observer<String>() {
             @Override
@@ -87,6 +106,13 @@ public class ContentsDetailActivity extends FragmentActivity {
             }
         });
 
+        viewModel.getComments().observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                comments.setText(integer.toString());
+            }
+        });
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,13 +130,28 @@ public class ContentsDetailActivity extends FragmentActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    viewModel.getTitle().setValue(jsonObject.getString("title"));
-                    viewModel.getDescription().setValue(jsonObject.getString("description"));
-                    viewModel.getNickname().setValue(jsonObject.getString("nickname"));
+                    JSONObject contentsJson = jsonObject.getJSONObject("contents");
+                    viewModel.getTitle().setValue(contentsJson.getString("title"));
+                    viewModel.getDescription().setValue(contentsJson.getString("description"));
+                    viewModel.getNickname().setValue(contentsJson.getString("nickname"));
 
-                    byte[] decodedIcon = java.util.Base64.getDecoder().decode(jsonObject.getString("icon"));
+                    byte[] decodedIcon = java.util.Base64.getDecoder().decode(contentsJson.getString("icon"));
                     Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
                     viewModel.getUserIcon().setValue(icon);
+
+                    JSONArray commentJsonArr = jsonObject.getJSONArray("comment");
+                    for (int index=0; index<commentJsonArr.length(); index++) {
+                        JSONObject js = commentJsonArr.getJSONObject(index);
+                        byte[] _decodedIcon = java.util.Base64.getDecoder().decode(js.getString("icon"));
+                        Bitmap _icon = BitmapFactory.decodeByteArray(_decodedIcon, 0, _decodedIcon.length);
+                        commentArray.add(new Comment(
+                                js.getString("nickname"),
+                                _icon,
+                                js.getString("comment")
+                        ));
+                    }
+                    adapter.notifyDataSetChanged();
+                    viewModel.getComments().setValue(adapter.getItemCount());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

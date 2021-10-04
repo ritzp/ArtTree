@@ -37,24 +37,24 @@ public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_categorylist, parent, false);
-        return new ViewHolder(v);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_categorylist, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ViewHolder vHolder = (ViewHolder)holder;
-        vHolder.txt.setText(strings[position]);
+        ViewHolder viewHolder = (ViewHolder)holder;
+        viewHolder.txt.setText(strings[position]);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView txt;
 
-        public ViewHolder(View v) {
-            super(v);
-            txt = v.findViewById(R.id.txt_categoryName);
+        public ViewHolder(View view) {
+            super(view);
+            txt = view.findViewById(R.id.txt_categoryName);
 
-            v.setOnClickListener(new View.OnClickListener() {
+            view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getBindingAdapterPosition();

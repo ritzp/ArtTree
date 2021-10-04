@@ -24,7 +24,7 @@ import com.example.creators.ContentsDetailActivity;
 import com.example.creators.R;
 import com.example.creators.adapters.ContentsListAdapter;
 import com.example.creators.adapters.OnItemClickListener;
-import com.example.creators.contents.ContentsList;
+import com.example.creators.classes.ContentsList;
 import com.example.creators.jsp.JspHelper;
 import com.example.creators.jsp.requests.ContentsListRequest;
 

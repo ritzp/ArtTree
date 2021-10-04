@@ -14,6 +14,7 @@ public class ContentsDetailViewModel extends ViewModel {
     private MutableLiveData<String> userId;
     private MutableLiveData<String> nickname;
     private MutableLiveData<Bitmap> icon;
+    private MutableLiveData<Integer> comments;
 
     public ContentsDetailViewModel() {
         try {
@@ -25,6 +26,7 @@ public class ContentsDetailViewModel extends ViewModel {
             this.userId = new MutableLiveData<>();
             this.nickname = new MutableLiveData<>();
             this.icon = new MutableLiveData<>();
+            this.comments = new MutableLiveData<>();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,5 +62,9 @@ public class ContentsDetailViewModel extends ViewModel {
 
     public MutableLiveData<Bitmap> getUserIcon() {
         return icon;
+    }
+
+    public MutableLiveData<Integer> getComments() {
+        return comments;
     }
 }

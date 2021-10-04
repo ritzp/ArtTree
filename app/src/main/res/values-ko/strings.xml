@@ -47,6 +47,7 @@
     <string name="sound_etc">(사운드) 기타</string>
     <string name="video_etc">(비디오) 기타</string>
     <string name="text_etc">(텍스트) 기타</string>
+    <string name="comments">댓글</string>
     <string name="uploaded_contents">업로드 콘텐츠 수</string>
     <string name="get_likes">받은 좋아요 수</string>
     <string name="next">다 음</string>
