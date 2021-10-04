@@ -1,14 +1,11 @@
-package com.example.creators.fragments;
+package com.example.creators.main_fragments;
 
 import android.os.Bundle;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
-import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +14,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.adapters.CategoryListAdapter;
+import com.example.creators.adapters.OnItemClickListener;
 import com.example.creators.viewmodels.CategoryListViewModel;
 
 public class CategoryListFragment extends Fragment {
@@ -35,7 +34,7 @@ public class CategoryListFragment extends Fragment {
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.main_categorylist, container, false);
+        View root = inflater.inflate(R.layout.main_fragment_categorylist, container, false);
 
         imageAdapter = new CategoryListAdapter(viewModel.getImageCategories());
         soundAdapter = new CategoryListAdapter(viewModel.getSoundCategories());
@@ -109,6 +108,34 @@ public class CategoryListFragment extends Fragment {
                     textListSwitch.setImageResource(R.drawable.ic_down);
                     textList.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        imageAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int pos) {
+                ((MainActivity)getActivity()).replaceFragmentByList(((TextView)view.findViewById(R.id.txt_categoryName)).getText().toString());
+            }
+        });
+
+        soundAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int pos) {
+                ((MainActivity)getActivity()).replaceFragmentByList(((TextView)view.findViewById(R.id.txt_categoryName)).getText().toString());
+            }
+        });
+
+        videoAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int pos) {
+                ((MainActivity)getActivity()).replaceFragmentByList(((TextView)view.findViewById(R.id.txt_categoryName)).getText().toString());
+            }
+        });
+
+        textAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int pos) {
+                ((MainActivity)getActivity()).replaceFragmentByList(((TextView)view.findViewById(R.id.txt_categoryName)).getText().toString());
             }
         });
 

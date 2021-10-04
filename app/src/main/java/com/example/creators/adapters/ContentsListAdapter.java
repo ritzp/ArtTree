@@ -1,58 +1,62 @@
 package com.example.creators.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.creators.MainActivity;
 import com.example.creators.R;
+import com.example.creators.contents.ContentsList;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private String[] strings;
+public class ContentsListAdapter extends RecyclerView.Adapter {
+    private ArrayList<ContentsList> contents;
     private OnItemClickListener clickListener = null;
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public CategoryListAdapter(String[] strings) {
-        this.strings = strings;
+    public ContentsListAdapter(ArrayList<ContentsList> contents) {
+        this.contents = new ArrayList<>();
+        this.contents = contents;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return strings.length;
+        return this.contents.size();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_categorylist, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_contentslist, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder vHolder = (ViewHolder)holder;
-        vHolder.txt.setText(strings[position]);
+        vHolder.title.setText(contents.get(position).getTitle());
+        vHolder.icon.setImageBitmap(contents.get(position).getIcon());
+        vHolder.nickname.setText(contents.get(position).getNickname());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView txt;
+        private ImageView icon;
+        private TextView title, nickname;
 
         public ViewHolder(View v) {
             super(v);
-            txt = v.findViewById(R.id.txt_categoryName);
+            title = v.findViewById(R.id.conlistImg_txt_title);
+            icon = v.findViewById(R.id.conlistImg_img_icon);
+            nickname = v.findViewById(R.id.conlistImg_txt_nickname);
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override

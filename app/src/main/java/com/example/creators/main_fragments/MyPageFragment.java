@@ -1,6 +1,8 @@
-package com.example.creators.fragments;
+package com.example.creators.main_fragments;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,7 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.creators.R;
 import com.example.creators.jsp.JspHelper;
-import com.example.creators.jsp.requests.GetUserRequest;
+import com.example.creators.jsp.requests.MyPageRequest;
 import com.example.creators.viewmodels.MyPageViewModel;
 
 import org.json.JSONException;
@@ -30,37 +32,42 @@ public class MyPageFragment extends Fragment {
 
     private MyPageViewModel viewModel;
     private View loading, view;
-    private TextView introText, contentsText, likesText;
+    private TextView nickname, introduction, contents, likes;
     private ImageView iconImg, headerImg;
-
-    private boolean[] isResponseCompleted;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MyPageViewModel.class);
-        isResponseCompleted = new boolean[]{false, false, false};
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.main_mypage, container, false);
+        View root = inflater.inflate(R.layout.main_fragment_mypage, container, false);
 
         loading = (TextView)root.findViewById(R.id.mypage_txt_loading);
         view = (ScrollView)root.findViewById(R.id.mypage_view);
 
-        introText = root.findViewById(R.id.mypage_txt_intro);
-        contentsText = root.findViewById(R.id.mypage_txt_contents);
-        likesText = root.findViewById(R.id.mypage_txt_likes);
+        nickname = root.findViewById(R.id.mypage_txt_nickname);
+        introduction = root.findViewById(R.id.mypage_txt_intro);
+        contents = root.findViewById(R.id.mypage_txt_contents);
+        likes = root.findViewById(R.id.mypage_txt_likes);
         iconImg = root.findViewById(R.id.mypage_img_icon);
         headerImg = root.findViewById(R.id.mypage_img_header);
 
         viewModel.getUserId().setValue("testId1");
         sendRequest("testId1");
 
+        viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                nickname.setText(s);
+            }
+        });
+
         viewModel.getUserIntroduction().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                introText.setText(s);
+                introduction.setText(s);
             }
         });
 
@@ -81,51 +88,51 @@ public class MyPageFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        JspHelper.REQUEST_QUEUE.cancelAll("MyPageRequest");
+    }
+
     private void sendRequest(String userId) {
         try {
-            final Response.Listener<String> stringListener = new Response.Listener<String>() {
+            final Response.Listener<String> listener = new Response.Listener<String>() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onResponse(String response) {
                     try {
-                        if (!JspHelper.checkMessage(getActivity(), response))
-                            return;
                         JSONObject jsonObject = new JSONObject(response);
+                        viewModel.getNickname().setValue(jsonObject.getString("nickname"));
                         viewModel.getUserIntroduction().setValue(jsonObject.getString("introduction"));
-                        isResponseCompleted[0] = true;
+
+                        byte[] decodedIcon = java.util.Base64.getDecoder().decode(jsonObject.getString("icon"));
+                        Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
+                        viewModel.getUserIcon().setValue(icon);
+
+                        byte[] decodedHeader = java.util.Base64.getDecoder().decode(jsonObject.getString("header"));
+                        Bitmap header = BitmapFactory.decodeByteArray(decodedHeader, 0 ,decodedHeader.length);
+                        viewModel.getUserHeader().setValue(header);
                         loadView();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
             };
-            final Response.Listener<Bitmap> iconListener = new Response.Listener<Bitmap>() {
+            final Response.ErrorListener errorListener = new Response.ErrorListener() {
                 @Override
-                public void onResponse(Bitmap response) {
-                    viewModel.getUserIcon().setValue(response);
-                    isResponseCompleted[1] = true;
-                    loadView();
+                public void onErrorResponse(VolleyError error) {
+                    JspHelper.checkMessage(getActivity(), JspHelper.SERVER_ERROR);
                 }
             };
-            final Response.Listener<Bitmap> headerListener = new Response.Listener<Bitmap>() {
-                @Override
-                public void onResponse(Bitmap response) {
-                    viewModel.getUserHeader().setValue(response);
-                    isResponseCompleted[2] = true;
-                    loadView();
-                }
-            };
-            final GetUserRequest userRequest = new GetUserRequest(userId, stringListener, iconListener, headerListener);
-            userRequest.add();
+            final MyPageRequest request = new MyPageRequest(userId, listener, errorListener);
+            JspHelper.addRequestQueue(getActivity(), request);
         } catch (Exception e) {
-            JspHelper.checkMessage(getActivity(), "SERVER ERROR");
             e.printStackTrace();
         }
     }
 
     private void loadView() {
-        if (isResponseCompleted[0] && isResponseCompleted[1] && isResponseCompleted[2]) {
-            loading.setVisibility(View.GONE);
-            view.setVisibility(View.VISIBLE);
-        }
+        loading.setVisibility(View.GONE);
+        view.setVisibility(View.VISIBLE);
     }
 }

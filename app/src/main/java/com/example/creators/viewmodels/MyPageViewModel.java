@@ -7,8 +7,6 @@ import androidx.lifecycle.ViewModel;
 
 public class MyPageViewModel extends ViewModel {
     private MutableLiveData<String> userId;
-    private MutableLiveData<String> email;
-    private MutableLiveData<String> phoneNumber;
     private MutableLiveData<String> nickname;
     private MutableLiveData<String> introduction;
     private MutableLiveData<Bitmap> icon;
@@ -19,8 +17,6 @@ public class MyPageViewModel extends ViewModel {
     public MyPageViewModel() {
         try {
             this.userId = new MutableLiveData<>();
-            this.email = new MutableLiveData<>();
-            this.phoneNumber = new MutableLiveData<>();
             this.nickname = new MutableLiveData<>();
             this.introduction = new MutableLiveData<>();
             this.icon = new MutableLiveData<>();
@@ -34,6 +30,10 @@ public class MyPageViewModel extends ViewModel {
 
     public MutableLiveData<String> getUserId() {
         return userId;
+    }
+
+    public MutableLiveData<String> getNickname() {
+        return nickname;
     }
 
     public MutableLiveData<String> getUserIntroduction() {

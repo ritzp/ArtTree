@@ -1,4 +1,4 @@
-package com.example.creators.fragments;
+package com.example.creators.main_fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +10,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.creators.R;
 
-public class SearchFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.main_search, container, false);
+        View root = inflater.inflate(R.layout.main_fragment_home, container, false);
 
         return root;
     }

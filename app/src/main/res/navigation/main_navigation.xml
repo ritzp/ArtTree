@@ -7,25 +7,34 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.creators.fragments.HomeFragment"
+        android:name="com.example.creators.main_fragments.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/main_home" />
+        tools:layout="@layout/main_fragment_home" />
 
     <fragment
         android:id="@+id/navigation_categoryList"
-        android:name="com.example.creators.fragments.CategoryListFragment"
+        android:name="com.example.creators.main_fragments.CategoryListFragment"
         android:label="@string/category_list"
-        tools:layout="@layout/main_categorylist" />
+        tools:layout="@layout/main_fragment_categorylist" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.creators.fragments.SearchFragment"
+        android:name="com.example.creators.main_fragments.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/main_search" />
+        tools:layout="@layout/main_fragment_search" />
 
     <fragment
         android:id="@+id/navigation_myPage"
-        android:name="com.example.creators.fragments.MyPageFragment"
+        android:name="com.example.creators.main_fragments.MyPageFragment"
         android:label="@string/my_page"
-        tools:layout="@layout/main_mypage" />
+        tools:layout="@layout/main_fragment_mypage" />
+
+    <fragment
+        android:id="@+id/navigation_contentsList"
+        android:name="com.example.creators.main_fragments.ContentsListFragment"
+        tools:layout="@layout/contents_list">
+        <argument
+            android:name="category"
+            app:argType="string" />
+    </fragment>
 </navigation>

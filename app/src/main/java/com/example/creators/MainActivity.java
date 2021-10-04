@@ -2,9 +2,6 @@ package com.example.creators;
 
 import android.os.Bundle;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.example.creators.jsp.JspHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,21 +12,37 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView navView;
+    AppBarConfiguration appBarConfiguration;
+    NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        getSupportActionBar().hide();
+        navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+        appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_categoryList, R.id.navigation_search, R.id.navigation_myPage)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
 
-        if (JspHelper.REQUEST_QUEUE == null)
-            JspHelper.REQUEST_QUEUE = Volley.newRequestQueue(getApplicationContext());
+    public void replaceFragmentByList(String category) {
+        final Bundle bundle = new Bundle();
+        bundle.putString("route", "category");
+        bundle.putString("keyword", category);
+        navController.navigate(R.id.navigation_contentsList, bundle);
+    }
+
+    public void replaceFragmentBySearch(String keyword) {
+        final Bundle bundle = new Bundle();
+        bundle.putString("route", "search");
+        bundle.putString("keyword", keyword);
+        navController.navigate(R.id.navigation_contentsList, bundle);
     }
 }

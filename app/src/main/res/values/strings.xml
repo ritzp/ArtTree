@@ -42,7 +42,10 @@
     <string name="animation">Animation</string>
     <string name="novel">Novel</string>
     <string name="poem">Poem</string>
-    <string name="etc">Etc</string>
+    <string name="image_etc">(Image) etc.</string>
+    <string name="sound_etc">(Sound) etc.</string>
+    <string name="video_etc">(Video) etc.</string>
+    <string name="text_etc">(Text) etc.</string>
     <string name="uploaded_contents">Uploaded Contents</string>
     <string name="get_likes">Get Likes</string>
     <string name="next">Next</string>
