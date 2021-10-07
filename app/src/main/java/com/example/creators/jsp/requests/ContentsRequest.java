@@ -8,12 +8,12 @@ import com.example.creators.jsp.JspHelper;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ContentsDetailRequest extends StringRequest {
-    private String tag = "ContentsDetailRequest";
+public class ContentsRequest extends StringRequest {
+    private String tag = "ContentsRequest";
     private String contentsId;
 
-    public ContentsDetailRequest(String contentsId, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        super(Method.POST, JspHelper.getStringURL("contents_detail"), listener, errorListener);
+    public ContentsRequest(String contentsId, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+        super(Method.POST, JspHelper.getURL("contents_detail"), listener, errorListener);
         super.setTag(tag);
         this.contentsId = contentsId;
     }

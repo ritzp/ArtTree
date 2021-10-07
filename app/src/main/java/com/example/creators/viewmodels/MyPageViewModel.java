@@ -47,4 +47,12 @@ public class MyPageViewModel extends ViewModel {
     public MutableLiveData<Bitmap> getUserHeader() {
         return header;
     }
+
+    public MutableLiveData<Integer> getContents() {
+        return contents;
+    }
+
+    public MutableLiveData<Integer> getLikes() {
+        return likes;
+    }
 }

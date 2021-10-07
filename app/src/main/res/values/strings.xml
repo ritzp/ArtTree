@@ -1,9 +1,5 @@
 <resources>
     <string name="app_name">Creators</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
-
     <string name="email">Email</string>
     <string name="phone_number">Phone Number</string>
     <string name="id">ID</string>
@@ -24,7 +20,7 @@
     <string name="send_code">Send Code</string>
     <string name="verify_code">Verify Code</string>
     <string name="home">Home</string>
-    <string name="category_list">Category List</string>
+    <string name="category">Category</string>
     <string name="search">Search</string>
     <string name="my_page">My Page</string>
     <string name="contents">Contents</string>
@@ -32,23 +28,11 @@
     <string name="sound">Sound</string>
     <string name="video">Video</string>
     <string name="text">Text</string>
-    <string name="photo">Photo</string>
-    <string name="icon">Icon</string>
-    <string name="illustration">Illustration</string>
-    <string name="music">Music</string>
-    <string name="bgm">BGM</string>
-    <string name="se">SE</string>
-    <string name="recorded_video">Recorded Video</string>
-    <string name="animation">Animation</string>
-    <string name="novel">Novel</string>
-    <string name="poem">Poem</string>
-    <string name="image_etc">(Image) etc.</string>
-    <string name="sound_etc">(Sound) etc.</string>
-    <string name="video_etc">(Video) etc.</string>
-    <string name="text_etc">(Text) etc.</string>
+    <string name="etc">etc.</string>
     <string name="comments">Comments</string>
     <string name="uploaded_contents">Uploaded Contents</string>
-    <string name="get_likes">Get Likes</string>
+    <string name="likes">Total Likes</string>
+    <string name="settings">Settings</string>
     <string name="next">Next</string>
     <string name="done">Done</string>
     <string name="sign_in">Sign in</string>
@@ -57,7 +41,9 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="use_email_instead">Use email instead</string>
     <string name="use_a_phone_number_instead">Use a phone number instead</string>
+    <string name="sign_in_failed">Failed to sign in. Please check your ID and password.</string>
     <string name="server_error">The server has caused an error.</string>
-    <string name="response_error">Failed to receive a response from the server.</string>
+    <string name="code_error">A code error has occured.</string>
+    <string name="response_error">Failed to receive the response from the server.</string>
     <string name="loading">Loading...</string>
 </resources>

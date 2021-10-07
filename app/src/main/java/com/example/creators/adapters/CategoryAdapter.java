@@ -1,58 +1,60 @@
 package com.example.creators.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.creators.MainActivity;
 import com.example.creators.R;
+import com.example.creators.classes.Category;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class CategoryListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private String[] strings;
+public class CategoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private ArrayList<Category> categoryArray;
     private OnItemClickListener clickListener = null;
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
         this.clickListener = clickListener;
     }
 
-    public CategoryListAdapter(String[] strings) {
-        this.strings = strings;
+    public CategoryAdapter(ArrayList<Category> array) {
+        this.categoryArray = new ArrayList<>();
+        this.categoryArray = array;
         notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return strings.length;
+        return categoryArray.size();
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_categorylist, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.listitem_category, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder)holder;
-        viewHolder.txt.setText(strings[position]);
+        viewHolder.img.setImageResource(categoryArray.get(position).getImg());
+        viewHolder.txt.setText(categoryArray.get(position).getTxt());
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+        private ImageView img;
         private TextView txt;
 
         public ViewHolder(View view) {
             super(view);
-            txt = view.findViewById(R.id.txt_categoryName);
+            img = view.findViewById(R.id.category_img_categoryImg);
+            txt = view.findViewById(R.id.category_txt_categoryName);
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

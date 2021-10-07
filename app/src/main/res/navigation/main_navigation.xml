@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_categoryList"
-        android:name="com.example.creators.main_fragments.CategoryListFragment"
-        android:label="@string/category_list"
-        tools:layout="@layout/main_fragment_categorylist" />
+        android:name="com.example.creators.main_fragments.CategoryFragment"
+        android:label="@string/category"
+        tools:layout="@layout/main_fragment_category" />
 
     <fragment
         android:id="@+id/navigation_search"
@@ -32,7 +32,7 @@
     <fragment
         android:id="@+id/navigation_contentsList"
         android:name="com.example.creators.main_fragments.ContentsListFragment"
-        tools:layout="@layout/contents_list">
+        tools:layout="@layout/contentslist">
         <argument
             android:name="category"
             app:argType="string" />

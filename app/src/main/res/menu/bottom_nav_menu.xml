@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_categoryList"
         android:icon="@drawable/ic_menu_fourlines"
-        android:title="@string/category_list" />
+        android:title="@string/category" />
 
     <item
         android:id="@+id/navigation_search"

@@ -13,7 +13,7 @@ public class MyPageRequest extends StringRequest {
     private String userId;
 
     public MyPageRequest(String userId, Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        super(Method.POST, JspHelper.getStringURL("my_page"), listener, errorListener);
+        super(Method.POST, JspHelper.getURL("my_page"), listener, errorListener);
         super.setTag(tag);
         this.userId = userId;
     }

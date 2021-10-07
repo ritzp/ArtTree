@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.example.creators.R;
+import com.example.creators.app.AppHelper;
 import com.example.creators.jsp.JspHelper;
 import com.example.creators.jsp.requests.MyPageRequest;
 import com.example.creators.viewmodels.MyPageViewModel;
@@ -85,48 +87,63 @@ public class MyPageFragment extends Fragment {
             }
         });
 
+        viewModel.getContents().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                contents.setText(integer.toString());
+            }
+        });
+
         return root;
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        JspHelper.REQUEST_QUEUE.cancelAll("MyPageRequest");
+        JspHelper.cancelRequests("MyPageRequest");
     }
 
     private void sendRequest(String userId) {
+        final Response.Listener<String> listener = new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(String response) {
+                if (!AppHelper.checkError(getActivity(), response.trim()))
+                    return;
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    viewModel.getNickname().setValue(jsonObject.getString("nickname"));
+                    viewModel.getUserIntroduction().setValue(jsonObject.getString("introduction"));
+
+                    byte[] decodedIcon = java.util.Base64.getDecoder().decode(jsonObject.getString("icon"));
+                    Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
+                    viewModel.getUserIcon().setValue(icon);
+
+                    byte[] decodedHeader = java.util.Base64.getDecoder().decode(jsonObject.getString("header"));
+                    Bitmap header = BitmapFactory.decodeByteArray(decodedHeader, 0, decodedHeader.length);
+                    viewModel.getUserHeader().setValue(header);
+
+                    viewModel.getContents().setValue(jsonObject.getInt("contents"));
+
+                    loadView();
+                } catch (Exception e) {
+                    AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
+                    e.printStackTrace();
+                }
+            }
+        };
+        final Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                AppHelper.checkError(getActivity(), AppHelper.RESPONSE_ERROR);
+            }
+        };
         try {
-            final Response.Listener<String> listener = new Response.Listener<String>() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        viewModel.getNickname().setValue(jsonObject.getString("nickname"));
-                        viewModel.getUserIntroduction().setValue(jsonObject.getString("introduction"));
-
-                        byte[] decodedIcon = java.util.Base64.getDecoder().decode(jsonObject.getString("icon"));
-                        Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
-                        viewModel.getUserIcon().setValue(icon);
-
-                        byte[] decodedHeader = java.util.Base64.getDecoder().decode(jsonObject.getString("header"));
-                        Bitmap header = BitmapFactory.decodeByteArray(decodedHeader, 0 ,decodedHeader.length);
-                        viewModel.getUserHeader().setValue(header);
-                        loadView();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            };
-            final Response.ErrorListener errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    JspHelper.checkMessage(getActivity(), JspHelper.SERVER_ERROR);
-                }
-            };
             final MyPageRequest request = new MyPageRequest(userId, listener, errorListener);
             JspHelper.addRequestQueue(getActivity(), request);
         } catch (Exception e) {
+            AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
             e.printStackTrace();
         }
     }

@@ -8,24 +8,52 @@
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:visibility="visible">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:text="@string/my_page"
-            android:textAlignment="gravity"
-            android:textSize="20dp">
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal">
 
-        </TextView>
+            <ImageView
+                android:id="@+id/mypage_img_edit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_edit" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/mypage_img_settings"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_settings" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/my_page"
+                android:textAlignment="gravity"
+                android:textSize="20dp">
+
+            </TextView>
+
+        </LinearLayout>
+
+    </FrameLayout>
 
     <View
         android:id="@+id/view"
@@ -172,7 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
-                    android:text="@string/get_likes"
+                    android:text="@string/likes"
                     android:textSize="16dp"
                     android:textStyle="bold" />
 

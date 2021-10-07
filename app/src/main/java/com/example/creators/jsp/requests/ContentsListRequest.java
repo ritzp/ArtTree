@@ -11,7 +11,7 @@ public class ContentsListRequest extends StringRequest {
     private String tag = "ContentsListRequest";
 
     public ContentsListRequest(Response.Listener<String> listener, Response.ErrorListener errorListener) {
-        super(Method.POST, JspHelper.getStringURL("contents_list"), listener, errorListener);
+        super(Method.POST, JspHelper.getURL("contents_list"), listener, errorListener);
         super.setTag(tag);
     }
 }

@@ -20,10 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.example.creators.ContentsDetailActivity;
+import com.example.creators.ContentsActivity;
 import com.example.creators.R;
 import com.example.creators.adapters.ContentsListAdapter;
 import com.example.creators.adapters.OnItemClickListener;
+import com.example.creators.app.AppHelper;
 import com.example.creators.classes.ContentsList;
 import com.example.creators.jsp.JspHelper;
 import com.example.creators.jsp.requests.ContentsListRequest;
@@ -52,7 +53,7 @@ public class ContentsListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.contents_list, container, false);
+        View root = inflater.inflate(R.layout.contentslist, container, false);
 
         adapter = new ContentsListAdapter(contentsArray);
 
@@ -79,7 +80,7 @@ public class ContentsListFragment extends Fragment {
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(View view, int pos) {
-                Intent intent = new Intent(getActivity(), ContentsDetailActivity.class);
+                Intent intent = new Intent(getActivity(), ContentsActivity.class);
                 ContentsList contents = contentsArray.get(pos);
                 intent.putExtra("contentsId", contents.getContentsId());
                 startActivity(intent);
@@ -92,42 +93,50 @@ public class ContentsListFragment extends Fragment {
     }
 
     private void sendRequest() {
-        try {
-            final Response.Listener<String> listener = new Response.Listener<String>() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onResponse(String response) {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        JSONArray jsonArray = jsonObject.getJSONArray("contents");
-                        for (int index=0; index<jsonArray.length(); index++) {
-                            JSONObject js = jsonArray.getJSONObject(index);
-                            byte[] decodedIcon = java.util.Base64.getDecoder().decode(js.getString("icon"));
-                            Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
-                            contentsArray.add(new ContentsList(
-                                    js.getString("contentsId"),
-                                    js.getString("title"),
-                                    js.getInt("views"),
-                                    js.getString("userId"),
-                                    js.getString("nickname"),
-                                    icon
-                            ));
-                        }
-                        adapter.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+
+        final Response.Listener<String> listener = new Response.Listener<String>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onResponse(String response) {
+                if (!AppHelper.checkError(getActivity(), response.trim()))
+                    return;
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("contents");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject js = jsonArray.getJSONObject(i);
+                        byte[] decodedIcon = java.util.Base64.getDecoder().decode(js.getString("icon"));
+                        Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
+                        contentsArray.add(new ContentsList(
+                                js.getString("contentsId"),
+                                js.getString("title"),
+                                js.getInt("views"),
+                                js.getString("userId"),
+                                js.getString("nickname"),
+                                icon
+                        ));
                     }
+                    adapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
+                    e.printStackTrace();
+                } catch (IllegalArgumentException e) {
+                    AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
+                    e.printStackTrace();
                 }
-            };
-            final Response.ErrorListener errorListener = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    JspHelper.checkMessage(getActivity(), JspHelper.SERVER_ERROR);
-                }
-            };
+            }
+        };
+        final Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                AppHelper.checkError(getActivity(), AppHelper.RESPONSE_ERROR);
+            }
+        };
+        try {
             final ContentsListRequest request = new ContentsListRequest(listener, errorListener);
             JspHelper.addRequestQueue(getActivity(), request);
         } catch (Exception e) {
+            AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
             e.printStackTrace();
         }
     }

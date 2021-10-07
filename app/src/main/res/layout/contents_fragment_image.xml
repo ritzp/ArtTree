@@ -8,10 +8,10 @@
     android:orientation="vertical"
     tools:context=".contents_fragments.ImageFragment">
 
-    <ImageView
+    <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/condetailImg_img"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:scaleType="center"
-        android:src="@drawable/rabbit1_bg" />
+        android:adjustViewBounds="true"
+        android:scaleType="center" />
 </LinearLayout>

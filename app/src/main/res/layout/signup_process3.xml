@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:backgroundTint="#000000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -18,13 +18,14 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:layout_weight="1"
             android:ems="10"
             android:gravity="center"
             android:text="회원가입"
+            android:textColor="@color/black"
             android:textAlignment="gravity"
-            android:textSize="20dp">
+            android:textSize="20sp">
 
         </TextView>
 
@@ -37,110 +38,36 @@
 
             <Button
                 android:id="@+id/button4"
+                android:background="@drawable/memo_border"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="취소" />
+                android:text="X 취소" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/main_color" />
-
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:layout_marginTop="10dp"
+        android:text="   자기소개 (최대 100자)"
+        android:textColor="#2B2424">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="horizontal">
+    </TextView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="프로필 아이콘"
-                android:textColor="@color/black" />
+    <EditText
+        android:layout_width="380dp"
+        android:layout_height="224dp"
+        android:gravity="top"
+        android:background="@drawable/memo_border"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:textColor="#A19898"
+        android:text="여기에 입력 ">
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="0"
-                android:text="이미지 가져오기" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                tools:srcCompat="@tools:sample/avatars" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_weight="0"
-        android:orientation="vertical">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="헤더 이미지"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_weight="0"
-                android:text="이미지 가져오기" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="fitXY"
-                tools:srcCompat="@drawable/tmp" />
-        </LinearLayout>
-
-    </LinearLayout>
-
+    </EditText>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -148,13 +75,12 @@
         android:layout_weight="0"
         android:gravity="bottom"
         android:orientation="vertical">
-
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
+            android:backgroundTint="#378ED3"
             android:gravity="bottom|center_horizontal"
             android:text="다음"
             android:textColor="#FFFFFF"
