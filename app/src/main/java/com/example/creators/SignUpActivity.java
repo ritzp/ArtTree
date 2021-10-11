@@ -1,9 +1,12 @@
 package com.example.creators;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.creators.app.AppHelper;
 
 public class SignUpActivity extends AppCompatActivity {
     @Override

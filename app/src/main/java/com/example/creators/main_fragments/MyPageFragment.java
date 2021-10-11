@@ -4,11 +4,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -19,23 +19,29 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
+import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
-import com.example.creators.jsp.JspHelper;
-import com.example.creators.jsp.requests.MyPageRequest;
+import com.example.creators.app.ImageResize;
+import com.example.creators.http.ApiInterface;
+import com.example.creators.http.RetrofitClient;
+import com.example.creators.http.response.MyPageResponse;
 import com.example.creators.viewmodels.MyPageViewModel;
+import com.squareup.picasso.Picasso;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyPageFragment extends Fragment {
 
+    private ApiInterface api;
+
     private MyPageViewModel viewModel;
     private View loading, view;
-    private TextView nickname, introduction, contents, likes;
-    private ImageView iconImg, headerImg;
+    private TextView nickname, introduction, content, likes;
+    private ImageView icon, header, edit, settings;
+    private LinearLayout myContent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,15 +55,22 @@ public class MyPageFragment extends Fragment {
         loading = (TextView)root.findViewById(R.id.mypage_txt_loading);
         view = (ScrollView)root.findViewById(R.id.mypage_view);
 
+        edit = root.findViewById(R.id.mypage_img_edit);
+        settings = root.findViewById(R.id.mypage_img_settings);
+        settings = root.findViewById(R.id.mypage_img_settings);
         nickname = root.findViewById(R.id.mypage_txt_nickname);
         introduction = root.findViewById(R.id.mypage_txt_intro);
-        contents = root.findViewById(R.id.mypage_txt_contents);
+        content = root.findViewById(R.id.mypage_txt_content);
         likes = root.findViewById(R.id.mypage_txt_likes);
-        iconImg = root.findViewById(R.id.mypage_img_icon);
-        headerImg = root.findViewById(R.id.mypage_img_header);
+        icon = root.findViewById(R.id.mypage_img_icon);
+        header = root.findViewById(R.id.mypage_img_header);
+        myContent = root.findViewById(R.id.mypage_myContent);
 
         viewModel.getUserId().setValue("testId1");
-        sendRequest("testId1");
+        sendRequest();
+
+        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).into(icon);
+        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -73,79 +86,75 @@ public class MyPageFragment extends Fragment {
             }
         });
 
-        viewModel.getUserIcon().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                iconImg.setImageBitmap(bitmap);
-            }
-        });
-
-        viewModel.getUserHeader().observe(getViewLifecycleOwner(), new Observer<Bitmap>() {
-            @Override
-            public void onChanged(Bitmap bitmap) {
-                headerImg.setImageBitmap(bitmap);
-            }
-        });
-
-        viewModel.getContents().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        viewModel.getContent().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer integer) {
-                contents.setText(integer.toString());
+                content.setText(integer.toString());
+            }
+        });
+
+        viewModel.getLikes().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer integer) {
+                likes.setText(integer.toString());
+            }
+        });
+
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle = new Bundle();
+                bundle.putString("nickname", nickname.getText().toString());
+                bundle.putString("introduction", introduction.getText().toString());
+                ((MainActivity)MyPageFragment.this.getActivity()).replaceFragmentToMyPageEdit(bundle);
+            }
+        });
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)MyPageFragment.this.getActivity()).replaceFragmentToSettingsMain();
+            }
+        });
+
+        myContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).replaceFragmentToMyContentList();
             }
         });
 
         return root;
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        JspHelper.cancelRequests("MyPageRequest");
-    }
+    private void sendRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<MyPageResponse> call = api.postMyPage(AppHelper.getAccessingUserid());
 
-    private void sendRequest(String userId) {
-        final Response.Listener<String> listener = new Response.Listener<String>() {
+        call.enqueue(new Callback<MyPageResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onResponse(String response) {
-                if (!AppHelper.checkError(getActivity(), response.trim()))
-                    return;
+            public void onResponse(Call<MyPageResponse> call, Response<MyPageResponse> response) {
+                viewModel.getNickname().setValue(response.body().getNickname());
+                viewModel.getUserIntroduction().setValue(response.body().getIntroduction());
+                /*byte[] iconBytes = java.util.Base64.getDecoder().decode(response.body().getIcon());
+                Bitmap icon = BitmapFactory.decodeByteArray(iconBytes, 0, iconBytes.length);
+                viewModel.getUserIcon().setValue(icon);
+                byte[] headerBytes = java.util.Base64.getDecoder().decode(response.body().getHeader());
+                Bitmap header = BitmapFactory.decodeByteArray(headerBytes, 0, headerBytes.length);
+                viewModel.getUserHeader().setValue(header);*/
+                viewModel.getContent().setValue(response.body().getContent());
+                viewModel.getLikes().setValue(response.body().getLikes());
 
-                try {
-                    JSONObject jsonObject = new JSONObject(response);
-                    viewModel.getNickname().setValue(jsonObject.getString("nickname"));
-                    viewModel.getUserIntroduction().setValue(jsonObject.getString("introduction"));
-
-                    byte[] decodedIcon = java.util.Base64.getDecoder().decode(jsonObject.getString("icon"));
-                    Bitmap icon = BitmapFactory.decodeByteArray(decodedIcon, 0, decodedIcon.length);
-                    viewModel.getUserIcon().setValue(icon);
-
-                    byte[] decodedHeader = java.util.Base64.getDecoder().decode(jsonObject.getString("header"));
-                    Bitmap header = BitmapFactory.decodeByteArray(decodedHeader, 0, decodedHeader.length);
-                    viewModel.getUserHeader().setValue(header);
-
-                    viewModel.getContents().setValue(jsonObject.getInt("contents"));
-
-                    loadView();
-                } catch (Exception e) {
-                    AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
-                    e.printStackTrace();
-                }
+                loadView();
             }
-        };
-        final Response.ErrorListener errorListener = new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
-                AppHelper.checkError(getActivity(), AppHelper.RESPONSE_ERROR);
+            public void onFailure(Call<MyPageResponse> call, Throwable t) {
+                AppHelper.checkError(MyPageFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                t.printStackTrace();
             }
-        };
-        try {
-            final MyPageRequest request = new MyPageRequest(userId, listener, errorListener);
-            JspHelper.addRequestQueue(getActivity(), request);
-        } catch (Exception e) {
-            AppHelper.checkError(getActivity(), AppHelper.CODE_ERROR);
-            e.printStackTrace();
-        }
+        });
     }
 
     private void loadView() {

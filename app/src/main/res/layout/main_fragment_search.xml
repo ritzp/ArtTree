@@ -22,11 +22,11 @@
             app:srcCompat="@drawable/ic_search" />
 
         <EditText
-            android:id="@+id/editSearch"
+            android:id="@+id/search_edt_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:hint="검색 키워드 입력"
+            android:hint="@string/enter_keyword"
             android:maxLength="50" />
     </LinearLayout>
 

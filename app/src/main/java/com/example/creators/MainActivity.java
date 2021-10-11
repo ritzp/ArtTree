@@ -1,7 +1,10 @@
 package com.example.creators;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.example.creators.app.AppHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +12,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         getSupportActionBar().hide();
+
         navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
@@ -33,16 +39,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void replaceFragmentByList(String category) {
-        final Bundle bundle = new Bundle();
-        bundle.putString("route", "category");
+        Bundle bundle = new Bundle();
+        bundle.putString("searchMethod", "category");
         bundle.putString("keyword", category);
-        navController.navigate(R.id.navigation_contentsList, bundle);
+        navController.navigate(R.id.navigation_contentList, bundle);
     }
 
     public void replaceFragmentBySearch(String keyword) {
-        final Bundle bundle = new Bundle();
-        bundle.putString("route", "search");
+        Bundle bundle = new Bundle();
+        bundle.putString("searchMethod", "search");
         bundle.putString("keyword", keyword);
-        navController.navigate(R.id.navigation_contentsList, bundle);
+        navController.navigate(R.id.navigation_contentList, bundle);
+    }
+
+    public void replaceFragmentToMyContentList() {
+        navController.navigate(R.id.navigation_myContentList);
+    }
+
+    public void replaceFragmentToMyPage() {
+        navController.navigate(R.id.navigation_myPage);
+    }
+
+    public void replaceFragmentToSearch() {
+        navController.navigate(R.id.navigation_search);
+    }
+
+    public void replaceFragmentToMyPageEdit(Bundle bundle) {
+        navController.navigate(R.id.navigation_myPageEdit, bundle);
+    }
+
+    public void replaceFragmentToSettingsMain() {
+        navController.navigate(R.id.navigation_settingsMain);
+    }
+
+    public void replaceFragmentToSettingsLanguage() {
+        navController.navigate(R.id.navigation_settingsLanguage);
     }
 }

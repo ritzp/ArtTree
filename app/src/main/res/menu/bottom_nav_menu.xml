@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_categoryList"
-        android:icon="@drawable/ic_menu_fourlines"
+        android:icon="@drawable/ic_categories"
         android:title="@string/category" />
 
     <item
@@ -18,7 +18,7 @@
 
     <item
         android:id="@+id/navigation_myPage"
-        android:icon="@drawable/ic_person"
+        android:icon="@drawable/ic_mypage"
         android:title="@string/my_page" />
 
 </menu>

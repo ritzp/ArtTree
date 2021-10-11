@@ -13,9 +13,9 @@
 
     <fragment
         android:id="@+id/navigation_categoryList"
-        android:name="com.example.creators.main_fragments.CategoryFragment"
+        android:name="com.example.creators.main_fragments.CategoriesFragment"
         android:label="@string/category"
-        tools:layout="@layout/main_fragment_category" />
+        tools:layout="@layout/main_fragment_categories" />
 
     <fragment
         android:id="@+id/navigation_search"
@@ -30,11 +30,36 @@
         tools:layout="@layout/main_fragment_mypage" />
 
     <fragment
-        android:id="@+id/navigation_contentsList"
-        android:name="com.example.creators.main_fragments.ContentsListFragment"
-        tools:layout="@layout/contentslist">
+        android:id="@+id/navigation_contentList"
+        android:name="com.example.creators.main_fragments.ContentListFragment"
+        tools:layout="@layout/contentlist">
         <argument
             android:name="category"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_myContentList"
+        android:name="com.example.creators.main_fragments.MyContentListFragment"
+        tools:layout="@layout/mycontentlist" />
+
+    <fragment
+        android:id="@+id/navigation_myPageEdit"
+        android:name="com.example.creators.main_fragments.MyPageEditFragment"
+        tools:layout="@layout/main_fragment_mypage_edit">
+        <argument
+            android:name="nickname"
+            app:argType="string" />
+        <argument
+            android:name="introduction"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_settingsMain"
+        android:name="com.example.creators.main_fragments.settings.SettingsMainFragment" />
+
+    <fragment
+        android:id="@+id/navigation_settingsLanguage"
+        android:name="com.example.creators.main_fragments.settings.SettingsLanguageFragment" />
 </navigation>

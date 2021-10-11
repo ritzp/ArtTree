@@ -11,7 +11,7 @@ public class MyPageViewModel extends ViewModel {
     private MutableLiveData<String> introduction;
     private MutableLiveData<Bitmap> icon;
     private MutableLiveData<Bitmap> header;
-    private MutableLiveData<Integer> contents;
+    private MutableLiveData<Integer> content;
     private MutableLiveData<Integer> likes;
 
     public MyPageViewModel() {
@@ -21,7 +21,7 @@ public class MyPageViewModel extends ViewModel {
             this.introduction = new MutableLiveData<>();
             this.icon = new MutableLiveData<>();
             this.header = new MutableLiveData<>();
-            this.contents = new MutableLiveData<>();
+            this.content = new MutableLiveData<>();
             this.likes = new MutableLiveData<>();
         } catch (Exception e) {
             e.printStackTrace();
@@ -48,8 +48,8 @@ public class MyPageViewModel extends ViewModel {
         return header;
     }
 
-    public MutableLiveData<Integer> getContents() {
-        return contents;
+    public MutableLiveData<Integer> getContent() {
+        return content;
     }
 
     public MutableLiveData<Integer> getLikes() {

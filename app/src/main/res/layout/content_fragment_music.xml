@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/condetailMusic"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".content_fragments.MusicFragment">
+
+    <com.google.android.exoplayer2.ui.PlayerControlView
+        android:id="@+id/condetailMusic_player"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:show_timeout="0" />
+</LinearLayout>

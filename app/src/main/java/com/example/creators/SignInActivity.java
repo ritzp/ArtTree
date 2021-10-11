@@ -1,27 +1,27 @@
 package com.example.creators;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.example.creators.app.AppHelper;
-import com.example.creators.jsp.JspHelper;
-import com.example.creators.jsp.requests.SignInReqeust;
+import com.example.creators.http.ApiInterface;
+import com.example.creators.http.RetrofitClient;
+import com.example.creators.http.response.SignInResponse;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class SignInActivity extends AppCompatActivity {
+
+    private ApiInterface api;
 
     EditText id, password;
     Button signIn, signUp;
@@ -64,42 +64,25 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void sendRequest() {
-        final Response.Listener<String> listener = new Response.Listener<String>() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<SignInResponse> call = api.postSignIn(id.getText().toString(), password.getText().toString());
+
+        call.enqueue(new Callback<SignInResponse>() {
             @Override
-            public void onResponse(String response) {
-                try {
-                    if (!AppHelper.checkError(SignInActivity.this, response))
-                        return;
+            public void onResponse(Call<SignInResponse> call, retrofit2.Response<SignInResponse> response) {
+                AppHelper.setAccessingUserid(response.body().getUserId());
+                AppHelper.setAccessingUserpass(response.body().getPassword());
 
-                    if (response.trim().startsWith("SUCCESS")) {
-                        JSONObject jsonObject = new JSONObject(response.trim().substring(8));
-                        AppHelper.setAccessingUserid(jsonObject.getString("userId"));
-                        AppHelper.setAccessingUserpass(jsonObject.getString("password"));
-
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        Toast.makeText(SignInActivity.this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show();
-                    }
-                } catch (Exception e) {
-                    AppHelper.checkError(SignInActivity.this, AppHelper.CODE_ERROR);
-                    e.printStackTrace();
-                }
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
             }
-        };
-        final Response.ErrorListener errorListener = new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onFailure(Call<SignInResponse> call, Throwable t) {
                 AppHelper.checkError(SignInActivity.this, AppHelper.RESPONSE_ERROR);
+                t.printStackTrace();
             }
-        };
-        try {
-            SignInReqeust reqeust = new SignInReqeust(id.getText().toString(), password.getText().toString(), listener, errorListener);
-            JspHelper.addRequestQueue(this, reqeust);
-        } catch (Exception e) {
-            AppHelper.checkError(this, AppHelper.CODE_ERROR);
-            e.printStackTrace();
-        }
+        });
     }
 }
