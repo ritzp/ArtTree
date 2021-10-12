@@ -119,6 +119,7 @@ public class ContentListFragment extends Fragment {
                             response.body().getContent().get(i).getContentId(),
                             response.body().getContent().get(i).getTitle(),
                             response.body().getContent().get(i).getViews(),
+                            response.body().getContent().get(i).getLikes(),
                             response.body().getContent().get(i).getUserId(),
                             response.body().getContent().get(i).getNickname()
                             )

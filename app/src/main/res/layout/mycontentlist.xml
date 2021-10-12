@@ -28,7 +28,7 @@
                     android:gravity="center"
                     android:text="@string/my_content"
                     android:textAlignment="gravity"
-                    android:textSize="20dp">
+                    android:textSize="@dimen/textSize_large">
 
                 </TextView>
 

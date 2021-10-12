@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.creators.R;
 import com.example.creators.SignInActivity;
@@ -21,9 +20,13 @@ import com.example.creators.SignUpActivity;
 import org.jetbrains.annotations.NotNull;
 
 public class SignUpProcess1Fragment extends Fragment {
-    private EditText certification1, certification2;
-    private Button sendbutton1, sendbutton2, next, phone;
-    private ImageView close;
+    private EditText emailPhone, code;
+    private Button next;
+    private TextView sendCode, verifyCode, email, phone, changeEmail, changePhone;
+    private ImageView close, check;
+
+    private int method = 0;
+    private boolean isVerified = false;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -31,24 +34,47 @@ public class SignUpProcess1Fragment extends Fragment {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.signup_process1, container, false);
 
-        certification1 = root.findViewById(R.id.certification1);
-        certification2 = root.findViewById(R.id.certification2);
-        sendbutton1 = root.findViewById(R.id.sendbutton1);
-        sendbutton2 = root.findViewById(R.id.sendbutton2);
-        next = root.findViewById(R.id.next1);
-        phone = root.findViewById(R.id.phone1);
-        close = root.findViewById(R.id.cancel);
+        emailPhone = root.findViewById(R.id.signup_process1_edt_emailPhone);
+        code = root.findViewById(R.id.signup_process1_edt_code);
+        sendCode = root.findViewById(R.id.signup_process1_txt_sendCode);
+        verifyCode = root.findViewById(R.id.signup_process1_txt_verifyCode);
+        next = root.findViewById(R.id.signup_process1_btn_next);
+        email = root.findViewById(R.id.signup_process1_txt_email);
+        phone = root.findViewById(R.id.signup_process1_txt_phone);
+        changeEmail = root.findViewById(R.id.signup_process1_txt_selectEmail);
+        changePhone = root.findViewById(R.id.signup_process1_txt_selectPhone);
+        close = root.findViewById(R.id.signup_process1_img_close);
+        check = root.findViewById(R.id.signup_process1_img_check);
 
-        phone.setOnClickListener(new View.OnClickListener() {
+        emailPhone.setText(((SignUpActivity)getActivity()).emailPhone);
+
+        changeEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                method = 0;
+                email.setVisibility(View.GONE);
+                changePhone.setVisibility(View.GONE);
+                phone.setVisibility(View.VISIBLE);
+                changeEmail.setVisibility(View.VISIBLE);
+            }
+        });
 
+        changePhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                method = 1;
+                email.setVisibility(View.VISIBLE);
+                changePhone.setVisibility(View.VISIBLE);
+                phone.setVisibility(View.GONE);
+                changeEmail.setVisibility(View.GONE);
             }
         });
 
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((SignUpActivity)SignUpProcess1Fragment.this.getActivity()).method = method;
+                ((SignUpActivity)SignUpProcess1Fragment.this.getActivity()).emailPhone = emailPhone.getText().toString();
                 ((SignUpActivity)SignUpProcess1Fragment.this.getActivity()).replaceFragmentToProcess2();
             }
         });

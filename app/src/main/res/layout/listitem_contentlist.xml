@@ -31,7 +31,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginVertical="10dp"
                 android:text="Title"
-                android:textSize="20dp" />
+                android:textSize="@dimen/textSize_large" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:text="name"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
             </LinearLayout>
         </LinearLayout>

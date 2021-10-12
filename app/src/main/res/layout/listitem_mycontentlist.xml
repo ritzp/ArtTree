@@ -19,5 +19,5 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
         android:text="title"
-        android:textSize="16dp" />
+        android:textSize="@dimen/textSize_normal" />
 </LinearLayout>

@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="@string/settings"
                 android:textAlignment="gravity"
-                android:textSize="20dp">
+                android:textSize="@dimen/textSize_large">
 
             </TextView>
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_settings"
-            android:textSize="20dp" />
+            android:textSize="@dimen/textSize_large" />
 
         <ImageView
             android:id="@+id/settings_img_account"
@@ -90,7 +90,7 @@
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
             android:text="@string/change_password"
-            android:textSize="16dp" />
+            android:textSize="@dimen/textSize_normal" />
 
         <TextView
             android:id="@+id/settings_txt_changeEmail"
@@ -99,7 +99,7 @@
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
             android:text="@string/change_email"
-            android:textSize="16dp" />
+            android:textSize="@dimen/textSize_normal" />
 
         <TextView
             android:id="@+id/settings_txt_changePhoneNumber"
@@ -108,7 +108,7 @@
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
             android:text="@string/change_phone_number"
-            android:textSize="16dp" />
+            android:textSize="@dimen/textSize_normal" />
     </LinearLayout>
 
     <View
@@ -131,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/application_settings"
-            android:textSize="20dp" />
+            android:textSize="@dimen/textSize_large" />
 
         <ImageView
             android:id="@+id/settings_img_application"
@@ -157,7 +157,7 @@
             android:paddingHorizontal="30dp"
             android:paddingVertical="10dp"
             android:text="@string/change_language"
-            android:textSize="16dp" />
+            android:textSize="@dimen/textSize_normal" />
 
     </LinearLayout>
 
@@ -190,7 +190,7 @@
             android:layout_height="wrap_content"
             android:text="@string/sign_out"
             android:textColor="@color/main_color"
-            android:textSize="20dp" />
+            android:textSize="@dimen/textSize_large" />
 
     </LinearLayout>
 

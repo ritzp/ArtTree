@@ -7,36 +7,34 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/logo">
 
     </ImageView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:orientation="vertical"
-        android:layout_marginBottom="10dp"
-        >
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="40dp"
+        android:layout_marginHorizontal="20dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="ID"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                >
+                android:textSize="@dimen/textSize_large"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -44,7 +42,6 @@
                 android:id="@+id/signin_edt_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
                 android:gravity="center_vertical"
                 android:hint="아이디/이메일/휴대전화 번호">
 
@@ -55,19 +52,16 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="50dp"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="PW"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_marginLeft="5dp"
-                >
+                android:textSize="@dimen/textSize_large"
+                android:textStyle="bold">
 
             </TextView>
 
@@ -75,7 +69,6 @@
                 android:id="@+id/signin_edt_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp"
                 android:gravity="center_vertical"
                 android:hint="비밀번호">
 
@@ -84,64 +77,54 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/signin_btn_signin"
-            android:layout_width="300dp"
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/signin_btn_signin"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button1"
+        android:backgroundTintMode="src_in"
+        android:gravity="center"
+        android:text="로그인"
+        app:backgroundTint="@null">
+
+    </Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/signin_txt_forgotPass"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button1"
-            android:backgroundTintMode="src_in"
             android:gravity="center"
-            android:text="로그인"
-            app:backgroundTint="@null">
+            android:text="비밀번호 찾기"
+            android:textColor="@color/main_color">
 
-        </Button>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            >
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="비밀번호를 잊으셨나요?"
-                android:textStyle="bold"
-                android:layout_marginLeft="35dp"
-                >
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/signin_txt_forgotPass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginRight="30dp"
-                android:gravity="center_vertical"
-                android:hint="비밀번호 찾기">
-
-            </TextView>
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/signin_btn_signUp"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button1"
-            android:gravity="center"
-            android:text="회원가입">
-
-        </Button>
+        </TextView>
 
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/signin_btn_signUp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button1"
+        android:backgroundTintMode="src_in"
+        android:gravity="center"
+        android:text="회원가입"
+        app:backgroundTint="@null">
+
+    </Button>
 
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.creators;
 
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -14,6 +15,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class SignUpActivity extends AppCompatActivity {
 
     NavController navController;
+
+    public int method;
+    public String emailPhone = "", id = "", password = "", nickname = "", introduction = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -72,6 +73,10 @@ public class SignInActivity extends AppCompatActivity {
         call.enqueue(new Callback<SignInResponse>() {
             @Override
             public void onResponse(Call<SignInResponse> call, retrofit2.Response<SignInResponse> response) {
+                if (response.body().getMessage().equals("FAILED")) {
+                    Toast.makeText(SignInActivity.this, getString(R.string.sign_in_failed), Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 AppHelper.setAccessingUserid(response.body().getUserId());
                 AppHelper.setAccessingUserpass(response.body().getPassword());
 

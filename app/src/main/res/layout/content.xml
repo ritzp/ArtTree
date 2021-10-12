@@ -64,11 +64,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:text="Title"
-                        android:textSize="20dp" />
+                        android:textSize="@dimen/textSize_large" />
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/grey" />
 
@@ -78,12 +78,12 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:text="Description"
-                        android:textSize="16dp" />
+                        android:textSize="@dimen/textSize_normal" />
 
                     <View
                         android:id="@+id/view4"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/grey" />
 
@@ -107,13 +107,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:text="Nickname"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/textSize_normal" />
                     </LinearLayout>
 
                     <View
                         android:id="@+id/view5"
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="1dp"
                         android:layout_marginHorizontal="10dp"
                         android:background="@color/grey" />
 
@@ -137,7 +137,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:text="0"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/textSize_normal" />
 
                         <ImageView
                             android:id="@+id/condetail_img_like"
@@ -153,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
                             android:text="0"
-                            android:textSize="16dp" />
+                            android:textSize="@dimen/textSize_normal" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -173,7 +173,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_margin="10dp"
                                 android:text="@string/comments"
-                                android:textSize="16dp" />
+                                android:textSize="@dimen/textSize_normal" />
 
                             <TextView
                                 android:id="@+id/condetail_comments"
@@ -181,7 +181,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="10dp"
                                 android:text="0"
-                                android:textSize="16dp" />
+                                android:textSize="@dimen/textSize_normal" />
                         </LinearLayout>
 
                         <LinearLayout
@@ -198,7 +198,7 @@
                                 android:layout_weight="1"
                                 android:hint="@string/enter_comment"
                                 android:maxLength="200"
-                                android:textSize="16dp" />
+                                android:textSize="@dimen/textSize_normal" />
 
                             <ImageView
                                 android:id="@+id/condetail_img_writeComment"
@@ -234,7 +234,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/loading"
-        android:textSize="16dp"
+        android:textSize="@dimen/textSize_normal"
         android:visibility="gone" />
 
 </LinearLayout>

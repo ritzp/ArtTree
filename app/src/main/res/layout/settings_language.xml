@@ -38,7 +38,7 @@
                 android:gravity="center"
                 android:text="@string/settings"
                 android:textAlignment="gravity"
-                android:textSize="20dp">
+                android:textSize="@dimen/textSize_large">
 
             </TextView>
 
@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/language"
-        android:textSize="20dp" />
+        android:textSize="@dimen/textSize_large" />
 
     <Spinner
         android:id="@+id/settingslan_spn_language"

@@ -27,6 +27,8 @@ import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.MyPageResponse;
 import com.example.creators.viewmodels.MyPageViewModel;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
@@ -69,8 +71,8 @@ public class MyPageFragment extends Fragment {
         viewModel.getUserId().setValue("testId1");
         sendRequest();
 
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).into(header);
+        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
+        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

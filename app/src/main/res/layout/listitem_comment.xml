@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
-            android:textSize="16dp"
+            android:textSize="@dimen/textSize_normal"
             android:text="Nickname"/>
 
     </LinearLayout>
@@ -36,6 +36,6 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="10dp"
         android:text="Comment"
-        android:textSize="16dp" />
+        android:textSize="@dimen/textSize_normal" />
 
 </LinearLayout>

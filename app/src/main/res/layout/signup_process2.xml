@@ -1,50 +1,57 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:backgroundTint="#000000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:text="회원가입"
-            android:maxLength="10"
-            android:textAlignment="gravity"
-            android:textSize="20dp">
-
-        </TextView>
+        android:visibility="visible">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/sign_up"
+                android:textAlignment="gravity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_large">
+
+            </TextView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="43dp"
-                android:id="@+id/signup_process2_back"
-                android:layout_height="39dp"
+                android:id="@+id/signup_process2_img_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginVertical="15dp"
+                android:layout_marginRight="10dp"
                 android:src="@drawable/ic_left" />
+
         </LinearLayout>
 
-    </LinearLayout>
+    </FrameLayout>
+
+    <View
+        android:id="@+id/view14"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/main_color" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,41 +63,43 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="아이디 (영문, 숫자 조합의 4~12자)"
-            android:textColor="@color/black">
+            android:text="@string/enter_id"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_normal">
 
         </TextView>
 
         <EditText
-            android:id="@+id/ID"
+            android:id="@+id/signup_process2_edt_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="여기에 입력"
-            android:layout_margin="5dp"
-            android:maxLength="12"
-            android:textSize="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/enter_here"
             android:maxLength="20"
-            android:text="비밀번호 (영문,숫자, 특수문자조합의 4~20자)"
-            android:textColor="@color/black" />
+            android:textSize="@dimen/textSize_normal" />
+    </LinearLayout>
 
-        <EditText
-            android:id="@+id/password"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="여기에 입력"
-            android:textSize="20dp" />
+            android:text="@string/enter_password"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_normal" />
+
+        <EditText
+            android:id="@+id/signup_process2_edt_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:hint="@string/enter_here"
+            android:maxLength="20"
+            android:textSize="@dimen/textSize_normal" />
 
     </LinearLayout>
 
@@ -103,18 +112,20 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="패스워드 확인"
+            android:textSize="@dimen/textSize_normal"
+            android:text="@string/confirm_password"
             android:textColor="@color/black">
 
         </TextView>
 
         <EditText
-            android:id="@+id/PWconfirm"
+            android:id="@+id/signup_process2_edt_conPass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="여기에 입력"
-            android:textSize="20dp" />
+            android:layout_marginTop="10dp"
+            android:hint="@string/enter_here"
+            android:maxLength="20"
+            android:textSize="@dimen/textSize_normal" />
     </LinearLayout>
 
     <LinearLayout
@@ -126,38 +137,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="닉네임 (2~10자)"
+            android:textSize="@dimen/textSize_normal"
+            android:text="@string/enter_nickname"
             android:textColor="@color/black" />
 
         <EditText
-            android:id="@+id/Nick"
+            android:id="@+id/signup_process2_edt_nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="여기에 입력"
-            android:textSize="20dp" />
+            android:layout_marginTop="10dp"
+            android:hint="@string/enter_here"
+            android:textSize="@dimen/textSize_normal" />
 
     </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0"
         android:gravity="bottom"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/signup_process2_next"
+            android:id="@+id/signup_process2_btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="#378ED3"
+            android:background="@drawable/button1"
             android:gravity="bottom|center_horizontal"
-            android:text="다음"
+            android:text="@string/next"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#FFFFFF"
-
-            />
+            app:backgroundTint="@null" />
     </LinearLayout>
+
 
 </LinearLayout>

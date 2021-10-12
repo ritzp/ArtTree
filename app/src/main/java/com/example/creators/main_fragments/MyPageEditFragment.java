@@ -153,7 +153,6 @@ public class MyPageEditFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 uploadingDialog = new AppCompatDialog(MyPageEditFragment.this.getActivity());
                 uploadingDialog.setCancelable(false);
                 uploadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -166,7 +165,7 @@ public class MyPageEditFragment extends Fragment {
         return root;
     }
 
-    private static MultipartBody.Part uriToMultipart(final Uri uri, String name, final ContentResolver contentResolver) {
+    private MultipartBody.Part uriToMultipart(final Uri uri, String name, final ContentResolver contentResolver) {
         final Cursor c = contentResolver.query(uri, null, null, null, null);
         if (c != null) {
             if(c.moveToNext()) {
@@ -219,7 +218,7 @@ public class MyPageEditFragment extends Fragment {
                     return;
 
                 if (response.body().equals("SUCCESS")) {
-                    Toast.makeText(MyPageEditFragment.this.getActivity(), getString(R.string.upload_completed), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPageEditFragment.this.getActivity(), getString(R.string.mypage_edit_completed), Toast.LENGTH_SHORT).show();
                     ((MainActivity)MyPageEditFragment.this.getActivity()).replaceFragmentToMyPage();
                 } else {
                     AppHelper.checkError(MyPageEditFragment.this.getActivity(), AppHelper.CODE_ERROR);

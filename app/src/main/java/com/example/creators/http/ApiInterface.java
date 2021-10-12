@@ -95,4 +95,29 @@ public interface ApiInterface {
             @Query("nickname") String nickname,
             @Query("introduction") String introduction
     );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/sign_up.jsp")
+    Call<String> postSignUp(
+            @Field("method") String method,
+            @Field("emailPhone") String emailPhone,
+            @Field("userId") String userId,
+            @Field("password") String password,
+            @Field("nickname") String nickname,
+            @Field("introduction") String introduction
+    );
+
+    @Multipart
+    @POST("Creators/app_requests/sign_up_icon.jsp")
+    Call<String> postSignUpIcon(
+            @Part MultipartBody.Part part,
+            @Query("userId") String userId
+    );
+
+    @Multipart
+    @POST("Creators/app_requests/sign_up_header.jsp")
+    Call<String> postSignUpHeader(
+            @Part MultipartBody.Part part,
+            @Query("userId") String userId
+    );
 }

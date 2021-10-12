@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="@string/upload"
                 android:textAlignment="gravity"
-                android:textSize="20dp">
+                android:textSize="@dimen/textSize_large">
 
             </TextView>
 
@@ -73,14 +73,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/content_type"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
                 <TextView
                     android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" : "
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
                 <Spinner
                     android:id="@+id/upload_spn_categories"
@@ -96,7 +96,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="@string/upload"
-                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:backgroundTint="@color/main_color" />
 
             <TextView
@@ -105,7 +105,7 @@
                 android:layout_height="300dp"
                 android:layout_margin="5dp"
                 android:gravity="start"
-                android:textSize="16dp"
+                android:textSize="@dimen/textSize_normal"
                 android:hint="@string/touch_to_edit"
                 android:visibility="gone" />
 
@@ -133,16 +133,16 @@
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
                     android:text="@string/title"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
                 <EditText
                     android:id="@+id/upload_edt_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:hint="@string/input_here"
+                    android:hint="@string/enter_here"
                     android:maxLength="50"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/textSize_large" />
 
             </LinearLayout>
 
@@ -159,7 +159,7 @@
                     android:layout_marginTop="10dp"
                     android:text="@string/description"
                     android:maxLength="200"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
                 <EditText
                     android:id="@+id/upload_edt_desc"
@@ -168,9 +168,9 @@
                     android:layout_margin="10dp"
                     android:background="@drawable/memo_border"
                     android:gravity="top"
-                    android:hint="@string/input_here"
+                    android:hint="@string/enter_here"
                     android:padding="5dp"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
             </LinearLayout>
 
         </LinearLayout>
@@ -188,7 +188,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
+            android:background="@drawable/button1"
+            app:backgroundTint="@color/main_color"
             android:gravity="bottom|center_horizontal"
             android:text="@string/upload"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

@@ -7,48 +7,52 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Space
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="65dp"
-            android:layout_weight="1"
-            android:ems="10"
-            android:gravity="center"
-            android:text="회원가입"
-            android:textColor="@color/black"
-            android:textAlignment="gravity"
-            android:textSize="20dp">
-
-        </TextView>
+        android:visibility="visible">
 
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/signup_process4_back"
-                android:layout_width="43dp"
-                android:layout_height="39dp"
-                android:src="@drawable/ic_left">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/sign_up"
+                android:textAlignment="gravity"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_large">
 
-            </ImageView>
-
+            </TextView>
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/signup_process4_img_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginVertical="15dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/ic_left" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <View
+        android:id="@+id/view16"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/main_color" />
 
 
     <LinearLayout
@@ -66,17 +70,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="  프로필 아이콘 이미지 "
+                android:text="@string/profile_icon_image"
                 android:textColor="@color/black" />
 
-            <Button
-                android:id="@+id/button1"
+            <TextView
+                android:id="@+id/signup_process4_txt_getIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="150dp"
-                android:layout_weight="0"
-                android:text="사진 가져오기" />
+                android:layout_marginLeft="20dp"
+                android:padding="10dp"
+                android:background="@drawable/button2"
+                android:text="@string/upload"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_normal" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,11 +92,11 @@
             android:layout_weight="0"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/imageView"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/signup_process4_img_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                tools:srcCompat="@drawable/tmp"/>
+                tools:srcCompat="@drawable/header_default"/>
         </LinearLayout>
 
     </LinearLayout>
@@ -99,67 +105,52 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:layout_weight="0"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:orientation="horizontal">
+            android:text="@string/header_image"
+            android:textColor="@color/black" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="   헤더 이미지"
-                android:textColor="@color/black" />
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="190dp"
-                android:layout_weight="0"
-                android:text="이미지 가져오기" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/signup_process4_txt_getHeader"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="0"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:scaleType="fitXY"
-                tools:srcCompat="@drawable/tmp"/>
-        </LinearLayout>
-
+            android:layout_marginLeft="20dp"
+            android:padding="10dp"
+            android:background="@drawable/button2"
+            android:text="@string/upload"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize_normal" />
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/signup_process4_img_header"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_margin="10dp"
+        android:scaleType="fitXY"
+        tools:srcCompat="@drawable/header_default" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0"
         android:gravity="bottom"
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/signup_process4_submit"
+            android:id="@+id/signup_process4_btn_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="#378ED3"
+            android:background="@drawable/button1"
             android:gravity="bottom|center_horizontal"
-            android:text="@string/submit"
+            android:text="@string/next"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textColor="#FFFFFF"
-
-            />
+            app:backgroundTint="@null" />
     </LinearLayout>
+
 
 </LinearLayout>

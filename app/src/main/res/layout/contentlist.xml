@@ -27,7 +27,7 @@
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
             android:text="SEARCH"
-            android:textSize="20dp">
+            android:textSize="@dimen/textSize_large">
 
         </TextView>
     </LinearLayout>
@@ -47,7 +47,7 @@
             android:gravity="center"
             android:text="LIST"
             android:textAlignment="gravity"
-            android:textSize="20dp">
+            android:textSize="@dimen/textSize_large">
 
         </TextView>
 
@@ -65,7 +65,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/loading"
-        android:textSize="16dp"
+        android:textSize="@dimen/textSize_normal"
         android:visibility="gone" />
 
     <LinearLayout

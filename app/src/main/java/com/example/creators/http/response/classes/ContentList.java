@@ -4,9 +4,9 @@ public class ContentList {
     private String contentId;
     private String title;
     private int views;
+    private int likes;
     private String userId;
     private String nickname;
-    private String icon;
 
     public String getContentId() {
         return contentId;
@@ -20,15 +20,15 @@ public class ContentList {
         return views;
     }
 
+    public int getLikes() {
+        return likes;
+    }
+
     public String getUserId() {
         return userId;
     }
 
     public String getNickname() {
         return nickname;
-    }
-
-    public String getIcon() {
-        return icon;
     }
 }

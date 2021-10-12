@@ -47,7 +47,7 @@
                 android:gravity="center"
                 android:text="@string/my_page"
                 android:textAlignment="gravity"
-                android:textSize="20dp">
+                android:textSize="@dimen/textSize_large">
 
             </TextView>
 
@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:scaleType="fitXY"
-                        app:srcCompat="@drawable/tmp" />
+                        app:srcCompat="@drawable/header_default" />
 
                     <View
                         android:id="@+id/view2"
@@ -134,7 +134,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
                 android:text="Nickname"
-                android:textSize="20dp"
+                android:textSize="@dimen/textSize_large"
                 android:textStyle="bold" />
 
             <TextView
@@ -143,7 +143,7 @@
                 android:layout_height="220dp"
                 android:layout_margin="10dp"
                 android:text="Introduction"
-                android:textSize="16dp" />
+                android:textSize="@dimen/textSize_normal" />
 
             <View
                 android:id="@+id/view3"
@@ -170,7 +170,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/uploaded_content"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/textSize_normal"
                     android:textStyle="bold" />
 
                 <TextView
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
             </LinearLayout>
 
@@ -201,7 +201,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:text="@string/likes"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/textSize_normal"
                     android:textStyle="bold" />
 
                 <TextView
@@ -209,7 +209,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16dp" />
+                    android:textSize="@dimen/textSize_normal" />
 
             </LinearLayout>
 
@@ -231,7 +231,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="@string/my_content"
                     android:textColor="@color/main_color"
-                    android:textSize="20dp" />
+                    android:textSize="@dimen/textSize_large" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
@@ -242,6 +242,6 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/loading"
-        android:textSize="16dp" />
+        android:textSize="@dimen/textSize_normal" />
 
 </LinearLayout>
