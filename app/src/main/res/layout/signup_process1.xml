@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:backgroundTint="#000000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -25,7 +25,7 @@
             android:text="회원가입"
             android:textColor="@color/black"
             android:textAlignment="gravity"
-            android:textSize="20sp">
+            android:textSize="20dp">
 
         </TextView>
 
@@ -36,14 +36,15 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button4"
-                android:background="@drawable/memo_border"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="X 취소" />
+            <ImageView
+                android:id="@+id/cancel"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/ic_close">
+
+            </ImageView>
+
+
         </LinearLayout>
 
     </LinearLayout>
@@ -65,16 +66,16 @@
                 android:layout_width="62dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
-                android:text="    아이디 "
+                android:text="    이메일"
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/sendbutton1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="230dp"
+                android:layout_marginLeft="220dp"
                 android:layout_weight="0"
-                android:text="인증번호"
+                android:text="인증번호 보내기"
                 android:textSize="13dp" />
 
         </LinearLayout>
@@ -111,16 +112,16 @@
                     android:layout_width="62dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text=" 인증번호   "
+                    android:text=" 인증번호  "
                     android:textColor="@color/black" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/sendbutton2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="230dp"
+                    android:layout_marginLeft="210dp"
                     android:layout_weight="0"
-                    android:text="인증번호 전송"
+                    android:text="인증번호 확인"
                     android:textSize="13dp" />
 
             </LinearLayout>
@@ -145,13 +146,15 @@
             android:layout_margin="10dp"
             android:layout_weight="0"
             android:orientation="vertical">
-            <TextView
+            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="휴대전화 번호로 회원가입 "
+                android:id="@+id/phone1"
                 android:textColor="#5D75FB"
-                android:textSize="18dp">
-            </TextView>
+                style="?android:borderlessButtonStyle"
+                android:textSize="18dp"/>
+
 
         </LinearLayout>
 
@@ -177,7 +180,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/next1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"

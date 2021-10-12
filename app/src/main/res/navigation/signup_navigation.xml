@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/signup_navigation"
+    app:startDestination="@id/navigation_signup_process1">
+
+    <fragment
+        android:id="@+id/navigation_signup_process1"
+        android:name="com.example.creators.signup_fragments.SignUpProcess1Fragment" />
+
+    <fragment
+        android:id="@+id/navigation_signup_process2"
+        android:name="com.example.creators.signup_fragments.SignUpProcess2Fragment" />
+
+    <fragment
+        android:id="@+id/navigation_signup_process3"
+        android:name="com.example.creators.signup_fragments.SignUpProcess3Fragment" />
+
+    <fragment
+        android:id="@+id/navigation_signup_process4"
+        android:name="com.example.creators.signup_fragments.SignUpProcess4Fragment" />
+
+</navigation>

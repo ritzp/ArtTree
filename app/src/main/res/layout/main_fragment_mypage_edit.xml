@@ -57,7 +57,7 @@
     <ScrollView
         android:id="@+id/mypageedt_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:visibility="visible">
 
         <LinearLayout
@@ -173,26 +173,27 @@
                 android:hint="@string/introduction"
                 android:textSize="16dp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0"
+                android:gravity="bottom"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/mypageedt_btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:backgroundTint="@color/main_color"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="@string/submit"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0"
-        android:gravity="bottom"
-        android:orientation="vertical">
-
-        <Button
-            android:id="@+id/mypageedt_btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
-            android:gravity="bottom|center_horizontal"
-            android:text="@string/submit"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF" />
-    </LinearLayout>
 
 </LinearLayout>

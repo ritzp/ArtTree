@@ -23,9 +23,9 @@ public class SignInActivity extends AppCompatActivity {
 
     private ApiInterface api;
 
-    EditText id, password;
-    Button signIn, signUp;
-    TextView forgotPassword;
+    private EditText id, password;
+    private Button signIn, signUp;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +49,9 @@ public class SignInActivity extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(SignInActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

@@ -1,7 +1,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:backgroundTint="#000000"
     android:gravity="center_horizontal"
     android:orientation="vertical">
@@ -25,7 +25,7 @@
             android:text="회원가입"
             android:textColor="@color/black"
             android:textAlignment="gravity"
-            android:textSize="20sp">
+            android:textSize="20dp">
 
         </TextView>
 
@@ -36,14 +36,11 @@
             android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/button4"
-                android:background="@drawable/memo_border"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:text="X 취소" />
+            <ImageView
+                android:layout_width="43dp"
+                android:layout_height="39dp"
+                android:id="@+id/signup_process3_back"
+                android:src="@drawable/ic_left" />
         </LinearLayout>
 
     </LinearLayout>
@@ -60,12 +57,12 @@
     <EditText
         android:layout_width="380dp"
         android:layout_height="224dp"
-        android:gravity="top"
-        android:background="@drawable/memo_border"
         android:layout_marginTop="10dp"
-        android:ems="10"
-        android:textColor="#A19898"
-        android:text="여기에 입력 ">
+        android:background="@drawable/memo_border"
+        android:gravity="top"
+        android:maxLength="100"
+        android:text="여기에 입력 "
+        android:textColor="#A19898">
 
     </EditText>
 
@@ -76,7 +73,7 @@
         android:gravity="bottom"
         android:orientation="vertical">
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/signup_process3_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
