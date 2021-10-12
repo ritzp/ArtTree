@@ -170,18 +170,6 @@
             android:textSize="@dimen/textSize_normal"
             android:visibility="gone" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="이메일/휴대전화 번호는 중복가입
- 방지 및 회원가입 후 아이디/비밀번호 분실 시
- 본인인증을 위해 사용됩니다. "
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize_small">
-
-        </TextView>
-
     </LinearLayout>
 
     <LinearLayout

@@ -8,9 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
+        android:adjustViewBounds="true"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_drawing"
-        android:adjustViewBounds="true"/>
+        android:src="@drawable/pic_drawing"
+        android:tint="#4D000000" />
 
     <TextView
         android:id="@+id/category_txt_categoryName"

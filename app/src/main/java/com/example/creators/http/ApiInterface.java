@@ -120,4 +120,16 @@ public interface ApiInterface {
             @Part MultipartBody.Part part,
             @Query("userId") String userId
     );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/check_userId.jsp")
+    Call<String> postCheckUserId(
+            @Field("userId") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/sign_up_error")
+    Call<String> postSignUpError(
+            @Field("userId") String userId
+    );
 }

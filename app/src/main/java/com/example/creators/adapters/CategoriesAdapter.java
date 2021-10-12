@@ -1,5 +1,7 @@
 package com.example.creators.adapters;
 
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.creators.R;
 import com.example.creators.classes.Category;
+import com.example.creators.main_fragments.CategoriesFragment;
 
 import java.util.ArrayList;
 
@@ -44,6 +48,7 @@ public class CategoriesAdapter extends BaseAdapter {
         return position;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = null;
@@ -56,6 +61,10 @@ public class CategoriesAdapter extends BaseAdapter {
 
         TextView txt = view.findViewById(R.id.category_txt_categoryName);
         ImageView img = view.findViewById(R.id.category_img_categoryImg);
+
+        GradientDrawable drawable = (GradientDrawable)CategoriesFragment.context.getDrawable(R.drawable.round_rectangle);
+        img.setBackground(drawable);
+        img.setClipToOutline(true);
 
         txt.setText(categoryArray.get(position).getTxt());
         img.setImageResource(categoryArray.get(position).getImg());

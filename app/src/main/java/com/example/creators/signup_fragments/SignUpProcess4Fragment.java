@@ -192,49 +192,6 @@ public class SignUpProcess4Fragment extends Fragment {
     }
 
     private void sendRequest() {
-        int[] callbacks = {-1, -1, -1};
-        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-
-        if (isIconChanged) {
-            MultipartBody.Part part = uriToMultipart(iconUri, "icon", getActivity().getContentResolver());
-            Call<String> call = api.postSignUpIcon(part, ((SignUpActivity)getActivity()).id);
-
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if (response.body().equals("SUCCESS"))
-                        callbacks[1] = 1;
-                    checkAllCallbacks(callbacks);
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
-                    callbacks[1] = 0;
-                    t.printStackTrace();
-                }
-            });
-        }
-        if (isHeaderChanged) {
-            MultipartBody.Part part = uriToMultipart(headerUri, "header", getActivity().getContentResolver());
-            Call<String> call = api.postSignUpHeader(part, ((SignUpActivity)getActivity()).id);
-
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if (response.body().equals("SUCCESS"))
-                        callbacks[2] = 1;
-                    checkAllCallbacks(callbacks);
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
-                    callbacks[2] = 0;
-                    t.printStackTrace();
-                }
-            });
-        }
 
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
         Call<String> call = api.postSignUp(
@@ -253,39 +210,94 @@ public class SignUpProcess4Fragment extends Fragment {
                     return;
 
                 if (response.body().equals("SUCCESS")) {
-                    callbacks[0] = 1;
-                    checkAllCallbacks(callbacks);
+                    sendIconRequest();
                 } else {
-                    callbacks[0] = 0;
                     AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.CODE_ERROR);
                 }
-                offUploadingDialog();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
-                callbacks[0]= 0;
                 offUploadingDialog();
                 t.printStackTrace();
             }
         });
     }
 
-    private void checkAllCallbacks(int[] callbacks) {
-        for (int i=0; i<callbacks.length; i++) {
-            if (callbacks[i] == -1) {
-                return;
-            } else if (callbacks[i] == 0) {
-                AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
-                return;
-            }
-        }
-        Toast.makeText(SignUpProcess4Fragment.this.getActivity(), getString(R.string.sign_up_completed), Toast.LENGTH_SHORT).show();
+    private void sendIconRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        if (isIconChanged) {
+            MultipartBody.Part part = uriToMultipart(iconUri, "icon", getActivity().getContentResolver());
+            Call<String> call = api.postSignUpIcon(part, ((SignUpActivity) getActivity()).id);
 
-        Intent intent = new Intent(SignUpProcess4Fragment.this.getActivity(), SignInActivity.class);
-        startActivity(intent);
-        SignUpProcess4Fragment.this.getActivity().finish();
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.body().equals("SUCCESS")) {
+                        sendHeaderRequest();
+                    } else {
+                        sendErrorRequest();
+                        AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.CODE_ERROR);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private void sendHeaderRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        if (isHeaderChanged) {
+            MultipartBody.Part part = uriToMultipart(headerUri, "header", getActivity().getContentResolver());
+            Call<String> call = api.postSignUpHeader(part, ((SignUpActivity)getActivity()).id);
+
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response.body().equals("SUCCESS")) {
+                        Toast.makeText(SignUpProcess4Fragment.this.getActivity(), getString(R.string.sign_up_completed), Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(SignUpProcess4Fragment.this.getActivity(), SignInActivity.class);
+                        startActivity(intent);
+                        SignUpProcess4Fragment.this.getActivity().finish();
+                    } else {
+                        sendErrorRequest();
+                        AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.CODE_ERROR);
+                    }
+                    offUploadingDialog();
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                    t.printStackTrace();
+                }
+            });
+        }
+    }
+
+    private void sendErrorRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<String> call = api.postSignUpError(((SignUpActivity)getActivity()).id);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                t.printStackTrace();
+            }
+        });
     }
 
     private void offUploadingDialog() {

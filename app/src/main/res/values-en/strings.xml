@@ -20,6 +20,7 @@
     <string name="header">Header</string>
     <string name="header_image">Header Image</string>
     <string name="sign_up_completed">Welcome! Please Sign in with your ID and Password.</string>
+    <string name="signed_in">Welcome, %1$s.</string>
     <string name="upload">Upload</string>
     <string name="download">Download</string>
     <string name="verification_code">Verification Code</string>
@@ -57,9 +58,11 @@
     <string name="sign_in">Sign In</string>
     <string name="sign_out">Sign Out</string>
     <string name="sign_up">Sign Up</string>
+    <string name="or">or</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="use_email_instead">Use email instead</string>
     <string name="use_a_phone_number_instead">Use a phone number instead</string>
+    <string name="id_already_exists">The ID you entered is already exists.</string>
     <string name="account_settings">Account Settings</string>
     <string name="change_password">Change Password</string>
     <string name="change_email">Change Email</string>
@@ -73,6 +76,7 @@
     <string name="enter_id">ID (max 20 characters)</string>
     <string name="enter_password">Password (max 20 characters)</string>
     <string name="enter_nickname">Nickname (max 20 characters)</string>
+    <string name="enter_introduction">Introduction (max 200 characters)</string>
     <string name="input_title">Title (max 50 characters)</string>
     <string name="input_description">Description (max 200 characters)</string>
     <string name="sign_out_alert_title">Signing Out</string>

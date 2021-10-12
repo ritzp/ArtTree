@@ -1,5 +1,6 @@
 package com.example.creators.main_fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import com.example.creators.viewmodels.CategoriesViewModel;
 
 public class CategoriesFragment extends Fragment {
 
+    public static Context context;
+
     private CategoriesViewModel viewModel;
     private CategoriesAdapter adapter;
     private GridView categoryList;
@@ -27,6 +30,7 @@ public class CategoriesFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getActivity();
         viewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
     }
 
@@ -39,7 +43,9 @@ public class CategoriesFragment extends Fragment {
 
         categoryList.setAdapter(adapter);
 
-        final String[] categories = {"photo", "drawing", "music", "video", "cartoon", "novel"};
+        final String[] categories = {getActivity().getString(R.string.photo), getActivity().getString(R.string.drawing),
+                getActivity().getString(R.string.music), getActivity().getString(R.string.video),
+                getActivity().getString(R.string.cartoon), getActivity().getString(R.string.novel)};
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(View view, int pos) {

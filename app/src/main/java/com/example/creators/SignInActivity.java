@@ -80,6 +80,7 @@ public class SignInActivity extends AppCompatActivity {
                 AppHelper.setAccessingUserid(response.body().getUserId());
                 AppHelper.setAccessingUserpass(response.body().getPassword());
 
+                Toast.makeText(SignInActivity.this, getString(R.string.signed_in, response.body().getNickname()), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();

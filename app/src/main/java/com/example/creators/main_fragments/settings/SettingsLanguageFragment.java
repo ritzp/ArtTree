@@ -95,11 +95,12 @@ public class SettingsLanguageFragment extends Fragment {
     private void changeConfiguration(String localeString) {
         Locale locale = new Locale(localeString);
         Locale.setDefault(locale);
-        Resources resources = getActivity().getResources();
-        Configuration configuration = resources.getConfiguration();
-        getActivity().createConfigurationContext(configuration);
+
+        Configuration configuration = getActivity().getBaseContext().getResources().getConfiguration();
         configuration.locale = locale;
-        resources.updateConfiguration(configuration, resources.getDisplayMetrics());
+        getActivity().getBaseContext().createConfigurationContext(configuration);
+        getActivity().getBaseContext().getResources().updateConfiguration(configuration,
+                getActivity().getBaseContext().getResources().getDisplayMetrics());
 
         Toast.makeText(getActivity(), getString(R.string.settings_completed), Toast.LENGTH_SHORT).show();
         ((MainActivity)getActivity()).replaceFragmentToSettingsLanguage();

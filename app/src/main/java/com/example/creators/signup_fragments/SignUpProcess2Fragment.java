@@ -14,13 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.SignInActivity;
 import com.example.creators.SignUpActivity;
+import com.example.creators.app.AppHelper;
+import com.example.creators.http.ApiInterface;
+import com.example.creators.http.RetrofitClient;
+import com.example.creators.http.response.SignInResponse;
 
 import org.jetbrains.annotations.NotNull;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 public class SignUpProcess2Fragment extends Fragment {
+
+    private ApiInterface api;
 
     private Button next;
     private ImageView back;
@@ -63,10 +73,7 @@ public class SignUpProcess2Fragment extends Fragment {
                     return;
                 }
 
-                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).id = id.getText().toString();
-                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).password = password.getText().toString();
-                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).nickname = nickname.getText().toString();
-                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).replaceFragmentToProcess3();
+                sendRequest();
             }
         });
 
@@ -78,5 +85,32 @@ public class SignUpProcess2Fragment extends Fragment {
         });
 
         return root;
+    }
+
+    private void sendRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<SignInResponse> call = api.postSignIn(id.getText().toString(), password.getText().toString());
+
+        call.enqueue(new Callback<SignInResponse>() {
+            @Override
+            public void onResponse(Call<SignInResponse> call, retrofit2.Response<SignInResponse> response) {
+                if (response.body().getMessage().equals("EXISTS")) {
+                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.id_already_exists), Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).id = id.getText().toString();
+                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).password = password.getText().toString();
+                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).nickname = nickname.getText().toString();
+                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).replaceFragmentToProcess3();
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SignInResponse> call, Throwable t) {
+                AppHelper.checkError(SignUpProcess2Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                t.printStackTrace();
+            }
+        });
     }
 }

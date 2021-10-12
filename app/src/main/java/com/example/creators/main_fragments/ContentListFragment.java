@@ -108,7 +108,21 @@ public class ContentListFragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<ContentListResponse> call = api.postContentList(searchMethod, keyword, AppHelper.getAccessingUserid());
+        String categoryKeyword = null;
+        if (keyword.equals(getActivity().getString(R.string.photo))) {
+            categoryKeyword = "photo";
+        } else if (keyword.equals(getActivity().getString(R.string.drawing))) {
+            categoryKeyword = "drawing";
+        } else if (keyword.equals(getActivity().getString(R.string.music))) {
+            categoryKeyword = "music";
+        } else if (keyword.equals(getActivity().getString(R.string.video))) {
+            categoryKeyword = "video";
+        } else if (keyword.equals(getActivity().getString(R.string.cartoon))) {
+            categoryKeyword = "cartoon";
+        } else if (keyword.equals(getActivity().getString(R.string.novel))) {
+            categoryKeyword = "novel";
+        }
+        Call<ContentListResponse> call = api.postContentList(searchMethod, categoryKeyword, AppHelper.getAccessingUserid());
 
         call.enqueue(new Callback<ContentListResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.O)

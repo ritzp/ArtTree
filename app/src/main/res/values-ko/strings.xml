@@ -22,6 +22,7 @@
     <string name="header">헤더</string>
     <string name="header_image">헤더 이미지</string>
     <string name="sign_up_completed">환영합니다! 아이디와 비밀번호를 통해 로그인해주세요.</string>
+    <string name="signed_in">환영합니다, %1$s님.</string>
     <string name="upload">업로드</string>
     <string name="download">다운로드</string>
     <string name="verification_code">인증코드</string>
@@ -59,9 +60,11 @@
     <string name="sign_in">로그인</string>
     <string name="sign_out">로그아웃</string>
     <string name="sign_up">회원가입</string>
+    <string name="or">또는</string>
     <string name="forgot_password">비밀번호 찾기</string>
     <string name="use_email_instead">이메일을 통해 진행하기</string>
     <string name="use_a_phone_number_instead">휴대전화 번호를 통해 진행하기</string>
+    <string name="id_already_exists">ID가 이미 존재합니다.</string>
     <string name="account_settings">계정 설정</string>
     <string name="change_password">비밀번호 변경</string>
     <string name="change_email">이메일 변경</string>
@@ -75,6 +78,7 @@
     <string name="enter_id">아이디 (최대 20자)</string>
     <string name="enter_password">패스워드 (최대 20자)</string>
     <string name="enter_nickname">닉네임 (최대 20자)</string>
+    <string name="enter_introduction">자기소개 (최대 200자)</string>
     <string name="input_title">타이틀 (최대 50자)</string>
     <string name="input_description">설명 (최대 200자)</string>
     <string name="sign_out_alert_title">로그아웃</string>
