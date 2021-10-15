@@ -56,7 +56,7 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @POST("Creators/app_requests/upload.jsp")
+    @POST("Creators/app_requests/upload")
     Call<String> postUpload(
             @Part MultipartBody.Part file,
             @Query("category") String category,
@@ -67,7 +67,7 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @POST("Creators/app_requests/upload_multiple.jsp")
+    @POST("Creators/app_requests/upload_multiple")
     Call<String> postMultipleUpload(
             @Part ArrayList<MultipartBody.Part> files,
             @Query("category") String category,
@@ -93,7 +93,7 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @POST("Creators/app_requests/my_page_edit_with_parts.jsp")
+    @POST("Creators/app_requests/my_page_edit")
     Call<String> postMyPageEditWithParts(
             @Part List<MultipartBody.Part> parts,
             @Query("userId") String userId,
@@ -120,16 +120,16 @@ public interface ApiInterface {
     );
 
     @Multipart
-    @POST("Creators/app_requests/sign_up_icon.jsp")
+    @POST("Creators/app_requests/sign_up_icon")
     Call<String> postSignUpIcon(
-            @Part MultipartBody.Part part,
+            @Part MultipartBody.Part icon,
             @Query("userId") String userId
     );
 
     @Multipart
-    @POST("Creators/app_requests/sign_up_header.jsp")
+    @POST("Creators/app_requests/sign_up_header")
     Call<String> postSignUpHeader(
-            @Part MultipartBody.Part part,
+            @Part MultipartBody.Part header,
             @Query("userId") String userId
     );
 

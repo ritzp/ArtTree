@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ import com.example.creators.R;
 import com.example.creators.SignInActivity;
 import com.example.creators.SignUpActivity;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.UriParser;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 
@@ -153,37 +155,6 @@ public class SignUpProcess4Fragment extends Fragment {
         return root;
     }
 
-    private MultipartBody.Part uriToMultipart(final Uri uri, String name, final ContentResolver contentResolver) {
-        final Cursor c = contentResolver.query(uri, null, null, null, null);
-        if (c != null) {
-            if(c.moveToNext()) {
-                final String displayName = c.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                RequestBody requestBody = new RequestBody() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.parse(contentResolver.getType(uri));
-                    }
-
-                    @Override
-                    public void writeTo(BufferedSink sink) {
-                        try {
-                            sink.writeAll(Okio.source(contentResolver.openInputStream(uri)));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                c.close();
-                return MultipartBody.Part.createFormData(name, displayName, requestBody);
-            } else {
-                c.close();
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
     private void sendRequest() {
 
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
@@ -221,7 +192,7 @@ public class SignUpProcess4Fragment extends Fragment {
     private void sendIconRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
         if (iconUri != null) {
-            MultipartBody.Part part = uriToMultipart(iconUri, "icon", getActivity().getContentResolver());
+            MultipartBody.Part part = UriParser.uriToMultipart(iconUri, "icon", getActivity().getContentResolver());
             Call<String> call = api.postSignUpIcon(part, ((SignUpActivity) getActivity()).id);
 
             call.enqueue(new Callback<String>() {
@@ -250,7 +221,7 @@ public class SignUpProcess4Fragment extends Fragment {
     private void sendHeaderRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
         if (headerUri != null) {
-            MultipartBody.Part part = uriToMultipart(headerUri, "header", getActivity().getContentResolver());
+            MultipartBody.Part part = UriParser.uriToMultipart(headerUri, "header", getActivity().getContentResolver());
             Call<String> call = api.postSignUpHeader(part, ((SignUpActivity)getActivity()).id);
 
             call.enqueue(new Callback<String>() {
