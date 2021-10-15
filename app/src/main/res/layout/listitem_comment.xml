@@ -21,11 +21,20 @@
 
         <TextView
             android:id="@+id/comment_txt_nickname"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:textSize="@dimen/textSize_normal"
-            android:text="Nickname"/>
+            android:layout_weight="1"
+            android:text="Nickname"
+            android:textSize="@dimen/textSize_normal" />
+
+        <ImageView
+            android:id="@+id/comment_img_delete"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_close"
+            android:visibility="invisible"
+            app:civ_circle_background_color="@color/white" />
 
     </LinearLayout>
 
@@ -34,8 +43,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
+        android:textColor="@color/black"
         android:layout_marginBottom="10dp"
         android:text="Comment"
         android:textSize="@dimen/textSize_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="5dp"
+        android:background="@color/grey" />
 
 </LinearLayout>

@@ -97,7 +97,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_write_comment"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
                     </FrameLayout>
 
                     <View
@@ -146,7 +146,7 @@
                             android:layout_height="30dp"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_write_comment"
-                            android:tint="@color/white" />
+                            app:tint="@color/white" />
                     </FrameLayout>
 
                 </LinearLayout>

@@ -75,4 +75,8 @@ public class MainActivity extends AppCompatActivity {
     public void replaceFragmentToSettingsLanguage() {
         navController.navigate(R.id.navigation_settingsLanguage);
     }
+
+    public void replaceFragmentToSettingsDeleteAccount() {
+        navController.navigate(R.id.navigation_settingsDeleteAccount);
+    }
 }

@@ -1,14 +1,17 @@
 package com.example.creators.main_fragments;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,20 +19,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.creators.ContentActivity;
 import com.example.creators.MainActivity;
 import com.example.creators.R;
+import com.example.creators.SignInActivity;
 import com.example.creators.UploadActivity;
 import com.example.creators.adapters.MyContentListAdapter;
 import com.example.creators.adapters.OnItemClickListener;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.LoadingDialog;
 import com.example.creators.classes.MyContent;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.MyContentListResponse;
+import com.example.creators.main_fragments.settings.SettingsMainFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyContentListFragment extends Fragment {
 
@@ -41,6 +48,8 @@ public class MyContentListFragment extends Fragment {
     private ImageView close;
     private RecyclerView list;
     private FloatingActionButton fab;
+
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,6 +80,28 @@ public class MyContentListFragment extends Fragment {
                 MyContent content = myContentArray.get(pos);
                 intent.putExtra("contentId", content.getContentId());
                 startActivity(intent);
+            }
+        });
+
+        adapter.setOnDeleteClickListener(new OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int pos) {
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(MyContentListFragment.this.getActivity());
+                alertBuilder.setMessage(getString(R.string.delete_alert_message));
+                alertBuilder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        loadingDialog = new LoadingDialog(MyContentListFragment.this.getActivity(), R.layout.alert_loading);
+                        loadingDialog.show();
+                        sendDeleteRequest(myContentArray.get(pos).getContentId());
+                    }
+                }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                alertBuilder.show();
             }
         });
 
@@ -129,6 +160,31 @@ public class MyContentListFragment extends Fragment {
             @Override
             public void onFailure(Call<MyContentListResponse> call, Throwable t) {
                 AppHelper.checkError(MyContentListFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void sendDeleteRequest(String contentId) {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<String> call = api.postDeleteContent(contentId);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (response.body().equals("SUCCESS")) {
+                    Toast.makeText(MyContentListFragment.this.getActivity(), getString(R.string.delete_completed), Toast.LENGTH_SHORT).show();
+                } else {
+                    AppHelper.checkError(MyContentListFragment.this.getActivity(), AppHelper.CODE_ERROR);
+                }
+                ((MainActivity)MyContentListFragment.this.getActivity()).replaceFragmentToMyContentList();
+                loadingDialog.off();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                AppHelper.checkError(MyContentListFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                loadingDialog.off();
                 t.printStackTrace();
             }
         });

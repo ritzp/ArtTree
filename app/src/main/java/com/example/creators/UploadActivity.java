@@ -1,15 +1,14 @@
 package com.example.creators;
 
-import android.content.ContentResolver;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -24,10 +23,13 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDialog;
 
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.LoadingDialog;
+import com.example.creators.app.UriParser;
+import com.example.creators.content_fragments.BlankFragment;
 import com.example.creators.content_fragments.upload.UploadCartoonFragment;
 import com.example.creators.content_fragments.upload.UploadDrawingFragment;
 import com.example.creators.content_fragments.upload.UploadMusicFragment;
@@ -35,13 +37,12 @@ import com.example.creators.content_fragments.upload.UploadPhotoFragment;
 import com.example.creators.content_fragments.upload.UploadVideoFragment;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
-import java.io.IOException;
+
+import java.util.ArrayList;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okio.BufferedSink;
-import okio.Okio;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -59,8 +60,9 @@ public class UploadActivity extends AppCompatActivity {
 
     private String category;
     private Uri uri = null;
-    private boolean isFileUploaded = false, isText = false;
-    private AppCompatDialog uploadingDialog;
+    private ArrayList<Uri> uris;
+    private boolean isText = false;
+    private LoadingDialog loadingDialog;
 
     private ActivityResultLauncher<Intent> getPhotoFile = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -68,14 +70,22 @@ public class UploadActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
-                        uri = result.getData().getData();
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData == null) {
+                            uri = result.getData().getData();
+                        } else {
+                            uris = new ArrayList<>();
+                            for (int i=0; i<clipData.getItemCount(); i++) {
+                                uris.add(clipData.getItemAt(i).getUri());
+                            }
+                            uri = clipData.getItemAt(0).getUri();
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("uri", uri.toString());
 
                         UploadPhotoFragment photoFragment = new UploadPhotoFragment();
                         photoFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, photoFragment).commit();
-                        isFileUploaded = true;
                     } else {
                         Toast.makeText(UploadActivity.this, getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -89,14 +99,22 @@ public class UploadActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
-                        uri = result.getData().getData();
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData == null) {
+                            uri = result.getData().getData();
+                        } else {
+                            uris = new ArrayList<>();
+                            for (int i=0; i<clipData.getItemCount(); i++) {
+                                uris.add(clipData.getItemAt(i).getUri());
+                            }
+                            uri = clipData.getItemAt(0).getUri();
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("uri", uri.toString());
 
                         UploadDrawingFragment drawingFragment = new UploadDrawingFragment();
                         drawingFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, drawingFragment).commit();
-                        isFileUploaded = true;
                     } else {
                         Toast.makeText(UploadActivity.this, getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -117,7 +135,6 @@ public class UploadActivity extends AppCompatActivity {
                         UploadMusicFragment musicFragment = new UploadMusicFragment();
                         musicFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, musicFragment).commit();
-                        isFileUploaded = true;
                     } else {
                         Toast.makeText(UploadActivity.this, getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -138,7 +155,6 @@ public class UploadActivity extends AppCompatActivity {
                         UploadVideoFragment videoFragment = new UploadVideoFragment();
                         videoFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, videoFragment).commit();
-                        isFileUploaded = true;
                     } else {
                         Toast.makeText(UploadActivity.this, getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -152,14 +168,22 @@ public class UploadActivity extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
-                        uri = result.getData().getData();
+                        ClipData clipData = result.getData().getClipData();
+                        if (clipData == null) {
+                            uri = result.getData().getData();
+                        } else {
+                            uris = new ArrayList<>();
+                            for (int i=0; i<clipData.getItemCount(); i++) {
+                                uris.add(clipData.getItemAt(i).getUri());
+                            }
+                            uri = clipData.getItemAt(0).getUri();
+                        }
                         Bundle bundle = new Bundle();
                         bundle.putString("uri", uri.toString());
 
                         UploadCartoonFragment cartoonFragment = new UploadCartoonFragment();
                         cartoonFragment.setArguments(bundle);
                         getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, cartoonFragment).commit();
-                        isFileUploaded = true;
                     } else {
                         Toast.makeText(UploadActivity.this, getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -192,6 +216,9 @@ public class UploadActivity extends AppCompatActivity {
         categoriesSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                uri = null;
+                BlankFragment blankFragment = new BlankFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.upload_fragmentContainer, blankFragment).commit();
                 UploadActivity.this.category = categories[position];
 
                 if (position == 5) {
@@ -228,34 +255,32 @@ public class UploadActivity extends AppCompatActivity {
         });
 
         upload.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
             @Override
             public void onClick(View v) {
                 if (title.getText().length() <= 0) {
-                    Toast.makeText(UploadActivity.this, R.string.title_not_inputted, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, R.string.title_not_entered, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (title.getText().length() > AppHelper.MAX_TITLE_SIZE) {
-                    Toast.makeText(UploadActivity.this, R.string.title_overed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, R.string.title_over_chars, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (description.getText().length() > AppHelper.MAX_DESCRIPTION_SIZE) {
-                    Toast.makeText(UploadActivity.this, R.string.description_overed, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, R.string.description_over_chars, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (!isText && !isFileUploaded) {
+                if (!isText && (uri == null)) {
                     Toast.makeText(UploadActivity.this, R.string.file_not_uploaded, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (isText && textContent.length() <= 0) {
-                    Toast.makeText(UploadActivity.this, R.string.text_not_inputted, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadActivity.this, R.string.text_not_entered, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                uploadingDialog = new AppCompatDialog(UploadActivity.this);
-                uploadingDialog.setCancelable(false);
-                uploadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                uploadingDialog.setContentView(R.layout.upload_alert_uploading);
-                uploadingDialog.show();
+                loadingDialog = new LoadingDialog(UploadActivity.this, R.layout.alert_uploading);
+                loadingDialog.show();
                 sendRequest();
             }
         });
@@ -273,11 +298,13 @@ public class UploadActivity extends AppCompatActivity {
         if (position == 0) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setType("image/*");
             getPhotoFile.launch(intent);
         } else if (position == 1) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setType("image/*");
             getDrawingFile.launch(intent);
         } else if (position == 2) {
@@ -293,77 +320,15 @@ public class UploadActivity extends AppCompatActivity {
         } else if (position == 4) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.addCategory(Intent.CATEGORY_OPENABLE);
+            intent.putExtra(intent.EXTRA_ALLOW_MULTIPLE, true);
             intent.setType("image/*");
             getCartoonFile.launch(intent);
         }
     }
 
-    private String getExtension(Uri uri) {
-        String path = uri.getPath();
-        int index = path.lastIndexOf(".");
-        return path.substring(index+1, path.length());
-    }
-
-    private static MultipartBody.Part uriToMultipart(final Uri uri, String name, final ContentResolver contentResolver) {
-        final Cursor c = contentResolver.query(uri, null, null, null, null);
-        if (c != null) {
-            if(c.moveToNext()) {
-                final String displayName = c.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                RequestBody requestBody = new RequestBody() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.parse(contentResolver.getType(uri));
-                    }
-
-                    @Override
-                    public void writeTo(BufferedSink sink) {
-                        try {
-                            sink.writeAll(Okio.source(contentResolver.openInputStream(uri)));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                c.close();
-                return MultipartBody.Part.createFormData(name, displayName, requestBody);
-            } else {
-                c.close();
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void sendRequest() {
-        if (!category.equals("novel")) {
-            MultipartBody.Part part = uriToMultipart(uri, "file", getContentResolver());
-            api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-            Call<String> call = api.postUpload(part, category, getExtension(uri), title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
-
-            call.enqueue(new Callback<String>() {
-                @Override
-                public void onResponse(Call<String> call, Response<String> response) {
-                    if (!AppHelper.checkError(UploadActivity.this, response.body()))
-                        return;
-
-                    if (response.body().equals("SUCCESS")) {
-                        Toast.makeText(UploadActivity.this, getString(R.string.upload_completed), Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        AppHelper.checkError(UploadActivity.this, AppHelper.CODE_ERROR);
-                    }
-                    offUploadingDialog();
-                }
-
-                @Override
-                public void onFailure(Call<String> call, Throwable t) {
-                    AppHelper.checkError(UploadActivity.this, AppHelper.RESPONSE_ERROR);
-                    offUploadingDialog();
-                    t.printStackTrace();
-                }
-            });
-        } else {
+        if (category.equals("novel")) {
             String content = textContent.getText().toString();
 
             RequestBody body = RequestBody.create(MediaType.parse("text/plain"), content);
@@ -384,22 +349,112 @@ public class UploadActivity extends AppCompatActivity {
                     } else {
                         AppHelper.checkError(UploadActivity.this, AppHelper.CODE_ERROR);
                     }
-                    offUploadingDialog();
+                    loadingDialog.off();
                 }
 
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     AppHelper.checkError(UploadActivity.this, AppHelper.RESPONSE_ERROR);
-                    offUploadingDialog();
+                    loadingDialog.off();
                     t.printStackTrace();
                 }
             });
-        }
-    }
+        } else if (category.equals("cartoon") || category.equals("photo") || category.equals("drawing")) {
+            if (uris == null) {
+                MultipartBody.Part part = UriParser.uriToMultipart(uri, "file", getContentResolver());
+                api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+                Call<String> call = api.postUpload(part, category, MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)),
+                        title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
 
-    private void offUploadingDialog() {
-        if (uploadingDialog != null && uploadingDialog.isShowing()) {
-            uploadingDialog.dismiss();
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!AppHelper.checkError(UploadActivity.this, response.body()))
+                            return;
+
+                        if (response.body().equals("SUCCESS")) {
+                            Toast.makeText(UploadActivity.this, getString(R.string.upload_completed), Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            AppHelper.checkError(UploadActivity.this, AppHelper.CODE_ERROR);
+                        }
+                        loadingDialog.off();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        AppHelper.checkError(UploadActivity.this, AppHelper.RESPONSE_ERROR);
+                        loadingDialog.off();
+                        t.printStackTrace();
+                    }
+                });
+            } else {
+                if (uris.size() > 20) {
+                    Toast.makeText(this, getString(R.string.multiple_upload_over_items), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ArrayList<MultipartBody.Part> parts = new ArrayList<>();
+                String extensions = "";
+                for (int i=0; i<uris.size(); i++) {
+                    MultipartBody.Part part = UriParser.uriToMultipart(uris.get(i), "file"+i, getContentResolver());
+                    extensions += (MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)) + "/");
+                    parts.add(part);
+                }
+                api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+                Call<String> call = api.postMultipleUpload(parts, category, extensions, title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+
+                call.enqueue(new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        if (!AppHelper.checkError(UploadActivity.this, response.body()))
+                            return;
+
+                        if (response.body().equals("SUCCESS")) {
+                            Toast.makeText(UploadActivity.this, getString(R.string.upload_completed), Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            AppHelper.checkError(UploadActivity.this, AppHelper.CODE_ERROR);
+                        }
+                        loadingDialog.off();
+                    }
+
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        AppHelper.checkError(UploadActivity.this, AppHelper.RESPONSE_ERROR);
+                        loadingDialog.off();
+                        t.printStackTrace();
+                    }
+                });
+            }
+        } else {
+            MultipartBody.Part part = UriParser.uriToMultipart(uri, "file", getContentResolver());
+            api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+            Call<String> call = api.postUpload(part, category, MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)),
+                    title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (!AppHelper.checkError(UploadActivity.this, response.body()))
+                        return;
+
+                    if (response.body().equals("SUCCESS")) {
+                        Toast.makeText(UploadActivity.this, getString(R.string.upload_completed), Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        AppHelper.checkError(UploadActivity.this, AppHelper.CODE_ERROR);
+                    }
+                    loadingDialog.off();
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    AppHelper.checkError(UploadActivity.this, AppHelper.RESPONSE_ERROR);
+                    loadingDialog.off();
+                    t.printStackTrace();
+                }
+            });
         }
     }
 }

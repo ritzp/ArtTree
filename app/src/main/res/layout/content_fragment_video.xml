@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/condetailVdo"
+    android:id="@+id/contentVdo"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:gravity="center"
@@ -10,7 +10,7 @@
     tools:context=".content_fragments.VideoFragment">
 
     <com.google.android.exoplayer2.ui.PlayerView
-        android:id="@+id/condetailVdo_player"
+        android:id="@+id/contentVdo_player"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:show_timeout="0" />

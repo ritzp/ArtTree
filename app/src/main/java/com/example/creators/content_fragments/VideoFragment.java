@@ -35,7 +35,7 @@ public class VideoFragment extends Fragment {
         contentId = bundle.getString("contentId");
         extension = bundle.getString("extension");
 
-        playerView = root.findViewById(R.id.condetailVdo_player);
+        playerView = root.findViewById(R.id.contentVdo_player);
 
         initPlayer();
 

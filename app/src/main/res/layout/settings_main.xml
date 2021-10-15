@@ -101,14 +101,6 @@
             android:text="@string/change_email"
             android:textSize="@dimen/textSize_normal" />
 
-        <TextView
-            android:id="@+id/settings_txt_changePhoneNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:paddingVertical="10dp"
-            android:text="@string/change_phone_number"
-            android:textSize="@dimen/textSize_normal" />
     </LinearLayout>
 
     <View
@@ -183,13 +175,46 @@
             android:layout_height="20dp"
             android:layout_marginRight="10dp"
             android:src="@drawable/ic_sign_out"
-            android:tint="@color/main_color"/>
+            app:tint="@color/main_color"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sign_out"
             android:textColor="@color/main_color"
+            android:textSize="@dimen/textSize_large" />
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view13"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="10dp"
+        android:background="@color/grey" />
+
+    <LinearLayout
+        android:id="@+id/settings_deleteAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp"
+        android:paddingVertical="20dp">
+
+        <ImageView
+            android:id="@+id/imageView11"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_delete_account"
+            app:tint="@color/red"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_account"
+            android:textColor="@color/red"
             android:textSize="@dimen/textSize_large" />
 
     </LinearLayout>

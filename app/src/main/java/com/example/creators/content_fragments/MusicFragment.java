@@ -34,7 +34,7 @@ public class MusicFragment extends Fragment {
         contentId = bundle.getString("contentId");
         extension = bundle.getString("extension");
 
-        playerView = root.findViewById(R.id.condetailMusic_player);
+        playerView = root.findViewById(R.id.contentMusic_player);
 
         initPlayer();
 

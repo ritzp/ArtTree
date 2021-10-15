@@ -89,25 +89,24 @@ public class SignUpProcess2Fragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<SignInResponse> call = api.postSignIn(id.getText().toString(), password.getText().toString());
+        Call<String> call = api.postCheckUserId(id.getText().toString());
 
-        call.enqueue(new Callback<SignInResponse>() {
+        call.enqueue(new Callback<String>() {
             @Override
-            public void onResponse(Call<SignInResponse> call, retrofit2.Response<SignInResponse> response) {
-                if (response.body().getMessage().equals("EXISTS")) {
+            public void onResponse(Call<String> call, retrofit2.Response<String> response) {
+                if (response.body().equals("EXISTS")) {
                     Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.id_already_exists), Toast.LENGTH_SHORT).show();
                     return;
-                } else {
-                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).id = id.getText().toString();
-                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).password = password.getText().toString();
-                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).nickname = nickname.getText().toString();
-                    ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).replaceFragmentToProcess3();
-                    return;
                 }
+
+                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).id = id.getText().toString();
+                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).password = password.getText().toString();
+                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).nickname = nickname.getText().toString();
+                ((SignUpActivity)SignUpProcess2Fragment.this.getActivity()).replaceFragmentToProcess3();
             }
 
             @Override
-            public void onFailure(Call<SignInResponse> call, Throwable t) {
+            public void onFailure(Call<String> call, Throwable t) {
                 AppHelper.checkError(SignUpProcess2Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
             }

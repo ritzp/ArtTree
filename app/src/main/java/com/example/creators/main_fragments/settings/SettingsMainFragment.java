@@ -21,10 +21,10 @@ import com.example.creators.app.AppHelper;
 
 public class SettingsMainFragment extends Fragment {
 
-    private View account, application, signOut;
+    private View account, application, signOut, deleteAccount;
     private View accountMenu, applicationMenu;
     private ImageView close, accountMenuImg, applicationMenuImg;
-    private TextView password, email, phoneNumber, language;
+    private TextView password, email, language;
 
     private boolean isAccountMenuOpened = false, isApplicationMenuOpened = false;
 
@@ -37,13 +37,13 @@ public class SettingsMainFragment extends Fragment {
         account = root.findViewById(R.id.settings_account);
         application = root.findViewById(R.id.settings_application);
         signOut = root.findViewById(R.id.settings_signOut);
+        deleteAccount = root.findViewById(R.id.settings_deleteAccount);
         accountMenu = root.findViewById(R.id.settings_accountMenu);
         applicationMenu = root.findViewById(R.id.settings_applicationMenu);
         accountMenuImg = root.findViewById(R.id.settings_img_account);
         applicationMenuImg = root.findViewById(R.id.settings_img_application);
         password = root.findViewById(R.id.settings_txt_changePass);
         email = root.findViewById(R.id.settings_txt_changeEmail);
-        phoneNumber = root.findViewById(R.id.settings_txt_changePhoneNumber);
         language = root.findViewById(R.id.settings_txt_changeLanguage);
 
         close.setOnClickListener(new View.OnClickListener() {
@@ -109,9 +109,15 @@ public class SettingsMainFragment extends Fragment {
 
                     }
                 });
-
                 alertBuilder.show();
-        }
+            }
+        });
+
+        deleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)SettingsMainFragment.this.getActivity()).replaceFragmentToSettingsDeleteAccount();
+            }
         });
         
         return root;

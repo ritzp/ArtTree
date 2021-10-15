@@ -62,4 +62,8 @@
     <fragment
         android:id="@+id/navigation_settingsLanguage"
         android:name="com.example.creators.main_fragments.settings.SettingsLanguageFragment" />
+
+    <fragment
+        android:id="@+id/navigation_settingsDeleteAccount"
+        android:name="com.example.creators.main_fragments.settings.SettingsDeleteAccountFragment" />
 </navigation>

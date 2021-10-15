@@ -58,7 +58,7 @@
                 android:layout_height="20dp"
                 android:layout_margin="10dp"
                 android:src="@drawable/ic_like"
-                android:tint="@color/red" />
+                app:tint="@color/red" />
 
             <TextView
                 android:id="@+id/home_txt_likes"

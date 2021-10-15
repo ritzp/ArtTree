@@ -2,15 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/condetailDrawing"
+    android:id="@+id/contentDrawing"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".content_fragments.DrawingFragment">
 
     <ImageView
-        android:id="@+id/condetailDrawing_img"
+        android:id="@+id/contentDrawing_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="center" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contentDrawing_img_hasnext"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_down"
+            app:tint="@color/grey"
+            android:visibility="invisible" />
+    </LinearLayout>
 </LinearLayout>

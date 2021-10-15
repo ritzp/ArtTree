@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/condetailNovel"
+    android:id="@+id/contentNovel"
     android:layout_width="match_parent"
     android:layout_height="300dp"
     android:gravity="start"
@@ -10,9 +10,26 @@
     tools:context=".content_fragments.NovelFragment">
 
     <TextView
-        android:id="@+id/condetailNovel_txt"
+        android:id="@+id/contentNovel_txt"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
+        android:textColor="@color/black"
         android:textSize="@dimen/textSize_normal" />
-</LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/contentNovel_hasnext"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|bottom"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/contentNovel_img_hasnext"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_down"
+            app:tint="@color/grey" />
+    </LinearLayout>
+</FrameLayout>

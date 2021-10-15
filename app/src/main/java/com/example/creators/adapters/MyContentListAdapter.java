@@ -11,15 +11,26 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.creators.R;
 import com.example.creators.classes.MyContent;
+import com.example.creators.http.ApiInterface;
+import com.example.creators.http.RetrofitClient;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MyContentListAdapter extends RecyclerView.Adapter {
     private ArrayList<MyContent> contentArray;
     private OnItemClickListener clickListener = null;
+    private OnItemClickListener deleteClickListener = null;
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
         this.clickListener = clickListener;
+    }
+
+    public void setOnDeleteClickListener(OnItemClickListener clickListener) {
+        this.deleteClickListener = clickListener;
     }
 
     public MyContentListAdapter(ArrayList<MyContent> array) {
@@ -48,13 +59,22 @@ public class MyContentListAdapter extends RecyclerView.Adapter {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView category;
+        private ImageView category, delete;
         private TextView title;
 
         public ViewHolder(View view) {
             super(view);
             category = view.findViewById(R.id.myconlist_img_category);
             title = view.findViewById(R.id.myconlist_txt_title);
+            delete = view.findViewById(R.id.myconlist_img_delete);
+
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getBindingAdapterPosition();
+                    deleteClickListener.OnItemClick(v, position);
+                }
+            });
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

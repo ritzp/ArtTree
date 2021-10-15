@@ -1,14 +1,11 @@
 package com.example.creators.main_fragments;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,20 +26,15 @@ import androidx.fragment.app.Fragment;
 
 import com.example.creators.MainActivity;
 import com.example.creators.R;
-import com.example.creators.UploadActivity;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.UriParser;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okio.BufferedSink;
-import okio.Okio;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -156,7 +148,7 @@ public class MyPageEditFragment extends Fragment {
                 uploadingDialog = new AppCompatDialog(MyPageEditFragment.this.getActivity());
                 uploadingDialog.setCancelable(false);
                 uploadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                uploadingDialog.setContentView(R.layout.upload_alert_uploading);
+                uploadingDialog.setContentView(R.layout.alert_loading);
                 uploadingDialog.show();
                 sendRequest();
             }
@@ -165,43 +157,12 @@ public class MyPageEditFragment extends Fragment {
         return root;
     }
 
-    private MultipartBody.Part uriToMultipart(final Uri uri, String name, final ContentResolver contentResolver) {
-        final Cursor c = contentResolver.query(uri, null, null, null, null);
-        if (c != null) {
-            if(c.moveToNext()) {
-                final String displayName = c.getString(c.getColumnIndex(OpenableColumns.DISPLAY_NAME));
-                RequestBody requestBody = new RequestBody() {
-                    @Override
-                    public MediaType contentType() {
-                        return MediaType.parse(contentResolver.getType(uri));
-                    }
-
-                    @Override
-                    public void writeTo(BufferedSink sink) {
-                        try {
-                            sink.writeAll(Okio.source(contentResolver.openInputStream(uri)));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-                c.close();
-                return MultipartBody.Part.createFormData(name, displayName, requestBody);
-            } else {
-                c.close();
-                return null;
-            }
-        } else {
-            return null;
-        }
-    }
-
     private void sendRequest() {
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
         if (isIconChanged)
-            parts.add(uriToMultipart(iconUri, "icon", getActivity().getContentResolver()));
+            parts.add(UriParser.uriToMultipart(iconUri, "icon", getActivity().getContentResolver()));
         if (isHeaderChanged)
-            parts.add(uriToMultipart(headerUri, "header", getActivity().getContentResolver()));
+            parts.add(UriParser.uriToMultipart(headerUri, "header", getActivity().getContentResolver()));
 
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
         Call<String> call = null;

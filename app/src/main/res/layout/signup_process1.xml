@@ -75,15 +75,6 @@
                 android:textSize="@dimen/textSize_normal" />
 
             <TextView
-                android:id="@+id/signup_process1_txt_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/phone_number"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_normal"
-                android:visibility="gone" />
-
-            <TextView
                 android:id="@+id/signup_process1_txt_sendCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +88,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/signup_process1_edt_emailPhone"
+            android:id="@+id/signup_process1_edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -120,55 +111,43 @@
                 android:text="@string/verification_code"
                 android:textColor="@color/black" />
 
+            <TextView
+                android:id="@+id/signup_process1_txt_verifyCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/button2"
+                android:padding="10dp"
+                android:text="@string/verify_code"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_normal" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/signup_process1_edt_code"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/enter_here"
+                android:textColor="@color/black"
+                android:textSize="@dimen/textSize_normal" />
+
             <ImageView
                 android:id="@+id/signup_process1_img_check"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:src="@drawable/ic_check"
-                android:tint="@color/main_color"
-                android:visibility="gone" />
-
-            <TextView
-                android:id="@+id/signup_process1_txt_verifyCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:padding="10dp"
-                android:background="@drawable/button2"
-                android:text="@string/send_code"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_normal" />
-
+                app:tint="@color/main_color"
+                android:visibility="invisible" />
         </LinearLayout>
-
-        <EditText
-            android:id="@+id/signup_process1_edt_code"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:hint="@string/enter_here"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize_normal" />
-
-        <TextView
-            android:id="@+id/signup_process1_txt_selectPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/use_a_phone_number_instead"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/textSize_large" />
-
-        <TextView
-            android:id="@+id/signup_process1_txt_selectEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/use_email_instead"
-            android:textColor="@color/main_color"
-            android:textSize="@dimen/textSize_normal"
-            android:visibility="gone" />
 
     </LinearLayout>
 

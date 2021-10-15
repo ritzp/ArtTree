@@ -1,5 +1,6 @@
 package com.example.creators.content_fragments;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -8,8 +9,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.creators.ContentDetailActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
 import com.example.creators.http.RetrofitClient;
@@ -22,6 +25,7 @@ import java.net.URLConnection;
 public class NovelFragment extends Fragment {
 
     private TextView text;
+    private ImageView hasNext;
 
     private String contentId;
 
@@ -31,10 +35,21 @@ public class NovelFragment extends Fragment {
         Bundle bundle = getArguments();
         contentId = bundle.getString("contentId");
 
-        text = root.findViewById(R.id.condetailNovel_txt);
+        text = root.findViewById(R.id.contentNovel_txt);
+        hasNext = root.findViewById(R.id.contentNovel_img_hasnext);
 
         FileDownload fileDownload = new FileDownload();
         fileDownload.execute();
+
+        hasNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NovelFragment.this.getActivity(), ContentDetailActivity.class);
+                intent.putExtra("contentId", contentId);
+                intent.putExtra("text", text.getText().toString());
+                startActivity(intent);
+            }
+        });
 
         return root;
     }
@@ -52,17 +67,16 @@ public class NovelFragment extends Fragment {
                 StringBuilder sb = new StringBuilder();
                 String line;
                 while ((line=buffer.readLine()) != null) {
-                    sb.append(line);
+                    sb.append(line + "\n");
                 }
                 buffer.close();
                 reader.close();
 
                 return sb.toString();
             } catch (Exception e) {
-                AppHelper.checkError(NovelFragment.this.getActivity(), AppHelper.CODE_ERROR);
                 e.printStackTrace();
+                return AppHelper.CODE_ERROR;
             }
-            return null;
         }
 
         @Override

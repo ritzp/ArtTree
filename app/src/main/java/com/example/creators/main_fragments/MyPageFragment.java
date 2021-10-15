@@ -71,8 +71,8 @@ public class MyPageFragment extends Fragment {
         viewModel.getUserId().setValue("testId1");
         sendRequest();
 
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
+        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).error(R.drawable.pic_icon_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
+        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).error(R.drawable.header_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

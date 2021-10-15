@@ -7,6 +7,7 @@ import com.example.creators.http.response.MyPageResponse;
 import com.example.creators.http.response.SignInResponse;
 import com.example.creators.http.response.classes.Like;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -60,6 +61,17 @@ public interface ApiInterface {
             @Part MultipartBody.Part file,
             @Query("category") String category,
             @Query("extension") String extension,
+            @Query("title") String title,
+            @Query("description") String description,
+            @Query("userId") String userId
+    );
+
+    @Multipart
+    @POST("Creators/app_requests/upload_multiple.jsp")
+    Call<String> postMultipleUpload(
+            @Part ArrayList<MultipartBody.Part> files,
+            @Query("category") String category,
+            @Query("extensions") String extensions,
             @Query("title") String title,
             @Query("description") String description,
             @Query("userId") String userId
@@ -124,12 +136,32 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("Creators/app_requests/check_userId.jsp")
     Call<String> postCheckUserId(
+            @Field("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/sign_up_error.jsp")
+    Call<String> postSignUpError(
             @Field("userId") String userId
     );
 
     @FormUrlEncoded
-    @POST("Creators/app_requests/sign_up_error")
-    Call<String> postSignUpError(
-            @Field("userId") String userId
+    @POST("Creators/app_requests/delete_content.jsp")
+    Call<String> postDeleteContent(
+            @Field("contentId") String contentId
+    );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/delete_comment.jsp")
+    Call<String> postDeleteComment(
+            @Field("commentId") String commentId
+    );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/delete_account.jsp")
+    Call<String> postDeleteAccount(
+            @Field("userId") String userId,
+            @Field("password") String password,
+            @Field("confirmPassword") String confirmPassword
     );
 }

@@ -1,23 +1,26 @@
 package com.example.creators.classes;
 
-import android.graphics.Bitmap;
-
 public class Comment {
-    private String nickname, comment;
-    private Bitmap icon;
+    private String commentId;
+    private String userId, nickname, comment;
 
-    public Comment(String nickname, Bitmap icon, String comment) {
+    public Comment(String commentId, String userId, String nickname, String comment) {
+        this.commentId = commentId;
+        this.userId = userId;
         this.nickname = nickname;
-        this.icon = icon;
         this.comment = comment;
+    }
+
+    public String getCommentId() {
+        return commentId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     public String getNickname() {
         return nickname;
-    }
-
-    public Bitmap getIcon() {
-        return icon;
     }
 
     public String getComment() {

@@ -27,20 +27,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 
-import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.SignInActivity;
 import com.example.creators.SignUpActivity;
 import com.example.creators.app.AppHelper;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
-import com.example.creators.main_fragments.MyPageEditFragment;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
@@ -64,8 +60,7 @@ public class SignUpProcess4Fragment extends Fragment {
     private CircleImageView icon;
     private ImageView header;
 
-    private Uri iconUri, headerUri;
-    private boolean isIconChanged = false, isHeaderChanged = false;
+    private Uri iconUri = null, headerUri = null;
 
     private AppCompatDialog uploadingDialog;
 
@@ -78,7 +73,6 @@ public class SignUpProcess4Fragment extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                         iconUri = result.getData().getData();
                         icon.setImageURI(iconUri);
-                        isIconChanged = true;
                     } else {
                         Toast.makeText(SignUpProcess4Fragment.this.getActivity(), getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -95,7 +89,6 @@ public class SignUpProcess4Fragment extends Fragment {
                     if (result.getResultCode() == RESULT_OK) {
                         headerUri = result.getData().getData();
                         header.setImageURI(headerUri);
-                        isHeaderChanged = true;
                     } else {
                         Toast.makeText(SignUpProcess4Fragment.this.getActivity(), getString(R.string.not_selected), Toast.LENGTH_SHORT).show();
                     }
@@ -144,7 +137,7 @@ public class SignUpProcess4Fragment extends Fragment {
                 uploadingDialog = new AppCompatDialog(SignUpProcess4Fragment.this.getActivity());
                 uploadingDialog.setCancelable(false);
                 uploadingDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                uploadingDialog.setContentView(R.layout.upload_alert_uploading);
+                uploadingDialog.setContentView(R.layout.alert_loading);
                 uploadingDialog.show();
                 sendRequest();
             }
@@ -227,7 +220,7 @@ public class SignUpProcess4Fragment extends Fragment {
 
     private void sendIconRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        if (isIconChanged) {
+        if (iconUri != null) {
             MultipartBody.Part part = uriToMultipart(iconUri, "icon", getActivity().getContentResolver());
             Call<String> call = api.postSignUpIcon(part, ((SignUpActivity) getActivity()).id);
 
@@ -245,15 +238,18 @@ public class SignUpProcess4Fragment extends Fragment {
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                    sendErrorRequest();
                     t.printStackTrace();
                 }
             });
+        } else {
+            sendHeaderRequest();
         }
     }
 
     private void sendHeaderRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        if (isHeaderChanged) {
+        if (headerUri != null) {
             MultipartBody.Part part = uriToMultipart(headerUri, "header", getActivity().getContentResolver());
             Call<String> call = api.postSignUpHeader(part, ((SignUpActivity)getActivity()).id);
 
@@ -276,9 +272,16 @@ public class SignUpProcess4Fragment extends Fragment {
                 @Override
                 public void onFailure(Call<String> call, Throwable t) {
                     AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                    sendErrorRequest();
                     t.printStackTrace();
                 }
             });
+        } else {
+            Toast.makeText(SignUpProcess4Fragment.this.getActivity(), getString(R.string.sign_up_completed), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(SignUpProcess4Fragment.this.getActivity(), SignInActivity.class);
+            startActivity(intent);
+            SignUpProcess4Fragment.this.getActivity().finish();
         }
     }
 
@@ -289,12 +292,13 @@ public class SignUpProcess4Fragment extends Fragment {
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-
+                offUploadingDialog();
             }
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
                 AppHelper.checkError(SignUpProcess4Fragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
+                offUploadingDialog();
                 t.printStackTrace();
             }
         });
