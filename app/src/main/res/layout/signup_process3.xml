@@ -22,7 +22,6 @@
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textAlignment="gravity"
-                android:textColor="@color/black"
                 android:textSize="@dimen/textSize_large">
 
             </TextView>
@@ -58,7 +57,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:text="@string/enter_introduction"
-        android:textColor="@color/black"
         android:textSize="@dimen/textSize_normal">
 
     </TextView>
@@ -72,8 +70,7 @@
         android:gravity="start"
         android:hint="@string/enter_here"
         android:maxLength="200"
-        android:padding="5dp"
-        android:textColor="@color/black">
+        android:padding="5dp">
 
     </EditText>
 
@@ -89,11 +86,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button1"
-            android:gravity="bottom|center_horizontal"
             android:text="@string/next"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="@null"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

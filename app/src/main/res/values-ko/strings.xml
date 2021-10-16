@@ -6,7 +6,7 @@
     <string name="email">이메일</string>
     <string name="password">비밀번호</string>
     <string name="confirm_password">비밀번호 확인</string>
-    <string name="new_password">새 비밀번호</string>
+    <string name="enter_new_password">새 비밀번호 (최대 20자)</string>
     <string name="confirm_new_password">비밀번호 확인</string>
     <string name="reset_password">비밀번호 변경</string>
     <string name="passwords_do_not_match">비밀번호가 서로 다릅니다.</string>
@@ -28,7 +28,7 @@
     <string name="verification_code">인증코드</string>
     <string name="send_code">코드 전송</string>
     <string name="verify_code">코드 확인</string>
-    <string name="enter_emailPhone">이메일 주소 혹은 휴대전화 번호를 입력해주세요.</string>
+    <string name="enter_email">이메일을 입력해주세요.</string>
     <string name="sent_code">입력된 이메일로 코드를 전송했습니다.</string>
     <string name="could_not_send_code">메일을 전송할 수 없습니다. 주소와 인터넷 연결 상태를 확인해주세요.</string>
     <string name="check_verification">이메일 혹은 휴대전화 인증을 진행해주세요.</string>
@@ -70,13 +70,10 @@
     <string name="sign_up">회원가입</string>
     <string name="or">또는</string>
     <string name="forgot_password">비밀번호 찾기</string>
-    <string name="use_email_instead">이메일을 통해 진행하기</string>
-    <string name="use_a_phone_number_instead">휴대전화 번호를 통해 진행하기</string>
     <string name="id_already_exists">ID가 이미 존재합니다.</string>
     <string name="account_settings">계정 설정</string>
     <string name="change_password">비밀번호 변경</string>
     <string name="change_email">이메일 변경</string>
-    <string name="change_phone_number">휴대전화 번호 변경</string>
     <string name="application_settings">앱 설정</string>
     <string name="change_language">언어 변경</string>
     <string name="title">타이틀</string>
@@ -91,7 +88,7 @@
     <string name="enter_title">타이틀 (최대 50자)</string>
     <string name="enter_description">설명 (최대 200자)</string>
     <string name="sign_out_alert_title">로그아웃</string>
-    <string name="id_email_phone_number">아이디/이메일/휴대전화 번호</string>
+    <string name="id_email">아이디/이메일</string>
     <string name="sign_out_alert_message">정말로 로그아웃 하시겠습니까?</string>
     <string name="delete_alert_message">정말로 삭제하시겠습니까?</string>
     <string name="sign_in_failed">로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.</string>

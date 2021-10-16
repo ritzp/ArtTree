@@ -65,7 +65,7 @@
         android:id="@+id/mypage_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -85,8 +85,9 @@
                         android:id="@+id/mypage_img_header"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/header_default" />
+                        android:scaleType="centerCrop"
+                        android:src="@color/grey"
+                        app:tint="@null" />
 
                     <View
                         android:id="@+id/view2"
@@ -118,7 +119,7 @@
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_marginLeft="20dp"
-                            android:src="@drawable/rabbit1_bg"
+                            android:src="@drawable/pic_icon_default"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="1dp"
                             app:civ_circle_background_color="@color/white" />
@@ -133,7 +134,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="5dp"
-                android:text="Nickname"
                 android:textSize="@dimen/textSize_large"
                 android:textStyle="bold" />
 
@@ -142,7 +142,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:layout_margin="10dp"
-                android:text="Introduction"
                 android:textSize="@dimen/textSize_normal" />
 
             <View
@@ -235,13 +234,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/mypage_txt_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/loading"
-        android:textSize="@dimen/textSize_normal" />
 
 </LinearLayout>

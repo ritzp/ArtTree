@@ -26,7 +26,6 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:gravity="center_vertical"
-            android:text="SEARCH"
             android:textSize="@dimen/textSize_large">
 
         </TextView>
@@ -43,9 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
             android:gravity="center"
-            android:text="LIST"
             android:textAlignment="gravity"
             android:textSize="@dimen/textSize_large">
 

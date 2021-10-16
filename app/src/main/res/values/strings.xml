@@ -10,7 +10,7 @@
     <string name="password_required">The Password field is required.</string>
     <string name="nickname_required">The Nickname field is required.</string>
     <string name="id_already_exists">The ID you entered is already exists.</string>
-    <string name="new_password">New Password</string>
+    <string name="enter_new_password">New Password (max 20 characters)</string>
     <string name="confirm_new_password">Confirm New Password</string>
     <string name="reset_password">Reset Password</string>
     <string name="nickname">Nickname</string>
@@ -27,7 +27,7 @@
     <string name="verification_code">Verification Code</string>
     <string name="send_code">Send Code</string>
     <string name="verify_code">Verify Code</string>
-    <string name="enter_emailPhone">Please enter your email address or a phone number.</string>
+    <string name="enter_email">Please enter your email address.</string>
     <string name="sent_code">A mail with a verification code was sent to your email.</string>
     <string name="could_not_send_code">Could not send a mail. Please check your address and internet connection.</string>
     <string name="do_not_match_code">The code does not match.</string>
@@ -69,12 +69,9 @@
     <string name="sign_up">Sign Up</string>
     <string name="or">or</string>
     <string name="forgot_password">Forgot Password</string>
-    <string name="use_email_instead">Use email instead</string>
-    <string name="use_a_phone_number_instead">Use a phone number instead</string>
     <string name="account_settings">Account Settings</string>
     <string name="change_password">Change Password</string>
     <string name="change_email">Change Email</string>
-    <string name="change_phone_number">Change Phone Number</string>
     <string name="application_settings">Application Settings</string>
     <string name="change_language">Change Language</string>
     <string name="title">Title</string>
@@ -89,7 +86,7 @@
     <string name="enter_title">Title (max 50 characters)</string>
     <string name="enter_description">Description (max 200 characters)</string>
     <string name="sign_out_alert_title">Signing Out</string>
-    <string name="id_email_phone_number">ID/Email/Phone Number</string>
+    <string name="id_email">ID/Email</string>
     <string name="sign_out_alert_message">Are you sure you want to sign out?</string>
     <string name="delete_alert_message">Are you sure you want to delete?</string>
     <string name="sign_in_failed">Failed to sign in. Please check your ID and password.</string>

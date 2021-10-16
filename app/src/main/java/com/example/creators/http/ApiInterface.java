@@ -164,4 +164,18 @@ public interface ApiInterface {
             @Field("password") String password,
             @Field("confirmPassword") String confirmPassword
     );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/change_email.jsp")
+    Call<String> postChangeEmail(
+            @Field("userId") String userId,
+            @Field("email") String email
+    );
+
+    @FormUrlEncoded
+    @POST("Creators/app_requests/change_password.jsp")
+    Call<String> postChangePassword(
+            @Field("userId") String userId,
+            @Field("newPassword") String newPassword
+    );
 }

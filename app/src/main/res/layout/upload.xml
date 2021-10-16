@@ -87,17 +87,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
-            </LinearLayout>
+                <Button
+                    android:id="@+id/upload_btn_fileUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/button1"
+                    android:text="@string/upload"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/upload_btn_fileUpload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginBottom="10dp"
-                android:text="@string/upload"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                app:backgroundTint="@color/main_color" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/upload_txt_textContent"
@@ -189,11 +189,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button1"
-            app:backgroundTint="@color/main_color"
-            android:gravity="bottom|center_horizontal"
             android:text="@string/upload"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

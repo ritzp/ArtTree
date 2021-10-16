@@ -24,6 +24,7 @@ import com.example.creators.R;
 import com.example.creators.adapters.ContentListAdapter;
 import com.example.creators.adapters.OnItemClickListener;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.LoadingDialog;
 import com.example.creators.classes.Content;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
@@ -46,7 +47,9 @@ public class ContentListFragment extends Fragment {
     private TextView searchHeaderText, categoryHeaderText;
     private RecyclerView list;
 
-    private String searchMethod, keyword;
+    private LoadingDialog loadingDialog;
+
+    private String searchMethod, keyword = null;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,6 +104,8 @@ public class ContentListFragment extends Fragment {
             }
         });
 
+        loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
+        loadingDialog.show();
         sendRequest();
 
         return root;
@@ -108,21 +113,22 @@ public class ContentListFragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        String categoryKeyword = null;
-        if (keyword.equals(getActivity().getString(R.string.photo))) {
-            categoryKeyword = "photo";
-        } else if (keyword.equals(getActivity().getString(R.string.drawing))) {
-            categoryKeyword = "drawing";
-        } else if (keyword.equals(getActivity().getString(R.string.music))) {
-            categoryKeyword = "music";
-        } else if (keyword.equals(getActivity().getString(R.string.video))) {
-            categoryKeyword = "video";
-        } else if (keyword.equals(getActivity().getString(R.string.cartoon))) {
-            categoryKeyword = "cartoon";
-        } else if (keyword.equals(getActivity().getString(R.string.novel))) {
-            categoryKeyword = "novel";
+        if (searchMethod.equals("category")) {
+            if (keyword.equals(getActivity().getString(R.string.photo))) {
+                keyword = "photo";
+            } else if (keyword.equals(getActivity().getString(R.string.drawing))) {
+                keyword = "drawing";
+            } else if (keyword.equals(getActivity().getString(R.string.music))) {
+                keyword = "music";
+            } else if (keyword.equals(getActivity().getString(R.string.video))) {
+                keyword = "video";
+            } else if (keyword.equals(getActivity().getString(R.string.cartoon))) {
+                keyword = "cartoon";
+            } else if (keyword.equals(getActivity().getString(R.string.novel))) {
+                keyword = "novel";
+            }
         }
-        Call<ContentListResponse> call = api.postContentList(searchMethod, categoryKeyword, AppHelper.getAccessingUserid());
+        Call<ContentListResponse> call = api.postContentList(searchMethod, keyword, AppHelper.getAccessingUserid());
 
         call.enqueue(new Callback<ContentListResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -140,12 +146,14 @@ public class ContentListFragment extends Fragment {
                     );
                 }
                 adapter.notifyDataSetChanged();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<ContentListResponse> call, Throwable t) {
                 AppHelper.checkError(ContentListFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+                loadingDialog.off();
             }
         });
     }

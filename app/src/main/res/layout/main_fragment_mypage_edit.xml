@@ -83,8 +83,9 @@
                             android:id="@+id/mypageedt_img_header"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@drawable/header_default" />
+                            android:scaleType="centerCrop"
+                            android:src="@color/grey"
+                            app:tint="@null"/>
 
                         <ImageView
                             android:layout_width="match_parent"
@@ -130,7 +131,7 @@
                             android:id="@+id/mypageedt_img_icon"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
-                            android:src="@drawable/rabbit1_bg"
+                            android:src="@drawable/pic_icon_default"
                             app:civ_border_color="@color/white"
                             app:civ_border_width="1dp"
                             app:civ_circle_background_color="@color/white" />
@@ -185,11 +186,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:backgroundTint="@color/main_color"
-                    android:gravity="bottom|center_horizontal"
+                    android:background="@drawable/button1"
                     android:text="@string/submit"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="@color/white"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
             </LinearLayout>
 
         </LinearLayout>

@@ -54,7 +54,6 @@ public class ContentActivity extends AppCompatActivity {
     private CommentAdapter adapter;
 
     private ContentViewModel viewModel;
-    private View loading, view, fragment;
     private ImageView close, icon, writeComment, like;
     private EditText comment;
     private TextView title, description, nickname, views, likes, comments;
@@ -77,8 +76,6 @@ public class ContentActivity extends AppCompatActivity {
         commentArray = new ArrayList<>();
         adapter = new CommentAdapter(commentArray);
 
-        loading = findViewById(R.id.content_loading);
-        view = findViewById(R.id.content_view);
         close = findViewById(R.id.content_close);
         title = findViewById(R.id.content_title);
         description = findViewById(R.id.content_desc);
@@ -94,6 +91,8 @@ public class ContentActivity extends AppCompatActivity {
 
         commentList.setLayoutManager(new LinearLayoutManager(this));
         commentList.setAdapter(adapter);
+
+        loadingDialog = new LoadingDialog(this, R.layout.alert_loading);
 
         viewModel.getTitle().observe(this, new Observer<String>() {
             @Override
@@ -157,7 +156,6 @@ public class ContentActivity extends AppCompatActivity {
                 alertBuilder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        loadingDialog = new LoadingDialog(ContentActivity.this, R.layout.alert_loading);
                         loadingDialog.show();
                         sendDeleteCommentRequest(commentArray.get(pos).getCommentId());
                     }
@@ -178,7 +176,9 @@ public class ContentActivity extends AppCompatActivity {
                     return;
                 } else if (comment.getText().length() > 200) {
                     Toast.makeText(ContentActivity.this, getString(R.string.comment_over_chars), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                loadingDialog.show();
                 sendCommentRequest();
             }
         });
@@ -202,6 +202,7 @@ public class ContentActivity extends AppCompatActivity {
             }
         });
 
+        loadingDialog.show();
         sendRequest("true");
     }
 
@@ -253,7 +254,7 @@ public class ContentActivity extends AppCompatActivity {
                 viewModel.getNickname().setValue(response.body().getContent().get(0).getNickname());
                 viewModel.getIsLiked().setValue(response.body().getContent().get(0).getIsLiked());
                 viewModel.getComments().setValue(response.body().getContent().get(0).getComments());
-                Picasso.get().load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).into(icon);
+                Picasso.get().load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
 
                 if (response.body().getContent().get(0).getComments() > 0) {
                     for (int i = 0; i < response.body().getComment().size(); i++) {
@@ -266,14 +267,14 @@ public class ContentActivity extends AppCompatActivity {
                     }
                 }
                 adapter.notifyDataSetChanged();
-
-                loadView();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<ContentResponse> call, Throwable t) {
                 AppHelper.checkError(ContentActivity.this, AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+                loadingDialog.off();
             }
         });
     }
@@ -289,6 +290,7 @@ public class ContentActivity extends AppCompatActivity {
                     return;
 
                 if (response.body().equals("SUCCESS"))
+                    comment.setText("");
                     refresh();
             }
 
@@ -310,12 +312,14 @@ public class ContentActivity extends AppCompatActivity {
                 viewModel.getIsLiked().setValue(response.body().getLike());
                 viewModel.getLikes().setValue(response.body().getLikes());
                 isLiked = response.body().getLike();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<Like> call, Throwable t) {
                 AppHelper.checkError(ContentActivity.this, AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+                loadingDialog.off();
             }
         });
     }
@@ -348,14 +352,8 @@ public class ContentActivity extends AppCompatActivity {
         });
     }
 
-    private void loadView() {
-        loading.setVisibility(View.GONE);
-        view.setVisibility(View.VISIBLE);
-    }
-
     private void refresh() {
-        loading.setVisibility(View.VISIBLE);
-        view.setVisibility(View.GONE);
+        loadingDialog.show();
         commentArray.clear();
         sendRequest("false");
     }

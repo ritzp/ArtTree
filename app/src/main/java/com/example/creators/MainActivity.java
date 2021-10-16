@@ -79,4 +79,12 @@ public class MainActivity extends AppCompatActivity {
     public void replaceFragmentToSettingsDeleteAccount() {
         navController.navigate(R.id.navigation_settingsDeleteAccount);
     }
+
+    public void replaceFragmentToSettingsEmail() {
+        navController.navigate(R.id.navigation_settingsEmail);
+    }
+
+    public void replaceFragmentToSettingsPassword() {
+        navController.navigate(R.id.navigation_settingsPassword);
+    }
 }

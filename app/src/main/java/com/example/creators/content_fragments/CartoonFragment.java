@@ -61,7 +61,7 @@ public class CartoonFragment extends Fragment {
     private void downloadImage() {
         ImageResize.context = getActivity();
         if (extension.length <= 1) {
-            Picasso.get().load(RetrofitClient.getContentUrl("cartoon", contentId, extension[0])).transform(new ImageResize()).into(image);
+            Picasso.get().load(RetrofitClient.getContentUrl("cartoon", contentId, extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
         } else {
             Picasso.get().load(RetrofitClient.getContentUrl("cartoon", contentId + "-0", extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
         }

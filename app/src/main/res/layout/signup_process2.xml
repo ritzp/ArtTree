@@ -22,7 +22,6 @@
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textAlignment="gravity"
-                android:textColor="@color/black"
                 android:textSize="@dimen/textSize_large">
 
             </TextView>
@@ -64,7 +63,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enter_id"
-            android:textColor="@color/black"
             android:textSize="@dimen/textSize_normal">
 
         </TextView>
@@ -76,7 +74,8 @@
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
             android:maxLength="20"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:maxLines="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -89,7 +88,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/enter_password"
-            android:textColor="@color/black"
             android:textSize="@dimen/textSize_normal" />
 
         <EditText
@@ -99,7 +97,8 @@
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
             android:maxLength="20"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -113,8 +112,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textSize_normal"
-            android:text="@string/confirm_password"
-            android:textColor="@color/black">
+            android:text="@string/confirm_password">
 
         </TextView>
 
@@ -125,7 +123,8 @@
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
             android:maxLength="20"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:maxLines="1"/>
     </LinearLayout>
 
     <LinearLayout
@@ -138,8 +137,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/textSize_normal"
-            android:text="@string/enter_nickname"
-            android:textColor="@color/black" />
+            android:text="@string/enter_nickname" />
 
         <EditText
             android:id="@+id/signup_process2_edt_nickname"
@@ -147,7 +145,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -163,11 +162,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button1"
-            android:gravity="bottom|center_horizontal"
             android:text="@string/next"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="@null" />
+            android:textColor="@color/white"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
     </LinearLayout>
 
 

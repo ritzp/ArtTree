@@ -83,6 +83,20 @@ public class SettingsMainFragment extends Fragment {
             }
         });
 
+        email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)SettingsMainFragment.this.getActivity()).replaceFragmentToSettingsEmail();
+            }
+        });
+
+        password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)SettingsMainFragment.this.getActivity()).replaceFragmentToSettingsPassword();
+            }
+        });
+
         language.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

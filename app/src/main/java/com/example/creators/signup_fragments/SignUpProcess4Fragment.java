@@ -1,21 +1,16 @@
 package com.example.creators.signup_fragments;
 
-import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -38,14 +33,8 @@ import com.example.creators.http.RetrofitClient;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
 import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okio.BufferedSink;
-import okio.Okio;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,8 +45,7 @@ public class SignUpProcess4Fragment extends Fragment {
 
     private ApiInterface api;
 
-    private TextView getIcon, getHeader;
-    private Button submit;
+    private Button submit, getIcon, getHeader;
     private ImageView back;
     private CircleImageView icon;
     private ImageView header;
@@ -106,8 +94,8 @@ public class SignUpProcess4Fragment extends Fragment {
 
         submit = root.findViewById(R.id.signup_process4_btn_submit);
         back = root.findViewById(R.id.signup_process4_img_back);
-        getIcon = root.findViewById(R.id.signup_process4_txt_getIcon);
-        getHeader = root.findViewById(R.id.signup_process4_txt_getHeader);
+        getIcon = root.findViewById(R.id.signup_process4_btn_getIcon);
+        getHeader = root.findViewById(R.id.signup_process4_btn_getHeader);
         icon = root.findViewById(R.id.signup_process4_img_icon);
         header = root.findViewById(R.id.signup_process4_img_header);
 

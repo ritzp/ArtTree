@@ -20,6 +20,7 @@ import com.example.creators.R;
 import com.example.creators.adapters.HomeContentListAdapter;
 import com.example.creators.adapters.OnItemClickListener;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.LoadingDialog;
 import com.example.creators.classes.Content;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
@@ -38,6 +39,8 @@ public class HomeFragment extends Fragment {
     private HomeContentListAdapter adapter;
 
     private RecyclerView recycler;
+
+    private LoadingDialog loadingDialog;
 
     public static Context context;
 
@@ -68,6 +71,8 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
+        loadingDialog.show();
         sendRequest();
 
         return root;
@@ -93,12 +98,14 @@ public class HomeFragment extends Fragment {
                     );
                 }
                 adapter.notifyDataSetChanged();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<ContentListResponse> call, Throwable t) {
                 AppHelper.checkError(HomeFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+                loadingDialog.off();
             }
         });
     }

@@ -23,6 +23,7 @@ import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
 import com.example.creators.app.ImageResize;
+import com.example.creators.app.LoadingDialog;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.MyPageResponse;
@@ -44,6 +45,8 @@ public class MyPageFragment extends Fragment {
     private TextView nickname, introduction, content, likes;
     private ImageView icon, header, edit, settings;
     private LinearLayout myContent;
+
+    private LoadingDialog loadingDialog;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -68,11 +71,14 @@ public class MyPageFragment extends Fragment {
         header = root.findViewById(R.id.mypage_img_header);
         myContent = root.findViewById(R.id.mypage_myContent);
 
+        loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
+        loadingDialog.show();
+
         viewModel.getUserId().setValue("testId1");
         sendRequest();
 
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).error(R.drawable.pic_icon_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).error(R.drawable.header_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
+        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
+        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -148,19 +154,16 @@ public class MyPageFragment extends Fragment {
                 viewModel.getContent().setValue(response.body().getContent());
                 viewModel.getLikes().setValue(response.body().getLikes());
 
-                loadView();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<MyPageResponse> call, Throwable t) {
                 AppHelper.checkError(MyPageFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+
+                loadingDialog.off();
             }
         });
-    }
-
-    private void loadView() {
-        loading.setVisibility(View.GONE);
-        view.setVisibility(View.VISIBLE);
     }
 }

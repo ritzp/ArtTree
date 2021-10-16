@@ -81,7 +81,6 @@
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_margin="10dp"
-                            android:src="@drawable/rabbit1_bg"
                             app:civ_circle_background_color="@color/white" />
 
                         <TextView
@@ -228,14 +227,5 @@
         </LinearLayout>
 
     </FrameLayout>
-
-    <TextView
-        android:id="@+id/content_loading"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="@string/loading"
-        android:textSize="@dimen/textSize_normal"
-        android:visibility="gone" />
 
 </LinearLayout>

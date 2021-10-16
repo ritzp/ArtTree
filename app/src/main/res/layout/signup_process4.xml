@@ -23,7 +23,6 @@
                 android:gravity="center"
                 android:text="@string/sign_up"
                 android:textAlignment="gravity"
-                android:textColor="@color/black"
                 android:textSize="@dimen/textSize_large">
 
             </TextView>
@@ -70,19 +69,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/profile_icon_image"
-                android:textColor="@color/black" />
+                android:text="@string/profile_icon_image" />
 
-            <TextView
-                android:id="@+id/signup_process4_txt_getIcon"
+            <Button
+                android:id="@+id/signup_process4_btn_getIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:padding="10dp"
-                android:background="@drawable/button2"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/button1"
                 android:text="@string/upload"
-                android:textColor="@color/black"
-                android:textSize="@dimen/textSize_normal" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -96,6 +93,8 @@
                 android:id="@+id/signup_process4_img_icon"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:src="@color/grey"
+                app:tint="@null"
                 tools:srcCompat="@drawable/header_default"/>
         </LinearLayout>
 
@@ -110,19 +109,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/header_image"
-            android:textColor="@color/black" />
+            android:text="@string/header_image" />
 
-        <TextView
-            android:id="@+id/signup_process4_txt_getHeader"
+        <Button
+            android:id="@+id/signup_process4_btn_getHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:padding="10dp"
-            android:background="@drawable/button2"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button1"
             android:text="@string/upload"
-            android:textColor="@color/black"
-            android:textSize="@dimen/textSize_normal" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <ImageView
@@ -130,8 +127,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp"
-        android:scaleType="fitXY"
-        tools:srcCompat="@drawable/header_default" />
+        android:src="@color/grey"
+        app:tint="@null"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -145,11 +142,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:background="@drawable/button1"
-            android:gravity="bottom|center_horizontal"
             android:text="@string/next"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF"
-            app:backgroundTint="@null" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 

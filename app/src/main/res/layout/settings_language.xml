@@ -52,18 +52,31 @@
         android:layout_height="2dp"
         android:background="@color/main_color" />
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/language"
-        android:textSize="@dimen/textSize_large" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-    <Spinner
-        android:id="@+id/settingslan_spn_language"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@string/language"
+            android:textSize="@dimen/textSize_normal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=":"
+            android:textSize="@dimen/textSize_normal" />
+
+        <Spinner
+            android:id="@+id/settingslan_spn_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,11 +89,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
-            android:gravity="bottom|center_horizontal"
             android:text="@string/submit"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF" />
+            android:background="@drawable/button1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

@@ -71,7 +71,7 @@ public class MyContentListFragment extends Fragment {
         list.setLayoutManager(new LinearLayoutManager(getActivity()));
         list.setAdapter(adapter);
 
-        sendRequest();
+        loadingDialog = new LoadingDialog(MyContentListFragment.this.getActivity(), R.layout.alert_loading);
 
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -91,7 +91,6 @@ public class MyContentListFragment extends Fragment {
                 alertBuilder.setPositiveButton(getString(R.string.delete), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        loadingDialog = new LoadingDialog(MyContentListFragment.this.getActivity(), R.layout.alert_loading);
                         loadingDialog.show();
                         sendDeleteRequest(myContentArray.get(pos).getContentId());
                     }
@@ -119,6 +118,9 @@ public class MyContentListFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        loadingDialog.show();
+        sendRequest();
 
         return root;
     }
@@ -155,12 +157,14 @@ public class MyContentListFragment extends Fragment {
                     ));
                 }
                 adapter.notifyDataSetChanged();
+                loadingDialog.off();
             }
 
             @Override
             public void onFailure(Call<MyContentListResponse> call, Throwable t) {
                 AppHelper.checkError(MyContentListFragment.this.getActivity(), AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
+                loadingDialog.off();
             }
         });
     }

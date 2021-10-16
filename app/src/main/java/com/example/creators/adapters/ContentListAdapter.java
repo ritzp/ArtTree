@@ -48,7 +48,7 @@ public class ContentListAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder)holder;
         viewHolder.title.setText(contentArray.get(position).getTitle());
         viewHolder.nickname.setText(contentArray.get(position).getNickname());
-        Picasso.get().load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).into(viewHolder.icon);
+        Picasso.get().load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

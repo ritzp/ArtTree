@@ -25,8 +25,8 @@ public class SignInActivity extends AppCompatActivity {
     private ApiInterface api;
 
     private EditText id, password;
-    private Button signIn, signUp;
-    private TextView forgotPassword;
+    private Button signIn;
+    private TextView forgotPassword, signUp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         id = findViewById(R.id.signin_edt_id);
         password = findViewById(R.id.signin_edt_pass);
         signIn = findViewById(R.id.signin_btn_signin);
-        signUp = findViewById(R.id.signin_btn_signUp);
+        signUp = findViewById(R.id.signin_txt_signUp);
         forgotPassword = findViewById(R.id.signin_txt_forgotPass);
 
         signIn.setOnClickListener(new View.OnClickListener() {

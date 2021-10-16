@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,7 +61,7 @@ public class DrawingFragment extends Fragment {
     private void downloadImage() {
         ImageResize.context = getActivity();
         if (extension.length <= 1) {
-            Picasso.get().load(RetrofitClient.getContentUrl("drawing", contentId, extension[0])).transform(new ImageResize()).into(image);
+            Picasso.get().load(RetrofitClient.getContentUrl("drawing", contentId, extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
         } else {
             Picasso.get().load(RetrofitClient.getContentUrl("drawing", contentId + "-0", extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
         }

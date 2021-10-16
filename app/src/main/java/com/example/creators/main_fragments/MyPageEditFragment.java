@@ -110,8 +110,8 @@ public class MyPageEditFragment extends Fragment {
 
         nickname.setText(bundle.getString("nickname"));
         introduction.setText(bundle.getString("introduction"));
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).into(header);
+        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
 
         iconBtn.setOnClickListener(new View.OnClickListener() {
             @Override

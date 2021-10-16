@@ -56,11 +56,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/main_color"
-            android:gravity="bottom|center_horizontal"
+            android:background="@drawable/button1"
             android:text="@string/submit"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="#FFFFFF" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>
