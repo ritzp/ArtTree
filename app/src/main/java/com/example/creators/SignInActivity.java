@@ -1,9 +1,13 @@
 package com.example.creators;
 
 import android.content.Intent;
-import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,6 +21,9 @@ import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.SignInResponse;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -27,6 +34,7 @@ public class SignInActivity extends AppCompatActivity {
     private EditText id, password;
     private Button signIn;
     private TextView forgotPassword, signUp;
+    private View logo, form;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +47,8 @@ public class SignInActivity extends AppCompatActivity {
         signIn = findViewById(R.id.signin_btn_signin);
         signUp = findViewById(R.id.signin_txt_signUp);
         forgotPassword = findViewById(R.id.signin_txt_forgotPass);
+        logo = findViewById(R.id.signin_logo);
+        form = findViewById(R.id.signin_enterUserInfo);
 
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +74,14 @@ public class SignInActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        Animation logoAnim = AnimationUtils.loadAnimation(this, R.anim.signin_logo);
+        Animation formAnim = AnimationUtils.loadAnimation(this, R.anim.signin_form);
+        logo.startAnimation(logoAnim);
+        form.startAnimation(formAnim);
+        signIn.startAnimation(formAnim);
+        forgotPassword.startAnimation(formAnim);
+        signUp.startAnimation(formAnim);
     }
 
     private void sendRequest() {
