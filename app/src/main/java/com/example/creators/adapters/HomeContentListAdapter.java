@@ -1,25 +1,21 @@
 package com.example.creators.adapters;
 
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.creators.R;
 import com.example.creators.classes.Content;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.main_fragments.HomeFragment;
-import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -66,7 +62,7 @@ public class HomeContentListAdapter extends RecyclerView.Adapter {
         viewHolder.views.setText(String.valueOf(contentArray.get(position).getViews()));
         viewHolder.likes.setText(String.valueOf(contentArray.get(position).getLikes()));
         viewHolder.nickname.setText(contentArray.get(position).getNickname());
-        Picasso.get().load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
+        Glide.with(HomeFragment.context).load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
     }
 
     @Override

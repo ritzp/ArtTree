@@ -6,24 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.adapters.CategoriesAdapter;
 import com.example.creators.adapters.OnItemClickListener;
-import com.example.creators.viewmodels.CategoriesViewModel;
+import com.example.creators.classes.Category;
+
+import java.util.ArrayList;
 
 public class CategoriesFragment extends Fragment {
 
     public static Context context;
 
-    private CategoriesViewModel viewModel;
+    private ArrayList<Category> categoryArray;
     private CategoriesAdapter adapter;
     private GridView categoryList;
 
@@ -31,13 +31,20 @@ public class CategoriesFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity();
-        viewModel = new ViewModelProvider(this).get(CategoriesViewModel.class);
+        final int[] imgs = {R.drawable.pic_photo, R.drawable.pic_drawing, R.drawable.pic_music, R.drawable.pic_video, R.drawable.pic_cartoon, R.drawable.pic_novel};
+        final String[] txts = {CategoriesFragment.context.getString(R.string.photo), CategoriesFragment.context.getString(R.string.drawing),
+                CategoriesFragment.context.getString(R.string.music),CategoriesFragment.context.getString(R.string.video),
+                CategoriesFragment.context.getString(R.string.cartoon), CategoriesFragment.context.getString(R.string.novel)};
+        categoryArray = new ArrayList<>();
+        for (int i=0; i<imgs.length; i++) {
+            categoryArray.add(new Category(imgs[i], txts[i]));
+        }
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.main_fragment_categories, container, false);
 
-        adapter = new CategoriesAdapter(viewModel.getCategoryArray());
+        adapter = new CategoriesAdapter(categoryArray);
 
         categoryList = root.findViewById(R.id.categoies_categoryList);
 

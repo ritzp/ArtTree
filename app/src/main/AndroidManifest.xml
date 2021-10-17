@@ -24,6 +24,7 @@
         <activity android:name=".UploadActivity" />
         <activity android:name=".UploadTextEditActivity" />
         <activity android:name=".ContentDetailActivity" />
+        <activity android:name=".UserPageActivity" />
         <uses-library android:name="org.apache.http.legacy" android:required="false" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>

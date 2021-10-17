@@ -162,7 +162,8 @@
                 android:layout_marginTop="5dp"
                 android:hint="@string/nickname"
                 android:textSize="@dimen/textSize_large"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:maxLines="1"/>
 
             <EditText
                 android:id="@+id/mypageedt_edt_intro"

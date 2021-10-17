@@ -8,11 +8,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.creators.ContentActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
 import com.example.creators.classes.Comment;
 import com.example.creators.http.RetrofitClient;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class CommentAdapter extends RecyclerView.Adapter {
         ViewHolder viewHolder = (ViewHolder)holder;
         viewHolder.nickname.setText(commentArray.get(position).getNickname());
         viewHolder.comment.setText(commentArray.get(position).getComment());
-        Picasso.get().load(RetrofitClient.getIconUrl(commentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
+        Glide.with(ContentActivity.context).load(RetrofitClient.getIconUrl(commentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
         if (commentArray.get(position).getUserId().equals(AppHelper.getAccessingUserid())) {
             viewHolder.delete.setVisibility(View.VISIBLE);
         }

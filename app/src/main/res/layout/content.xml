@@ -17,19 +17,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/content_fragmentContainer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <fragment
-                    android:id="@+id/content_fragment"
-                    android:name="com.example.creators.content_fragments.LoadingFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </FrameLayout>
-
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,6 +27,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+
+                    <FrameLayout
+                        android:id="@+id/content_fragmentContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <fragment
+                            android:id="@+id/content_fragment"
+                            android:name="com.example.creators.content_fragments.LoadingFragment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/content_title"
@@ -71,6 +70,7 @@
                         android:background="@color/grey" />
 
                     <LinearLayout
+                        android:id="@+id/content_user"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -180,7 +180,8 @@
                                 android:layout_weight="1"
                                 android:hint="@string/enter_comment"
                                 android:maxLength="200"
-                                android:textSize="@dimen/textSize_normal" />
+                                android:textSize="@dimen/textSize_normal"
+                                android:maxLines="1"/>
 
                             <ImageView
                                 android:id="@+id/content_img_writeComment"

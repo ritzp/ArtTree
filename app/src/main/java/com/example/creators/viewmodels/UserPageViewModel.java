@@ -3,14 +3,14 @@ package com.example.creators.viewmodels;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class MyPageViewModel extends ViewModel {
+public class UserPageViewModel extends ViewModel {
     private MutableLiveData<String> userId;
     private MutableLiveData<String> nickname;
     private MutableLiveData<String> introduction;
     private MutableLiveData<Integer> content;
     private MutableLiveData<Integer> likes;
 
-    public MyPageViewModel() {
+    public UserPageViewModel() {
         try {
             this.userId = new MutableLiveData<>();
             this.nickname = new MutableLiveData<>();

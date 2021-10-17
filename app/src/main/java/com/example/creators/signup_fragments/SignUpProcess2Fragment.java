@@ -19,6 +19,7 @@ import com.example.creators.R;
 import com.example.creators.SignInActivity;
 import com.example.creators.SignUpActivity;
 import com.example.creators.app.AppHelper;
+import com.example.creators.app.RegExp;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.SignInResponse;
@@ -36,6 +37,8 @@ public class SignUpProcess2Fragment extends Fragment {
     private ImageView back;
     private EditText id, password, passwordConfirm, nickname;
 
+    private RegExp regExp;
+
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.signup_process2, container, false);
 
@@ -50,26 +53,31 @@ public class SignUpProcess2Fragment extends Fragment {
         password.setText(((SignUpActivity)getActivity()).password);
         nickname.setText(((SignUpActivity)getActivity()).nickname);
 
+        regExp = new RegExp();
+
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (id.getText().length() <= 0) {
-                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.id_required), Toast.LENGTH_SHORT).show();
+                if (!regExp.isIdMatches(id.getText().toString())) {
+                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.id_not_matches_regex), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                if (password.getText().length() <= 0) {
-                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.password_required), Toast.LENGTH_SHORT).show();
+                if (!regExp.isPasswordMatches(password.getText().toString())) {
+                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.password_not_matches_regex), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!password.getText().toString().equals(passwordConfirm.getText().toString())) {
+                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
                 if (nickname.getText().length() <= 0) {
                     Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.nickname_required), Toast.LENGTH_SHORT).show();
                     return;
-                }
-
-                if (!password.getText().toString().equals(passwordConfirm.getText().toString())) {
-                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
+                } else if (nickname.getText().length() > 20) {
+                    Toast.makeText(SignUpProcess2Fragment.this.getActivity(), getString(R.string.nickname_over_chars), Toast.LENGTH_SHORT).show();
                     return;
                 }
 

@@ -19,9 +19,11 @@ import com.example.creators.R;
 import com.example.creators.SignInActivity;
 import com.example.creators.app.AppHelper;
 import com.example.creators.app.LoadingDialog;
+import com.example.creators.app.RegExp;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.SignInResponse;
+import com.example.creators.signup_fragments.SignUpProcess2Fragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,7 +37,7 @@ public class SettingsPasswordFragment extends Fragment {
     private Button submit;
 
     private LoadingDialog loadingDialog;
-    private boolean checkResult;
+    private RegExp regExp;
 
     @Nullable
     @Override
@@ -48,6 +50,8 @@ public class SettingsPasswordFragment extends Fragment {
         newPasswordConfirm = root.findViewById(R.id.settingspass_edt_newPassCon);
         submit = root.findViewById(R.id.settingspass_btn_submit);
 
+        regExp = new RegExp();
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,13 +62,19 @@ public class SettingsPasswordFragment extends Fragment {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (newPassword.getText().toString().equals(newPasswordConfirm.getText().toString())) {
-                    loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
-                    loadingDialog.show();
-                    sendCheckRequest();
-                } else {
-                    Toast.makeText(SettingsPasswordFragment.this.getActivity(), getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
+                if (!regExp.isPasswordMatches(password.getText().toString())) {
+                    Toast.makeText(getActivity(), getString(R.string.password_not_matches_regex), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                if (!newPassword.getText().toString().equals(newPasswordConfirm.getText().toString())) {
+                    Toast.makeText(SettingsPasswordFragment.this.getActivity(), getString(R.string.passwords_do_not_match), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
+                loadingDialog.show();
+                sendCheckRequest();
             }
         });
 

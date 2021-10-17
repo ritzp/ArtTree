@@ -1,5 +1,6 @@
 package com.example.creators.main_fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,9 +52,12 @@ public class ContentListFragment extends Fragment {
 
     private String searchMethod, keyword = null;
 
+    public static Context context;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this.getActivity();
         bundle = getArguments();
         searchMethod = bundle.getString("searchMethod");
         keyword = bundle.getString("keyword");

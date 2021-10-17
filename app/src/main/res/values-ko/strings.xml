@@ -11,9 +11,10 @@
     <string name="reset_password">비밀번호 변경</string>
     <string name="passwords_do_not_match">비밀번호가 서로 다릅니다.</string>
     <string name="password_invalid">비밀번호가 틀립니다.</string>
-    <string name="id_required">아이디를 입력해주세요.</string>
-    <string name="password_required">패스워드를 입력해주세요.</string>
+    <string name="id_not_matches_regex">아이디는 4~20자여야 합니다.</string>
+    <string name="password_not_matches_regex">비밀번호는 4~20자여야 합니다.</string>
     <string name="nickname_required">닉네임을 입력해주세요.</string>
+    <string name="nickname_over_chars">닉네임은 20자 이내여야 합니다.</string>
     <string name="nickname">닉네임</string>
     <string name="introduction">자기소개</string>
     <string name="profile">프로필</string>

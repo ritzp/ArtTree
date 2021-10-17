@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/title"
+                    android:text="@string/enter_title"
                     android:textSize="@dimen/textSize_normal" />
 
                 <EditText
@@ -142,7 +142,8 @@
                     android:layout_margin="10dp"
                     android:hint="@string/enter_here"
                     android:maxLength="50"
-                    android:textSize="@dimen/textSize_large" />
+                    android:textSize="@dimen/textSize_large"
+                    android:maxLines="1"/>
 
             </LinearLayout>
 
@@ -157,8 +158,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="10dp"
                     android:layout_marginTop="10dp"
-                    android:text="@string/description"
                     android:maxLength="200"
+                    android:text="@string/enter_description"
                     android:textSize="@dimen/textSize_normal" />
 
                 <EditText

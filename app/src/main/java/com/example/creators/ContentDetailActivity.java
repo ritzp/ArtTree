@@ -1,6 +1,7 @@
 package com.example.creators;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -24,10 +25,13 @@ public class ContentDetailActivity extends Activity {
     private View textContainer;
     private ImageView close;
 
+    public static Context context;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_detail);
+        context = this;
 
         imgRecycler = findViewById(R.id.contentdetail_imgList);
         textView = findViewById(R.id.contentdetail_txt_txt);

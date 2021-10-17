@@ -27,7 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:hint="@string/enter_keyword"
-            android:maxLength="50" />
+            android:maxLength="50"
+            android:maxLines="1"/>
     </LinearLayout>
 
 </LinearLayout>

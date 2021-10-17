@@ -1,14 +1,14 @@
 package com.example.creators;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.creators.adapters.CommentAdapter;
 import com.example.creators.adapters.OnItemClickListener;
 import com.example.creators.app.AppHelper;
@@ -36,9 +37,7 @@ import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.ContentResponse;
 import com.example.creators.http.response.classes.Like;
-import com.example.creators.main_fragments.MyContentListFragment;
 import com.example.creators.viewmodels.ContentViewModel;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,6 +48,7 @@ import retrofit2.Response;
 public class ContentActivity extends AppCompatActivity {
 
     private ApiInterface api;
+    public static Context context;
 
     private ArrayList<Comment> commentArray;
     private CommentAdapter adapter;
@@ -58,6 +58,7 @@ public class ContentActivity extends AppCompatActivity {
     private EditText comment;
     private TextView title, description, nickname, views, likes, comments;
     private RecyclerView commentList;
+    private View user;
 
     private String contentId;
     private boolean isLiked = false;
@@ -69,6 +70,7 @@ public class ContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content);
         getSupportActionBar().hide();
+        context = this;
 
         Intent intent = getIntent();
         contentId = intent.getStringExtra("contentId");
@@ -88,6 +90,7 @@ public class ContentActivity extends AppCompatActivity {
         writeComment = findViewById(R.id.content_img_writeComment);
         like = findViewById(R.id.content_img_like);
         commentList = findViewById(R.id.content_commentsList);
+        user = findViewById(R.id.content_user);
 
         commentList.setLayoutManager(new LinearLayoutManager(this));
         commentList.setAdapter(adapter);
@@ -202,6 +205,17 @@ public class ContentActivity extends AppCompatActivity {
             }
         });
 
+        user.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewModel.getUserId().getValue() != null) {
+                    Intent intent = new Intent(ContentActivity.this, UserPageActivity.class);
+                    intent.putExtra("userId", viewModel.getUserId().getValue());
+                    startActivity(intent);
+                }
+            }
+        });
+
         loadingDialog.show();
         sendRequest("true");
     }
@@ -254,7 +268,7 @@ public class ContentActivity extends AppCompatActivity {
                 viewModel.getNickname().setValue(response.body().getContent().get(0).getNickname());
                 viewModel.getIsLiked().setValue(response.body().getContent().get(0).getIsLiked());
                 viewModel.getComments().setValue(response.body().getContent().get(0).getComments());
-                Picasso.get().load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+                Glide.with(ContentActivity.this).load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
 
                 if (response.body().getContent().get(0).getComments() > 0) {
                     for (int i = 0; i < response.body().getComment().size(); i++) {

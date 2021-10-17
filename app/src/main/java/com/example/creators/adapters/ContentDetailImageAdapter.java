@@ -8,11 +8,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.creators.ContentDetailActivity;
 import com.example.creators.R;
-import com.example.creators.app.ImageResize;
 import com.example.creators.http.RetrofitClient;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 public class ContentDetailImageAdapter extends RecyclerView.Adapter {
     private String category;
@@ -40,7 +39,7 @@ public class ContentDetailImageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder)holder;
-        Picasso.get().load(RetrofitClient.getContentUrl(category, contentId + "-" + position, extension[0])).transform(new ImageResize()).networkPolicy(NetworkPolicy.NO_CACHE).into(viewHolder.img);
+        Glide.with(ContentDetailActivity.context).load(RetrofitClient.getContentUrl(category, contentId + "-" + position, extension[0])).into(viewHolder.img);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

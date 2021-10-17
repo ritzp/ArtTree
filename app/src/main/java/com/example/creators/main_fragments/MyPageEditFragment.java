@@ -24,13 +24,13 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
 import com.example.creators.app.UriParser;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -64,7 +64,7 @@ public class MyPageEditFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         iconUri = result.getData().getData();
-                        Picasso.get().cancelRequest(icon);
+                        Glide.with(MyPageEditFragment.this).pauseRequests();
                         icon.setImageURI(iconUri);
                         isIconChanged = true;
                     } else {
@@ -82,7 +82,7 @@ public class MyPageEditFragment extends Fragment {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == RESULT_OK) {
                         headerUri = result.getData().getData();
-                        Picasso.get().cancelRequest(header);
+                        Glide.with(MyPageEditFragment.this).pauseRequests();
                         header.setImageURI(headerUri);
                         isHeaderChanged = true;
                     } else {
@@ -110,8 +110,8 @@ public class MyPageEditFragment extends Fragment {
 
         nickname.setText(bundle.getString("nickname"));
         introduction.setText(bundle.getString("introduction"));
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
+        Glide.with(this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Glide.with(this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
 
         iconBtn.setOnClickListener(new View.OnClickListener() {
             @Override

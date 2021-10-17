@@ -1,22 +1,28 @@
 package com.example.creators.content_fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.Transformation;
+import com.bumptech.glide.load.engine.Resource;
 import com.example.creators.ContentDetailActivity;
 import com.example.creators.R;
-import com.example.creators.app.ImageResize;
 import com.example.creators.http.RetrofitClient;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
+
+import java.security.MessageDigest;
 
 public class PhotoFragment extends Fragment {
 
@@ -58,11 +64,10 @@ public class PhotoFragment extends Fragment {
     }
 
     private void downloadImage() {
-        ImageResize.context = getContext();
         if (extension.length <= 1) {
-            Picasso.get().load(RetrofitClient.getContentUrl("photo", contentId, extension[0])).transform(new ImageResize()).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("photo", contentId, extension[0])).into(image);
         } else {
-            Picasso.get().load(RetrofitClient.getContentUrl("photo", contentId + "-0", extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("photo", contentId + "-0", extension[0])).into(image);
         }
     }
 }

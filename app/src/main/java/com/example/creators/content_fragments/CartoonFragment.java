@@ -5,19 +5,15 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.example.creators.ContentDetailActivity;
 import com.example.creators.R;
-import com.example.creators.app.ImageResize;
 import com.example.creators.http.RetrofitClient;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 public class CartoonFragment extends Fragment {
 
@@ -59,11 +55,10 @@ public class CartoonFragment extends Fragment {
     }
 
     private void downloadImage() {
-        ImageResize.context = getActivity();
         if (extension.length <= 1) {
-            Picasso.get().load(RetrofitClient.getContentUrl("cartoon", contentId, extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("cartoon", contentId, extension[0])).into(image);
         } else {
-            Picasso.get().load(RetrofitClient.getContentUrl("cartoon", contentId + "-0", extension[0])).networkPolicy(NetworkPolicy.NO_CACHE).transform(new ImageResize()).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("cartoon", contentId + "-0", extension[0])).into(image);
         }
     }
 }

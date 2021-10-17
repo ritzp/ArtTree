@@ -75,7 +75,9 @@
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
             android:maxLength="20"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:inputType="textPassword"
+            android:maxLines="1"/>
 
     </LinearLayout>
 
@@ -100,7 +102,9 @@
             android:layout_marginTop="10dp"
             android:hint="@string/enter_here"
             android:maxLength="20"
-            android:textSize="@dimen/textSize_normal" />
+            android:textSize="@dimen/textSize_normal"
+            android:inputType="textPassword"
+            android:maxLines="1"/>
     </LinearLayout>
 
     <LinearLayout

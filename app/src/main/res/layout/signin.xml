@@ -107,6 +107,7 @@
             android:padding="10dp"
             android:textColorHint="@color/grey"
             android:textSize="@dimen/textSize_normal"
+            android:inputType="textPassword"
             android:maxLines="1">
 
         </EditText>

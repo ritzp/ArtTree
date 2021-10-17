@@ -1,7 +1,5 @@
 package com.example.creators.main_fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,18 +17,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.creators.MainActivity;
 import com.example.creators.R;
 import com.example.creators.app.AppHelper;
-import com.example.creators.app.ImageResize;
 import com.example.creators.app.LoadingDialog;
 import com.example.creators.http.ApiInterface;
 import com.example.creators.http.RetrofitClient;
 import com.example.creators.http.response.MyPageResponse;
 import com.example.creators.viewmodels.MyPageViewModel;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -74,11 +69,10 @@ public class MyPageFragment extends Fragment {
         loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
         loadingDialog.show();
 
-        viewModel.getUserId().setValue("testId1");
         sendRequest();
 
-        Picasso.get().load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(icon);
-        Picasso.get().load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).tag("myPage").into(header);
+        Glide.with(MyPageFragment.this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Glide.with(MyPageFragment.this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
@@ -145,12 +139,6 @@ public class MyPageFragment extends Fragment {
             public void onResponse(Call<MyPageResponse> call, Response<MyPageResponse> response) {
                 viewModel.getNickname().setValue(response.body().getNickname());
                 viewModel.getUserIntroduction().setValue(response.body().getIntroduction());
-                /*byte[] iconBytes = java.util.Base64.getDecoder().decode(response.body().getIcon());
-                Bitmap icon = BitmapFactory.decodeByteArray(iconBytes, 0, iconBytes.length);
-                viewModel.getUserIcon().setValue(icon);
-                byte[] headerBytes = java.util.Base64.getDecoder().decode(response.body().getHeader());
-                Bitmap header = BitmapFactory.decodeByteArray(headerBytes, 0, headerBytes.length);
-                viewModel.getUserHeader().setValue(header);*/
                 viewModel.getContent().setValue(response.body().getContent());
                 viewModel.getLikes().setValue(response.body().getLikes());
 
