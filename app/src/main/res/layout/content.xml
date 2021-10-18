@@ -35,7 +35,7 @@
 
                         <fragment
                             android:id="@+id/content_fragment"
-                            android:name="com.example.creators.content_fragments.LoadingFragment"
+                            android:name="com.example.arttree.content_fragments.LoadingFragment"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </FrameLayout>

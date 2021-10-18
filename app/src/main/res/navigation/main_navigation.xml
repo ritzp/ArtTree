@@ -7,31 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.creators.main_fragments.HomeFragment"
+        android:name="com.example.arttree.main_fragments.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/main_fragment_home" />
 
     <fragment
         android:id="@+id/navigation_categoryList"
-        android:name="com.example.creators.main_fragments.CategoriesFragment"
+        android:name="com.example.arttree.main_fragments.CategoriesFragment"
         android:label="@string/category"
         tools:layout="@layout/main_fragment_categories" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="com.example.creators.main_fragments.SearchFragment"
+        android:name="com.example.arttree.main_fragments.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/main_fragment_search" />
 
     <fragment
         android:id="@+id/navigation_myPage"
-        android:name="com.example.creators.main_fragments.MyPageFragment"
+        android:name="com.example.arttree.main_fragments.MyPageFragment"
         android:label="@string/my_page"
         tools:layout="@layout/main_fragment_mypage" />
 
     <fragment
         android:id="@+id/navigation_contentList"
-        android:name="com.example.creators.main_fragments.ContentListFragment"
+        android:name="com.example.arttree.main_fragments.ContentListFragment"
         tools:layout="@layout/contentlist">
         <argument
             android:name="category"
@@ -40,12 +40,12 @@
 
     <fragment
         android:id="@+id/navigation_myContentList"
-        android:name="com.example.creators.main_fragments.MyContentListFragment"
+        android:name="com.example.arttree.main_fragments.MyContentListFragment"
         tools:layout="@layout/mycontentlist" />
 
     <fragment
         android:id="@+id/navigation_myPageEdit"
-        android:name="com.example.creators.main_fragments.MyPageEditFragment"
+        android:name="com.example.arttree.main_fragments.MyPageEditFragment"
         tools:layout="@layout/main_fragment_mypage_edit">
         <argument
             android:name="nickname"
@@ -57,21 +57,21 @@
 
     <fragment
         android:id="@+id/navigation_settingsMain"
-        android:name="com.example.creators.main_fragments.settings.SettingsMainFragment" />
+        android:name="com.example.arttree.main_fragments.settings.SettingsMainFragment" />
 
     <fragment
         android:id="@+id/navigation_settingsLanguage"
-        android:name="com.example.creators.main_fragments.settings.SettingsLanguageFragment" />
+        android:name="com.example.arttree.main_fragments.settings.SettingsLanguageFragment" />
 
     <fragment
         android:id="@+id/navigation_settingsDeleteAccount"
-        android:name="com.example.creators.main_fragments.settings.SettingsDeleteAccountFragment" />
+        android:name="com.example.arttree.main_fragments.settings.SettingsDeleteAccountFragment" />
 
     <fragment
         android:id="@+id/navigation_settingsEmail"
-        android:name="com.example.creators.main_fragments.settings.SettingsEmailFragment" />
+        android:name="com.example.arttree.main_fragments.settings.SettingsEmailFragment" />
 
     <fragment
         android:id="@+id/navigation_settingsPassword"
-        android:name="com.example.creators.main_fragments.settings.SettingsPasswordFragment" />
+        android:name="com.example.arttree.main_fragments.settings.SettingsPasswordFragment" />
 </navigation>

@@ -6,18 +6,18 @@
 
     <fragment
         android:id="@+id/navigation_signup_process1"
-        android:name="com.example.creators.signup_fragments.SignUpProcess1Fragment" />
+        android:name="com.example.arttree.signup_fragments.SignUpProcess1Fragment" />
 
     <fragment
         android:id="@+id/navigation_signup_process2"
-        android:name="com.example.creators.signup_fragments.SignUpProcess2Fragment" />
+        android:name="com.example.arttree.signup_fragments.SignUpProcess2Fragment" />
 
     <fragment
         android:id="@+id/navigation_signup_process3"
-        android:name="com.example.creators.signup_fragments.SignUpProcess3Fragment" />
+        android:name="com.example.arttree.signup_fragments.SignUpProcess3Fragment" />
 
     <fragment
         android:id="@+id/navigation_signup_process4"
-        android:name="com.example.creators.signup_fragments.SignUpProcess4Fragment" />
+        android:name="com.example.arttree.signup_fragments.SignUpProcess4Fragment" />
 
 </navigation>
