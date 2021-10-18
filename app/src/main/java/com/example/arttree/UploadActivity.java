@@ -360,7 +360,7 @@ public class UploadActivity extends AppCompatActivity {
                 }
             });
         } else if (category.equals("cartoon") || category.equals("photo") || category.equals("drawing")) {
-            if (uris == null) {
+            if (uris == null || uris.size()==1) {
                 MultipartBody.Part part = UriParser.uriToMultipart(uri, "file", getContentResolver());
                 api = RetrofitClient.getRetrofit().create(ApiInterface.class);
                 Call<String> call = api.postUpload(part, category, MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)),

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.R;
 import com.example.arttree.classes.Content;
 import com.example.arttree.http.RetrofitClient;
@@ -62,7 +63,7 @@ public class HomeContentListAdapter extends RecyclerView.Adapter {
         viewHolder.views.setText(String.valueOf(contentArray.get(position).getViews()));
         viewHolder.likes.setText(String.valueOf(contentArray.get(position).getLikes()));
         viewHolder.nickname.setText(contentArray.get(position).getNickname());
-        Glide.with(HomeFragment.context).load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
+        Glide.with(HomeFragment.context).load(RetrofitClient.getIconUrl(contentArray.get(position).getUserId())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(viewHolder.icon);
     }
 
     @Override

@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.app.AppHelper;
 import com.example.arttree.app.LoadingDialog;
 import com.example.arttree.http.ApiInterface;
@@ -100,8 +101,8 @@ public class UserPageActivity extends AppCompatActivity {
 
         sendRequest();
 
-        Glide.with(this).load(RetrofitClient.getIconUrl(userId)).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
-        Glide.with(this).load(RetrofitClient.getHeaderUrl(userId)).placeholder(R.color.grey).error(R.color.grey).into(header);
+        Glide.with(this).load(RetrofitClient.getIconUrl(userId)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Glide.with(this).load(RetrofitClient.getHeaderUrl(userId)).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.color.grey).error(R.color.grey).into(header);
     }
 
     private void sendRequest() {

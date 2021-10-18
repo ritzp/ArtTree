@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.adapters.CommentAdapter;
 import com.example.arttree.adapters.OnItemClickListener;
 import com.example.arttree.app.AppHelper;
@@ -268,7 +269,7 @@ public class ContentActivity extends AppCompatActivity {
                 viewModel.getNickname().setValue(response.body().getContent().get(0).getNickname());
                 viewModel.getIsLiked().setValue(response.body().getContent().get(0).getIsLiked());
                 viewModel.getComments().setValue(response.body().getContent().get(0).getComments());
-                Glide.with(ContentActivity.this).load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+                Glide.with(ContentActivity.this).load(RetrofitClient.getIconUrl(viewModel.getUserId().getValue())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
 
                 if (response.body().getContent().get(0).getComments() > 0) {
                     for (int i = 0; i < response.body().getComment().size(); i++) {

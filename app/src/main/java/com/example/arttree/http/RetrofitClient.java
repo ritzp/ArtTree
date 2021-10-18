@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
     private static Retrofit retrofit;
-    private static String baseUrl = "http://***.***.***.***:8080/";
+    private static String baseUrl = "http://220.78.35.93:8080/";
 
     public static Retrofit getRetrofit() {
         Gson gson = new GsonBuilder().setLenient().create();

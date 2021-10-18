@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.ContentDetailActivity;
 import com.example.arttree.R;
 import com.example.arttree.http.RetrofitClient;
@@ -57,9 +58,9 @@ public class DrawingFragment extends Fragment {
 
     private void downloadImage() {
         if (extension.length <= 1) {
-            Glide.with(this).load(RetrofitClient.getContentUrl("drawing", contentId, extension[0])).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("drawing", contentId, extension[0])).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(image);
         } else {
-            Glide.with(this).load(RetrofitClient.getContentUrl("drawing", contentId + "-0", extension[0])).into(image);
+            Glide.with(this).load(RetrofitClient.getContentUrl("drawing", contentId + "-0", extension[0])).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(image);
         }
     }
 }

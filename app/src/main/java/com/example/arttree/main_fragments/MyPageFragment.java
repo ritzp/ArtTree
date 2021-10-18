@@ -18,6 +18,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.MainActivity;
 import com.example.arttree.R;
 import com.example.arttree.app.AppHelper;
@@ -71,8 +72,8 @@ public class MyPageFragment extends Fragment {
 
         sendRequest();
 
-        Glide.with(MyPageFragment.this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
-        Glide.with(MyPageFragment.this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
+        Glide.with(MyPageFragment.this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Glide.with(MyPageFragment.this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.color.grey).error(R.color.grey).into(header);
 
         viewModel.getNickname().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.ContentDetailActivity;
 import com.example.arttree.R;
 import com.example.arttree.http.RetrofitClient;
@@ -39,7 +40,7 @@ public class ContentDetailImageAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder)holder;
-        Glide.with(ContentDetailActivity.context).load(RetrofitClient.getContentUrl(category, contentId + "-" + position, extension[0])).into(viewHolder.img);
+        Glide.with(ContentDetailActivity.context).load(RetrofitClient.getContentUrl(category, contentId + "-" + position, extension[0])).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).into(viewHolder.img);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

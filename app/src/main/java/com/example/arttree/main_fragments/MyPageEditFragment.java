@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.arttree.MainActivity;
 import com.example.arttree.R;
 import com.example.arttree.app.AppHelper;
@@ -110,8 +111,8 @@ public class MyPageEditFragment extends Fragment {
 
         nickname.setText(bundle.getString("nickname"));
         introduction.setText(bundle.getString("introduction"));
-        Glide.with(this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
-        Glide.with(this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).placeholder(R.color.grey).error(R.color.grey).into(header);
+        Glide.with(this).load(RetrofitClient.getIconUrl(AppHelper.getAccessingUserid())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.drawable.pic_icon_default).error(R.drawable.pic_icon_default).into(icon);
+        Glide.with(this).load(RetrofitClient.getHeaderUrl(AppHelper.getAccessingUserid())).skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.NONE).placeholder(R.color.grey).error(R.color.grey).into(header);
 
         iconBtn.setOnClickListener(new View.OnClickListener() {
             @Override
