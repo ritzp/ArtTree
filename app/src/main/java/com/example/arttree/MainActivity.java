@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.example.arttree.app.AppHelper;
+import com.example.arttree.classes.Category;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,10 +39,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
     }
 
-    public void replaceFragmentByList(String category) {
+    public void replaceFragmentByList(Category category) {
         Bundle bundle = new Bundle();
         bundle.putString("searchMethod", "category");
-        bundle.putString("keyword", category);
+        bundle.putInt("icon", category.getImg());
+        bundle.putString("keyword", category.getTxt());
         navController.navigate(R.id.navigation_contentList, bundle);
     }
 

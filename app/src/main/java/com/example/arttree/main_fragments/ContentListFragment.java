@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -47,10 +48,12 @@ public class ContentListFragment extends Fragment {
     private LinearLayout searchHeader, categoryHeader;
     private TextView searchHeaderText, categoryHeaderText;
     private RecyclerView list;
+    private ImageView categoryIcon;
 
     private LoadingDialog loadingDialog;
 
     private String searchMethod, keyword = null;
+    private int icon;
 
     public static Context context;
 
@@ -76,16 +79,18 @@ public class ContentListFragment extends Fragment {
         searchHeaderText = root.findViewById(R.id.conlist_txt_searchHeader);
         categoryHeaderText = root.findViewById(R.id.conlist_txt_categoryHeader);
         list = root.findViewById(R.id.conlist_contentlist);
+        categoryIcon = root.findViewById(R.id.conlist_img_categoryIcon);
 
         Bundle bundle = getArguments();
         if (bundle.getString("searchMethod").equals("category")) {
             searchHeader.setVisibility(View.GONE);
             categoryHeader.setVisibility(View.VISIBLE);
-            categoryHeaderText.setText(bundle.getString("keyword"));
+            categoryHeaderText.setText(keyword);
+            categoryIcon.setImageResource(bundle.getInt("icon"));
         } else {
             categoryHeader.setVisibility(View.GONE);
             searchHeader.setVisibility(View.VISIBLE);
-            searchHeaderText.setText(bundle.getString("keyword"));
+            searchHeaderText.setText(keyword);
         }
         list.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 

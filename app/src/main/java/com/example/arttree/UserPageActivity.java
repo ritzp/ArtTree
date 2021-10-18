@@ -107,7 +107,7 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<MyPageResponse> call = api.postMyPage(AppHelper.getAccessingUserid());
+        Call<MyPageResponse> call = api.postMyPage(userId);
 
         call.enqueue(new Callback<MyPageResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.O)

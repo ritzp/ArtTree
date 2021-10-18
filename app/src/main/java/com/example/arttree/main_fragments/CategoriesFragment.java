@@ -50,9 +50,14 @@ public class CategoriesFragment extends Fragment {
 
         categoryList.setAdapter(adapter);
 
-        final String[] categories = {getActivity().getString(R.string.photo), getActivity().getString(R.string.drawing),
-                getActivity().getString(R.string.music), getActivity().getString(R.string.video),
-                getActivity().getString(R.string.cartoon), getActivity().getString(R.string.novel)};
+        final Category[] categories = {
+                new Category(R.drawable.ic_photo, "Photo"),
+                new Category(R.drawable.ic_drawing, "Drawing"),
+                new Category(R.drawable.ic_music, "Music"),
+                new Category(R.drawable.ic_video, "Video"),
+                new Category(R.drawable.ic_cartoon, "Cartoon"),
+                new Category(R.drawable.ic_novel, "Novel")
+        };
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void OnItemClick(View view, int pos) {
