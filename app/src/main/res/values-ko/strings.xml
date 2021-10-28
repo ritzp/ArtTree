@@ -62,13 +62,18 @@
     <string name="comments">댓글</string>
     <string name="uploaded_content">업로드 콘텐츠 수</string>
     <string name="likes">총 좋아요 수</string>
+    <string name="liked_content">좋아하는 콘텐츠 목록</string>
+    <string name="subscriptions">구독 목록</string>
     <string name="my_content">내 콘텐츠 목록</string>
+    <string name="subscribe">구독</string>
+    <string name="unsubscribe">구독 해제</string>
     <string name="settings">설정</string>
     <string name="language">언어</string>
     <string name="next">다 음</string>
     <string name="done">완 료</string>
     <string name="submit">완 료</string>
     <string name="cancel">취소</string>
+    <string name="reset">초기화</string>
     <string name="sign_in">로그인</string>
     <string name="sign_out">로그아웃</string>
     <string name="sign_up">회원가입</string>
@@ -91,6 +96,7 @@
     <string name="enter_introduction">자기소개 (최대 200자)</string>
     <string name="enter_title">타이틀 (최대 50자)</string>
     <string name="enter_description">설명 (최대 200자)</string>
+    <string name="enter_tag">태그 (최대 5개, 각 최대 20자)</string>
     <string name="sign_out_alert_title">로그아웃</string>
     <string name="id_email">아이디/이메일</string>
     <string name="sign_out_alert_message">정말로 로그아웃 하시겠습니까?</string>
@@ -99,6 +105,9 @@
     <string name="title_not_entered">제목은 필수로 입력하셔야 합니다.</string>
     <string name="title_over_chars">제목은 50자 이내여야 합니다.</string>
     <string name="description_over_chars">설명은 200자 이내여야 합니다.</string>
+    <string name="tag_not_entered">태그를 입력해주세요.</string>
+    <string name="tag_over_chars">태그는 20자 이내여야 합니다.</string>
+    <string name="tag_entered_slash">태그는 \'/\' 문자를 포함할 수 없습니다.</string>
     <string name="multiple_upload_over_items">업로드 파일 개수는 최대 20개입니다.</string>
     <string name="comment_over_chars">댓글은 200자 이내여야 합니다.</string>
     <string name="file_not_uploaded">업로드하실 파일을 선택해주세요.</string>
@@ -107,6 +116,7 @@
     <string name="delete_completed">성공적으로 삭제하였습니다.</string>
     <string name="mypage_edit_completed">성공적으로 편집되었습니다. 이미지는 잠시 후 변경됩니다.</string>
     <string name="settings_completed">설정 완료되었습니다.</string>
+    <string name="subscribe_myself">자신은 구독할 수 없습니다.</string>
     <string name="server_error">서버에 에러가 발생했습니다.</string>
     <string name="code_error">코드 에러가 발생했습니다.</string>
     <string name="response_error">서버에서 응답을 받아오지 못했습니다.</string>

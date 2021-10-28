@@ -3,9 +3,12 @@ package com.example.arttree;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
@@ -21,6 +24,7 @@ import com.example.arttree.app.LoadingDialog;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.http.RetrofitClient;
 import com.example.arttree.http.response.MyPageResponse;
+import com.example.arttree.http.response.UserPageResponse;
 import com.example.arttree.main_fragments.MyPageFragment;
 import com.example.arttree.viewmodels.MyPageViewModel;
 import com.example.arttree.viewmodels.UserPageViewModel;
@@ -38,6 +42,7 @@ public class UserPageActivity extends AppCompatActivity {
     private CircleImageView icon;
     private ImageView close, header;
     private TextView nickname, introduction, content, likes;
+    private Button subscribe, unsubscribe;
 
     private LoadingDialog loadingDialog;
 
@@ -57,6 +62,8 @@ public class UserPageActivity extends AppCompatActivity {
         introduction = findViewById(R.id.userpage_txt_intro);
         content = findViewById(R.id.userpage_txt_content);
         likes = findViewById(R.id.userpage_txt_likes);
+        subscribe = findViewById(R.id.userpage_btn_subscribe);
+        unsubscribe = findViewById(R.id.userpage_btn_unsubscribe);
 
         viewModel.getNickname().observe(this, new Observer<String>() {
             @Override
@@ -86,6 +93,27 @@ public class UserPageActivity extends AppCompatActivity {
             }
         });
 
+        subscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userId.equals(AppHelper.getAccessingUserid())) {
+                    Toast.makeText(UserPageActivity.this, getString(R.string.subscribe_myself), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                loadingDialog.show();
+                sendSubscribeRequest();
+            }
+        });
+
+        unsubscribe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingDialog.show();
+                sendUnsubscribeRequest();
+            }
+        });
+
         close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,26 +135,90 @@ public class UserPageActivity extends AppCompatActivity {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<MyPageResponse> call = api.postMyPage(userId);
+        Call<UserPageResponse> call = api.postUserPage(AppHelper.getAccessingUserid(), userId);
 
-        call.enqueue(new Callback<MyPageResponse>() {
+        call.enqueue(new Callback<UserPageResponse>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onResponse(Call<MyPageResponse> call, Response<MyPageResponse> response) {
+            public void onResponse(Call<UserPageResponse> call, Response<UserPageResponse> response) {
+                Log.e("tag", String.valueOf(response.body().isSubscribed()));
                 viewModel.getNickname().setValue(response.body().getNickname());
                 viewModel.getUserIntroduction().setValue(response.body().getIntroduction());
                 viewModel.getContent().setValue(response.body().getContent());
                 viewModel.getLikes().setValue(response.body().getLikes());
+                if (response.body().isSubscribed()) {
+                    subscribe.setVisibility(View.GONE);
+                    unsubscribe.setVisibility(View.VISIBLE);
+                } else {
+                    subscribe.setVisibility(View.VISIBLE);
+                    unsubscribe.setVisibility(View.GONE);
+                }
 
                 loadingDialog.off();
             }
 
             @Override
-            public void onFailure(Call<MyPageResponse> call, Throwable t) {
+            public void onFailure(Call<UserPageResponse> call, Throwable t) {
                 AppHelper.checkError(UserPageActivity.this, AppHelper.RESPONSE_ERROR);
                 t.printStackTrace();
 
                 loadingDialog.off();
+            }
+        });
+    }
+
+    private void sendSubscribeRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<String> call = api.postSubscribe(AppHelper.getAccessingUserid(), userId);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!AppHelper.checkError(UserPageActivity.this, response.body()))
+                    return;
+
+                if (response.body().equals("SUCCESS")) {
+                    subscribe.setVisibility(View.GONE);
+                    unsubscribe.setVisibility(View.VISIBLE);
+                } else {
+                    AppHelper.checkError(UserPageActivity.this, AppHelper.CODE_ERROR);
+                }
+                loadingDialog.off();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                AppHelper.checkError(UserPageActivity.this, AppHelper.RESPONSE_ERROR);
+                loadingDialog.off();
+                t.printStackTrace();
+            }
+        });
+    }
+
+    private void sendUnsubscribeRequest() {
+        api = RetrofitClient.getRetrofit().create(ApiInterface.class);
+        Call<String> call = api.postUnsubscribe(AppHelper.getAccessingUserid(), userId);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                if (!AppHelper.checkError(UserPageActivity.this, response.body()))
+                    return;
+
+                if (response.body().equals("SUCCESS")) {
+                    subscribe.setVisibility(View.VISIBLE);
+                    unsubscribe.setVisibility(View.GONE);
+                } else {
+                    AppHelper.checkError(UserPageActivity.this, AppHelper.CODE_ERROR);
+                }
+                loadingDialog.off();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                AppHelper.checkError(UserPageActivity.this, AppHelper.RESPONSE_ERROR);
+                loadingDialog.off();
+                t.printStackTrace();
             }
         });
     }

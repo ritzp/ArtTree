@@ -54,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
         navController.navigate(R.id.navigation_contentList, bundle);
     }
 
+    public void replaceFragmentByLiked(String userId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("searchMethod", "liked");
+        bundle.putString("keyword", userId);
+        navController.navigate(R.id.navigation_contentList, bundle);
+    }
+
+    public void replaceFragmentBySubscriptions(String userId) {
+        Bundle bundle = new Bundle();
+        bundle.putString("searchMethod", "subscriptions");
+        bundle.putString("keyword", userId);
+        navController.navigate(R.id.navigation_contentList, bundle);
+    }
+
     public void replaceFragmentToMyContentList() {
         navController.navigate(R.id.navigation_myContentList);
     }

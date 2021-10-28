@@ -23,12 +23,19 @@
 
         <EditText
             android:id="@+id/search_edt_search"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:hint="@string/enter_keyword"
             android:maxLength="50"
-            android:maxLines="1"/>
+            android:maxLines="1" />
+
+        <ImageView
+            android:id="@+id/search_img_submit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/ic_send" />
     </LinearLayout>
 
 </LinearLayout>

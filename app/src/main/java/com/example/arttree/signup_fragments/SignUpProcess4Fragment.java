@@ -51,6 +51,7 @@ public class SignUpProcess4Fragment extends Fragment {
     private ImageView header;
 
     private Uri iconUri = null, headerUri = null;
+    private String dateFormat = "yyyyMMdd";
 
     private AppCompatDialog uploadingDialog;
 
@@ -144,7 +145,6 @@ public class SignUpProcess4Fragment extends Fragment {
     }
 
     private void sendRequest() {
-
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
         Call<String> call = api.postSignUp(
                 String.valueOf(((SignUpActivity)getActivity()).method),

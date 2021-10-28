@@ -52,13 +52,13 @@ public class UploadActivity extends AppCompatActivity {
     private ApiInterface api;
     public static Context context;
 
-    private ImageView close;
+    private ImageView close, addTag;
     private Spinner categoriesSpinner;
-    private EditText title, description;
-    private Button fileUplaod, upload;
-    public TextView textContent;
+    private EditText title, description, tagEdt;
+    private Button fileUplaod, resetTags, upload;
+    public TextView textContent, tagTxt;
 
-    private String category;
+    private String category, tag = "";
     private Uri uri = null;
     private ArrayList<Uri> uris;
     private boolean isText = false;
@@ -199,12 +199,16 @@ public class UploadActivity extends AppCompatActivity {
         context = this;
 
         close = findViewById(R.id.upload_img_close);
+        addTag = findViewById(R.id.upload_img_addTag);
         categoriesSpinner = findViewById(R.id.upload_spn_categories);
         title = findViewById(R.id.upload_edt_title);
         description = findViewById(R.id.upload_edt_desc);
+        tagEdt = findViewById(R.id.upload_edt_tag);
         fileUplaod = findViewById(R.id.upload_btn_fileUpload);
+        resetTags = findViewById(R.id.upload_btn_resetTags);
         upload = findViewById(R.id.upload_btn_upload);
         textContent = findViewById(R.id.upload_txt_textContent);
+        tagTxt = findViewById(R.id.upload_txt_tag);
 
         final String[] spinnerCategories = {getString(R.string.photo), getString(R.string.drawing),
                 getString(R.string.music), getString(R.string.video), getString(R.string.cartoon),
@@ -291,6 +295,36 @@ public class UploadActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        addTag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (tagEdt.getText().length() <= 0 ) {
+                    Toast.makeText(UploadActivity.this, getString(R.string.tag_not_entered), Toast.LENGTH_SHORT).show();
+                    return;
+                } else if (tagEdt.getText().length() > 20) {
+                    Toast.makeText(UploadActivity.this, getString(R.string.tag_over_chars), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (tagEdt.getText().toString().contains("/")) {
+                    Toast.makeText(UploadActivity.this, getString(R.string.tag_entered_slash), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                tagTxt.setText(tagTxt.getText() + "#" + tagEdt.getText().toString() + " ");
+                tag += tagEdt.getText().toString() + "/";
+                tagEdt.setText(null);
+            }
+        });
+
+        resetTags.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tagTxt.setText(null);
+                tag = null;
+            }
+        });
     }
 
     private void getFile(int position) {
@@ -335,7 +369,7 @@ public class UploadActivity extends AppCompatActivity {
             MultipartBody.Part part = MultipartBody.Part.createFormData("file", "sendText.txt", body);
 
             api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-            Call<String> call = api.postUpload(part, category, "txt", title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+            Call<String> call = api.postUpload(part, category, "txt", title.getText().toString(), description.getText().toString(), tag, AppHelper.getAccessingUserid());
 
             call.enqueue(new Callback<String>() {
                 @Override
@@ -364,7 +398,7 @@ public class UploadActivity extends AppCompatActivity {
                 MultipartBody.Part part = UriParser.uriToMultipart(uri, "file", getContentResolver());
                 api = RetrofitClient.getRetrofit().create(ApiInterface.class);
                 Call<String> call = api.postUpload(part, category, MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)),
-                        title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+                        title.getText().toString(), description.getText().toString(), tag, AppHelper.getAccessingUserid());
 
                 call.enqueue(new Callback<String>() {
                     @Override
@@ -402,7 +436,7 @@ public class UploadActivity extends AppCompatActivity {
                     parts.add(part);
                 }
                 api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-                Call<String> call = api.postMultipleUpload(parts, category, extensions, title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+                Call<String> call = api.postMultipleUpload(parts, category, extensions, title.getText().toString(), description.getText().toString(), tag, AppHelper.getAccessingUserid());
 
                 call.enqueue(new Callback<String>() {
                     @Override
@@ -431,7 +465,7 @@ public class UploadActivity extends AppCompatActivity {
             MultipartBody.Part part = UriParser.uriToMultipart(uri, "file", getContentResolver());
             api = RetrofitClient.getRetrofit().create(ApiInterface.class);
             Call<String> call = api.postUpload(part, category, MimeTypeMap.getSingleton().getExtensionFromMimeType(getContentResolver().getType(uri)),
-                    title.getText().toString(), description.getText().toString(), AppHelper.getAccessingUserid());
+                    title.getText().toString(), description.getText().toString(), tag, AppHelper.getAccessingUserid());
 
             call.enqueue(new Callback<String>() {
                 @Override

@@ -79,6 +79,29 @@
 
                 </FrameLayout>
 
+                <Button
+                    android:id="@+id/userpage_btn_subscribe"
+                    android:paddingHorizontal="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/button1"
+                    android:text="@string/subscribe"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/userpage_btn_unsubscribe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/button1"
+                    android:paddingHorizontal="10dp"
+                    android:text="@string/unsubscribe"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
                 <TextView
                     android:id="@+id/userpage_txt_nickname"
                     android:layout_width="match_parent"

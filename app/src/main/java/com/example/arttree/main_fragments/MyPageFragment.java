@@ -37,10 +37,9 @@ public class MyPageFragment extends Fragment {
     private ApiInterface api;
 
     private MyPageViewModel viewModel;
-    private View loading, view;
     private TextView nickname, introduction, content, likes;
     private ImageView icon, header, edit, settings;
-    private LinearLayout myContent;
+    private LinearLayout myContent, likedContent, subscriptions;
 
     private LoadingDialog loadingDialog;
 
@@ -53,9 +52,6 @@ public class MyPageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.main_fragment_mypage, container, false);
 
-        loading = (TextView)root.findViewById(R.id.mypage_txt_loading);
-        view = (ScrollView)root.findViewById(R.id.mypage_view);
-
         edit = root.findViewById(R.id.mypage_img_edit);
         settings = root.findViewById(R.id.mypage_img_settings);
         settings = root.findViewById(R.id.mypage_img_settings);
@@ -66,6 +62,8 @@ public class MyPageFragment extends Fragment {
         icon = root.findViewById(R.id.mypage_img_icon);
         header = root.findViewById(R.id.mypage_img_header);
         myContent = root.findViewById(R.id.mypage_myContent);
+        likedContent = root.findViewById(R.id.mypage_likedContent);
+        subscriptions = root.findViewById(R.id.mypage_subscriptions);
 
         loadingDialog = new LoadingDialog(getActivity(), R.layout.alert_loading);
         loadingDialog.show();
@@ -124,6 +122,20 @@ public class MyPageFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 ((MainActivity)getActivity()).replaceFragmentToMyContentList();
+            }
+        });
+
+        likedContent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)MyPageFragment.this.getActivity()).replaceFragmentByLiked(AppHelper.getAccessingUserid());
+            }
+        });
+
+        subscriptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)MyPageFragment.this.getActivity()).replaceFragmentBySubscriptions(AppHelper.getAccessingUserid());
             }
         });
 

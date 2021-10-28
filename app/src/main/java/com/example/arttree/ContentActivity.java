@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -57,7 +58,7 @@ public class ContentActivity extends AppCompatActivity {
     private ContentViewModel viewModel;
     private ImageView close, icon, writeComment, like;
     private EditText comment;
-    private TextView title, description, nickname, views, likes, comments;
+    private TextView title, description, tag, nickname, views, likes, comments;
     private RecyclerView commentList;
     private View user;
 
@@ -82,6 +83,7 @@ public class ContentActivity extends AppCompatActivity {
         close = findViewById(R.id.content_close);
         title = findViewById(R.id.content_title);
         description = findViewById(R.id.content_desc);
+        tag = findViewById(R.id.content_tag);
         nickname = findViewById(R.id.content_nickname);
         icon = findViewById(R.id.content_icon);
         views = findViewById(R.id.content_views);
@@ -109,6 +111,13 @@ public class ContentActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 description.setText(s);
+            }
+        });
+
+        viewModel.getTag().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                tag.setText(s);
             }
         });
 
@@ -263,6 +272,15 @@ public class ContentActivity extends AppCompatActivity {
                 }
                 viewModel.getTitle().setValue(response.body().getContent().get(0).getTitle());
                 viewModel.getDescription().setValue(response.body().getContent().get(0).getDescription());
+                String tagOriginal = response.body().getContent().get(0).getTag();
+                if (tagOriginal != null) {
+                    String tag = "";
+                    String[] tagArray = tagOriginal.split("/");
+                    for (int i=0; i<tagArray.length; i++) {
+                        tag += ("#" + tagArray[i] + " ");
+                    }
+                    viewModel.getTag().setValue(tag);
+                }
                 viewModel.getViews().setValue(response.body().getContent().get(0).getViews());
                 viewModel.getLikes().setValue(response.body().getContent().get(0).getLikes());
                 viewModel.getUserId().setValue(response.body().getContent().get(0).getUserId());

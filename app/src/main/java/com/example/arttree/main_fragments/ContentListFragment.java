@@ -2,10 +2,9 @@ package com.example.arttree.main_fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,15 +44,14 @@ public class ContentListFragment extends Fragment {
     private ArrayList<Content> contentArray;
     private ContentListAdapter adapter;
 
-    private LinearLayout searchHeader, categoryHeader;
-    private TextView searchHeaderText, categoryHeaderText;
+    private LinearLayout searchHeader, categoryHeader, header;
+    private TextView searchHeaderText, categoryHeaderText, headerText;
     private RecyclerView list;
     private ImageView categoryIcon;
 
     private LoadingDialog loadingDialog;
 
     private String searchMethod, keyword = null;
-    private int icon;
 
     public static Context context;
 
@@ -76,21 +74,35 @@ public class ContentListFragment extends Fragment {
 
         searchHeader = root.findViewById(R.id.conlist_searchHeader);
         categoryHeader = root.findViewById(R.id.conlist_categoryHeader);
+        header = root.findViewById(R.id.conlist_header);
         searchHeaderText = root.findViewById(R.id.conlist_txt_searchHeader);
         categoryHeaderText = root.findViewById(R.id.conlist_txt_categoryHeader);
+        headerText = root.findViewById(R.id.conlist_txt_header);
         list = root.findViewById(R.id.conlist_contentlist);
         categoryIcon = root.findViewById(R.id.conlist_img_categoryIcon);
 
         Bundle bundle = getArguments();
         if (bundle.getString("searchMethod").equals("category")) {
             searchHeader.setVisibility(View.GONE);
+            header.setVisibility(View.GONE);
             categoryHeader.setVisibility(View.VISIBLE);
             categoryHeaderText.setText(keyword);
             categoryIcon.setImageResource(bundle.getInt("icon"));
-        } else {
+        } else if (bundle.getString("searchMethod").equals("search")) {
             categoryHeader.setVisibility(View.GONE);
+            header.setVisibility(View.GONE);
             searchHeader.setVisibility(View.VISIBLE);
             searchHeaderText.setText(keyword);
+        } else if (bundle.getString("searchMethod").equals("liked")) {
+            searchHeader.setVisibility(View.GONE);
+            categoryHeader.setVisibility(View.GONE);
+            header.setVisibility(View.VISIBLE);
+            headerText.setText(getString(R.string.liked_content));
+        } else if (bundle.getString("searchMethod").equals("subscriptions")) {
+            searchHeader.setVisibility(View.GONE);
+            categoryHeader.setVisibility(View.GONE);
+            header.setVisibility(View.VISIBLE);
+            headerText.setText(getString(R.string.subscriptions));
         }
         list.setLayoutManager(new LinearLayoutManager(this.getActivity()));
 
@@ -122,21 +134,6 @@ public class ContentListFragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        if (searchMethod.equals("category")) {
-            if (keyword.equals(getActivity().getString(R.string.photo))) {
-                keyword = "photo";
-            } else if (keyword.equals(getActivity().getString(R.string.drawing))) {
-                keyword = "drawing";
-            } else if (keyword.equals(getActivity().getString(R.string.music))) {
-                keyword = "music";
-            } else if (keyword.equals(getActivity().getString(R.string.video))) {
-                keyword = "video";
-            } else if (keyword.equals(getActivity().getString(R.string.cartoon))) {
-                keyword = "cartoon";
-            } else if (keyword.equals(getActivity().getString(R.string.novel))) {
-                keyword = "novel";
-            }
-        }
         Call<ContentListResponse> call = api.postContentList(searchMethod, keyword, AppHelper.getAccessingUserid());
 
         call.enqueue(new Callback<ContentListResponse>() {

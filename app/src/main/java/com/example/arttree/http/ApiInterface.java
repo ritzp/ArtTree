@@ -5,6 +5,7 @@ import com.example.arttree.http.response.ContentResponse;
 import com.example.arttree.http.response.MyContentListResponse;
 import com.example.arttree.http.response.MyPageResponse;
 import com.example.arttree.http.response.SignInResponse;
+import com.example.arttree.http.response.UserPageResponse;
 import com.example.arttree.http.response.classes.Like;
 
 import java.util.ArrayList;
@@ -31,6 +32,27 @@ public interface ApiInterface {
     @POST("ArtTree/app_requests/my_page.jsp")
     Call<MyPageResponse> postMyPage(
             @Field("userId") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("ArtTree/app_requests/user_page.jsp")
+    Call<UserPageResponse> postUserPage(
+            @Field("accessingUserId") String accessingUserId,
+            @Field("userId") String userId
+    );
+
+    @FormUrlEncoded
+    @POST("ArtTree/app_requests/subscribe.jsp")
+    Call<String> postSubscribe(
+            @Field("subscribingUserId") String subscribingUserId,
+            @Field("subscribedUserId") String subscribedUserId
+    );
+
+    @FormUrlEncoded
+    @POST("ArtTree/app_requests/unsubscribe.jsp")
+    Call<String> postUnsubscribe(
+            @Field("subscribingUserId") String subscribingUserId,
+            @Field("subscribedUserId") String subscribedUserId
     );
 
     @FormUrlEncoded
@@ -63,6 +85,7 @@ public interface ApiInterface {
             @Query("extension") String extension,
             @Query("title") String title,
             @Query("description") String description,
+            @Query("tag") String tag,
             @Query("userId") String userId
     );
 
@@ -74,6 +97,7 @@ public interface ApiInterface {
             @Query("extensions") String extensions,
             @Query("title") String title,
             @Query("description") String description,
+            @Query("tag") String tag,
             @Query("userId") String userId
     );
 

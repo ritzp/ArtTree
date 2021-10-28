@@ -9,6 +9,7 @@ public class ContentViewModel extends ViewModel {
     private MutableLiveData<String> contentId;
     private MutableLiveData<String> title;
     private MutableLiveData<String> description;
+    private MutableLiveData<String> tag;
     private MutableLiveData<Integer> views;
     private MutableLiveData<Integer> likes;
     private MutableLiveData<String> userId;
@@ -22,6 +23,7 @@ public class ContentViewModel extends ViewModel {
             this.contentId = new MutableLiveData<>();
             this.title = new MutableLiveData<>();
             this.description = new MutableLiveData<>();
+            this.tag = new MutableLiveData<>();
             this.views = new MutableLiveData<>();
             this.likes = new MutableLiveData<>();
             this.userId = new MutableLiveData<>();
@@ -44,6 +46,10 @@ public class ContentViewModel extends ViewModel {
 
     public MutableLiveData<String> getDescription() {
         return description;
+    }
+
+    public MutableLiveData<String> getTag() {
+        return tag;
     }
 
     public MutableLiveData<Integer> getViews() {

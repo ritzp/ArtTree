@@ -5,6 +5,7 @@ public class Content {
     private String extension;
     private String title;
     private String description;
+    private String tag;
     private int views;
     private int likes;
     private String userId;
@@ -27,6 +28,10 @@ public class Content {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getTag() {
+        return tag;
     }
 
     public int getViews() {
