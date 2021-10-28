@@ -13,7 +13,6 @@ import java.util.Locale;
 
 public class AppHelper extends Application {
     private static String ACCESSING_USERID = null;
-    private static String ACCESSING_USERPASS = null;
 
     private static Locale LOCALE = Locale.getDefault();
 
@@ -23,10 +22,6 @@ public class AppHelper extends Application {
 
     public static void setAccessingUserid(String id) {
         AppHelper.ACCESSING_USERID = id;
-    }
-
-    public static void setAccessingUserpass(String pass) {
-        AppHelper.ACCESSING_USERPASS = pass;
     }
 
     public static String SERVER_ERROR = "SERVER ERROR";
