@@ -273,7 +273,8 @@ public class ContentActivity extends AppCompatActivity {
                 viewModel.getTitle().setValue(response.body().getContent().get(0).getTitle());
                 viewModel.getDescription().setValue(response.body().getContent().get(0).getDescription());
                 String tagOriginal = response.body().getContent().get(0).getTag();
-                if (tagOriginal != null) {
+                if (tagOriginal.length() > 0) {
+                    tag.setVisibility(View.VISIBLE);
                     String tag = "";
                     String[] tagArray = tagOriginal.split("/");
                     for (int i=0; i<tagArray.length; i++) {

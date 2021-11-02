@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -43,6 +45,7 @@ public class HomeFragment extends Fragment {
     private LoadingDialog loadingDialog;
 
     public static Context context;
+    public static FragmentManager childFragmentManager;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class HomeFragment extends Fragment {
         contentArray = new ArrayList<>();
         adapter = new HomeContentListAdapter(contentArray);
         context = getActivity();
+        childFragmentManager = getChildFragmentManager();
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -89,7 +93,9 @@ public class HomeFragment extends Fragment {
                 for (int i=0; i<response.body().getContent().size(); i++) {
                     contentArray.add(new Content(
                                     response.body().getContent().get(i).getContentId(),
+                                    response.body().getContent().get(i).getExtension(),
                                     response.body().getContent().get(i).getTitle(),
+                                    response.body().getContent().get(i).getTag(),
                                     response.body().getContent().get(i).getViews(),
                                     response.body().getContent().get(i).getLikes(),
                                     response.body().getContent().get(i).getUserId(),

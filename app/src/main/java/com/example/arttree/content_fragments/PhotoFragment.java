@@ -26,7 +26,6 @@ import com.example.arttree.http.RetrofitClient;
 import java.security.MessageDigest;
 
 public class PhotoFragment extends Fragment {
-
     private ImageView image;
     private ImageView hasNext;
 
