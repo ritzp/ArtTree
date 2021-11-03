@@ -4,7 +4,7 @@ public class ContentList {
     private String contentId;
     private String extension;
     private String title;
-    private String tag;
+    private String description;
     private int views;
     private int likes;
     private String userId;
@@ -22,8 +22,8 @@ public class ContentList {
         return title;
     }
 
-    public String getTag() {
-        return tag;
+    public String getDescription() {
+        return description;
     }
 
     public int getViews() {

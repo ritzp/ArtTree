@@ -76,7 +76,7 @@ public class HomeContentListAdapter extends RecyclerView.Adapter {
             viewHolder.categoryImg.setImageResource(R.drawable.ic_novel);
         }
         viewHolder.title.setText(contentArray.get(position).getTitle());
-        if (contentArray.get(position).getDescription().length() > 0) {
+        if (contentArray.get(position).getDescription()!=null && contentArray.get(position).getDescription().length()>0) {
             viewHolder.description.setText(contentArray.get(position).getDescription());
             viewHolder.description.setVisibility(View.VISIBLE);
         }

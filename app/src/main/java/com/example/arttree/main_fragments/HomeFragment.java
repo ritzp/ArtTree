@@ -95,7 +95,7 @@ public class HomeFragment extends Fragment {
                                     response.body().getContent().get(i).getContentId(),
                                     response.body().getContent().get(i).getExtension(),
                                     response.body().getContent().get(i).getTitle(),
-                                    response.body().getContent().get(i).getTag(),
+                                    response.body().getContent().get(i).getDescription(),
                                     response.body().getContent().get(i).getViews(),
                                     response.body().getContent().get(i).getLikes(),
                                     response.body().getContent().get(i).getUserId(),
