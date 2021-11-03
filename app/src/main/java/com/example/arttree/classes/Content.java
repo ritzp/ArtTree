@@ -1,7 +1,7 @@
 package com.example.arttree.classes;
 
 public class Content {
-    private String contentId, extension, title, tag;
+    private String contentId, extension, title, description;
     private int views, likes;
     private String userId, nickname;
 
@@ -14,11 +14,11 @@ public class Content {
         this.nickname = nickname;
     }
 
-    public Content(String contentId, String extension, String title, String tag, int views, int likes, String userId, String nickname) {
+    public Content(String contentId, String extension, String title, String description, int views, int likes, String userId, String nickname) {
         this.contentId = contentId;
         this.extension = extension;
         this.title = title;
-        this.tag = tag;
+        this.description = description;
         this.views = views;
         this.likes = likes;
         this.userId = userId;
@@ -33,8 +33,8 @@ public class Content {
         return extension;
     }
 
-    public String getTag() {
-        return tag;
+    public String getDescription() {
+        return description;
     }
 
     public int getViews() {
