@@ -20,6 +20,7 @@ import com.example.arttree.R;
 import com.example.arttree.SignInActivity;
 import com.example.arttree.app.AppHelper;
 import com.example.arttree.app.LoadingDialog;
+import com.example.arttree.app.PasswordEncryptor;
 import com.example.arttree.app.RegExp;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.main_fragments.settings.SettingsPasswordFragment;
@@ -79,7 +80,7 @@ public class ForgotPasswordProcess2Fragment extends Fragment {
 
     private void sendRequest() {
         api = com.example.arttree.http.RetrofitClient.getRetrofit().create(com.example.arttree.http.ApiInterface.class);
-        Call<String> call = api.postForgotPassword(((ForgotPasswordActivity)getActivity()).email, et_changepw.getText().toString());
+        Call<String> call = api.postForgotPassword(((ForgotPasswordActivity)getActivity()).email, PasswordEncryptor.encrypt(et_changepw.getText().toString()));
 
         call.enqueue(new Callback<String>() {
             @Override

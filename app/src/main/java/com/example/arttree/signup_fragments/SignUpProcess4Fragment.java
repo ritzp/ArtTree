@@ -27,6 +27,7 @@ import com.example.arttree.R;
 import com.example.arttree.SignInActivity;
 import com.example.arttree.SignUpActivity;
 import com.example.arttree.app.AppHelper;
+import com.example.arttree.app.PasswordEncryptor;
 import com.example.arttree.app.UriParser;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.http.RetrofitClient;
@@ -150,7 +151,7 @@ public class SignUpProcess4Fragment extends Fragment {
                 String.valueOf(((SignUpActivity)getActivity()).method),
                 ((SignUpActivity)getActivity()).emailPhone,
                 ((SignUpActivity)getActivity()).id,
-                ((SignUpActivity)getActivity()).password,
+                PasswordEncryptor.encrypt(((SignUpActivity)getActivity()).password),
                 ((SignUpActivity)getActivity()).nickname,
                 ((SignUpActivity)getActivity()).introduction
         );

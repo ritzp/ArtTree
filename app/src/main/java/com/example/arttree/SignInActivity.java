@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.arttree.app.AppHelper;
+import com.example.arttree.app.PasswordEncryptor;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.http.RetrofitClient;
 import com.example.arttree.http.response.SignInResponse;
@@ -80,7 +81,7 @@ public class SignInActivity extends AppCompatActivity {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<SignInResponse> call = api.postSignIn(id.getText().toString(), password.getText().toString());
+        Call<SignInResponse> call = api.postSignIn(id.getText().toString(), PasswordEncryptor.encrypt(password.getText().toString()));
 
         call.enqueue(new Callback<SignInResponse>() {
             @Override

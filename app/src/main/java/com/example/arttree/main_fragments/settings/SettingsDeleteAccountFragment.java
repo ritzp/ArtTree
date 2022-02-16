@@ -22,6 +22,7 @@ import com.example.arttree.SignInActivity;
 import com.example.arttree.UploadActivity;
 import com.example.arttree.app.AppHelper;
 import com.example.arttree.app.LoadingDialog;
+import com.example.arttree.app.PasswordEncryptor;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.http.RetrofitClient;
 
@@ -87,7 +88,7 @@ public class SettingsDeleteAccountFragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<String> call = api.postDeleteAccount(AppHelper.getAccessingUserid(), password.getText().toString(), confirmPassword.getText().toString());
+        Call<String> call = api.postDeleteAccount(AppHelper.getAccessingUserid(), PasswordEncryptor.encrypt(password.getText().toString()), PasswordEncryptor.encrypt(confirmPassword.getText().toString()));
 
         call.enqueue(new Callback<String>() {
             @Override

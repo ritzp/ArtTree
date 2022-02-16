@@ -86,7 +86,19 @@ public class ContentListFragment extends Fragment {
             searchHeader.setVisibility(View.GONE);
             header.setVisibility(View.GONE);
             categoryHeader.setVisibility(View.VISIBLE);
-            categoryHeaderText.setText(keyword);
+            if (keyword.equals("Photo")) {
+                categoryHeaderText.setText(getContext().getString(R.string.photo));
+            } else if (keyword.equals("Drawing")) {
+                categoryHeaderText.setText(getContext().getString(R.string.drawing));
+            } else if (keyword.equals("Music")) {
+                categoryHeaderText.setText(getContext().getString(R.string.music));
+            } else if (keyword.equals("Video")) {
+                categoryHeaderText.setText(getContext().getString(R.string.video));
+            } else if (keyword.equals("Cartoon")) {
+                categoryHeaderText.setText(getContext().getString(R.string.cartoon));
+            } else if (keyword.equals("Novel")) {
+                categoryHeaderText.setText(getContext().getString(R.string.novel));
+            }
             categoryIcon.setImageResource(bundle.getInt("icon"));
         } else if (bundle.getString("searchMethod").equals("search")) {
             categoryHeader.setVisibility(View.GONE);

@@ -17,6 +17,7 @@ import com.example.arttree.MainActivity;
 import com.example.arttree.R;
 import com.example.arttree.app.AppHelper;
 import com.example.arttree.app.LoadingDialog;
+import com.example.arttree.app.PasswordEncryptor;
 import com.example.arttree.app.RegExp;
 import com.example.arttree.http.ApiInterface;
 import com.example.arttree.http.RetrofitClient;
@@ -80,7 +81,7 @@ public class SettingsPasswordFragment extends Fragment {
 
     private void sendCheckRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<SignInResponse> call = api.postSignIn(AppHelper.getAccessingUserid(), password.getText().toString());
+        Call<SignInResponse> call = api.postSignIn(AppHelper.getAccessingUserid(), PasswordEncryptor.encrypt(password.getText().toString()));
 
         call.enqueue(new Callback<SignInResponse>() {
             @Override
@@ -104,7 +105,7 @@ public class SettingsPasswordFragment extends Fragment {
 
     private void sendRequest() {
         api = RetrofitClient.getRetrofit().create(ApiInterface.class);
-        Call<String> call = api.postChangePassword(AppHelper.getAccessingUserid(), newPassword.getText().toString());
+        Call<String> call = api.postChangePassword(AppHelper.getAccessingUserid(), PasswordEncryptor.encrypt(newPassword.getText().toString()));
 
         call.enqueue(new Callback<String>() {
             @Override
